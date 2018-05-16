@@ -1,0 +1,27 @@
+{
+  "name": "customersite",
+  "version": "1.0.0",
+  "description": "description",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon --watch server --exec babel-node -- server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omizrahi3/customersite.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/omizrahi3/customersite/issues"
+  },
+  "homepage": "https://github.com/omizrahi3/customersite#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "nodemon": "^1.17.4"
+  }
+}
