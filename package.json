@@ -4,7 +4,8 @@
   "description": "description",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon --watch server --exec babel-node -- server/index.js"
+    "server": "nodemon --watch server --exec babel-node -- server/index.js",
+    "dev:build-client": "webpack --config webpack.babel.js"
   },
   "repository": {
     "type": "git",
@@ -17,11 +18,19 @@
   },
   "homepage": "https://github.com/omizrahi3/customersite#readme",
   "dependencies": {
-    "express": "^4.16.3"
+    "babel-preset-react": "^6.24.1",
+    "express": "^4.16.3",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-router-dom": "^4.2.2",
+    "webpack": "^3.10.0",
+    "webpack-hot-middleware": "^2.22.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.7.0",
-    "nodemon": "^1.17.4"
+    "nodemon": "^1.17.4",
+    "webpack-dev-middleware": "^2.0.6"
   }
 }
