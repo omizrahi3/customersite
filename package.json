@@ -18,11 +18,16 @@
   },
   "homepage": "https://github.com/omizrahi3/customersite#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-preset-react": "^6.24.1",
     "express": "^4.16.3",
+    "prop-types": "^15.6.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
+    "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.2.0",
     "webpack": "^3.10.0",
     "webpack-hot-middleware": "^2.22.2"
   },

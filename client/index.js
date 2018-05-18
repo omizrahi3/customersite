@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import Routes from './Routes';
+// import { BrowserRouter } from 'react-router-dom';
+// import Routes from './Routes';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import App from './components/App';
 
 // ReactDOM.render(
@@ -10,6 +13,9 @@ import App from './components/App';
 //   </BrowserRouter>,
 //   document.getElementById('root'));
 
-ReactDOM.render(<App />, 
+const store = createStore((state = {}) => state, applyMiddleware(thunk));
+
+ReactDOM.render(
+<Provider store={store}><App /></Provider>, 
   document.getElementById('root')
 );
