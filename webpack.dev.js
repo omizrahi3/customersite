@@ -17,7 +17,8 @@ export default {
       {
         test: /\.jsx?$/,
         include: [
-          path.join(__dirname, 'client')
+          path.join(__dirname, 'client'),
+          path.join(__dirname, 'helpers')
         ],
         use: ['babel-loader']
       }
