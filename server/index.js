@@ -7,6 +7,17 @@ import webpackConfig from '../webpack.dev'
 
 const app = express();
 
+app.post('/api/users', (req, res) => {
+  let errors = {};
+
+  errors.username = 'username is required';
+  errors.email = 'email is required';
+  errors.password = 'password is required';
+  errors.passwordConfirmation = 'password confirmation required';
+
+  res.status(400).json(errors);
+})
+
 const compiler = webpack(webpackConfig);
 
 app.use(webpackMiddleware(compiler, {
