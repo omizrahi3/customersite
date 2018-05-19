@@ -44,12 +44,14 @@ class SignupForm extends Component {
       this.setState({ errors: {}, isLoading: true });
       this.props.userSignupRequest(this.state)
       .then(response => {
-        console.log(response);
+        this.props.addMessage({
+          type: 'success',
+          text: 'Signup Successful'
+        })
         this.context.router.history.push('/');
       })
       .catch(error => {
         const { data } = error.response; 
-        console.log(data)
         this.setState({ errors: data, isLoading: false });
       });
     }
@@ -102,7 +104,8 @@ class SignupForm extends Component {
 }
 
 SignupForm.propTypes = {
-  userSignupRequest: PropTypes.func.isRequired
+  userSignupRequest: PropTypes.func.isRequired,
+  addMessage: PropTypes.func.isRequired
 };
 
 SignupForm.contextTypes = {
