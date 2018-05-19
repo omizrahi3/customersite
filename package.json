@@ -4,7 +4,7 @@
   "description": "description",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon --watch server --exec babel-node -- server/index.js",
+    "server": "nodemon --watch server --watch helpers --exec \"babel-node server/index.js\"",
     "dev:build-client": "webpack --config webpack.babel.js"
   },
   "repository": {
@@ -20,6 +20,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "babel-preset-react": "^6.24.1",
+    "body-parser": "^1.18.3",
     "classnames": "^2.2.5",
     "express": "^4.16.3",
     "lodash": "^4.17.10",

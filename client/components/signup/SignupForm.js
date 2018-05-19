@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom'
+
 import classnames from 'classnames';
 import validateSignupForm from '../../../helpers/validate'
 import TextFieldGroup from '../common/TextFieldGroup';
@@ -43,6 +45,7 @@ class SignupForm extends Component {
       this.props.userSignupRequest(this.state)
       .then(response => {
         console.log(response);
+        this.context.router.history.push('/');
       })
       .catch(error => {
         const { data } = error.response; 
@@ -102,4 +105,8 @@ SignupForm.propTypes = {
   userSignupRequest: PropTypes.func.isRequired
 };
 
-export default SignupForm;
+SignupForm.contextTypes = {
+  router: PropTypes.object.isRequired
+};
+
+export default withRouter(SignupForm);
