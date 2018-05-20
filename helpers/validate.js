@@ -1,27 +1,50 @@
 import Validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
-export default function validateSignupForm(data) {
+export const validateSignupForm =  function validateSignupForm(data) {
+  console.log('validateSignupForm');
   let errors = {};
 
-  if (isEmpty(data.username)) {
-    errors.username = 'This field is required';
+  if (isEmpty(data.Firstname)) {
+    errors.Firstname = 'This field is required';
   }
-  if (isEmpty(data.email)) {
-    errors.email = 'This field is required';
-  } else if (!Validator.isEmail(data.email)) {
-    errors.email = 'Email is invalid';
+  if (isEmpty(data.Lastname)) {
+    errors.Lastname = 'This field is required';
   }
-  if (isEmpty(data.password)) {
-    errors.password = 'This field is required';
+  if (isEmpty(data.EmailAddress)) {
+    errors.EmailAddress = 'This field is required';
+  } else if (!Validator.isEmail(data.EmailAddress)) {
+    errors.EmailAddress = 'Email is invalid';
   }
-  if (isEmpty(data.passwordConfirmation)) {
-    errors.passwordConfirmation = 'This field is required';
+  if (isEmpty(data.Password)) {
+    errors.Password = 'This field is required';
   }
-  if (!isEmpty(data.password) && !isEmpty(data.passwordConfirmation)) {
-    if (!Validator.equals(data.password, data.passwordConfirmation)) {
-      errors.passwordConfirmation = 'Passwords must match';
+  if (isEmpty(data.PasswordConfirmation)) {
+    errors.PasswordConfirmation = 'This field is required';
+  }
+  if (!isEmpty(data.Password) && !isEmpty(data.PasswordConfirmation)) {
+    if (!Validator.equals(data.Password, data.PasswordConfirmation)) {
+      errors.PasswordConfirmation = 'Passwords must match';
     }
+  }
+
+  return {
+    errors,
+    isValid: isEmpty(errors)
+  }
+}
+
+export const validateLogin = function validateLogin(data) {
+  console.log('validateLogin')
+  let errors = {};
+
+  if (Validator.isEmpty(data.EmailAddress)) {
+    errors.EmailAddress = 'This field is required';
+  } else if (!Validator.isEmail(data.EmailAddress)) {
+    errors.EmailAddress = 'Email is invalid';
+  }
+  if (Validator.isEmpty(data.Password)) {
+    errors.Password = 'This field is required';
   }
 
   return {

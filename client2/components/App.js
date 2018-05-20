@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import NavigationBar from './NavigationBar';
 import Greetings from './Greetings';
 import SignupPage from './signup/SignupPage'
+import SigninPage from './signin/SigninPage'
+import LoginPage from './login/LoginPage'
 
 class App extends Component {
   render() {
@@ -11,6 +13,8 @@ class App extends Component {
         <div className="container">
           <NavigationBar />
           <Route exact path='/' component={Greetings} />
+          <Route path='/signin' component={SigninPage} />
+          <Route path='/login' component={LoginPage} />
           <Route path='/signup' component={SignupPage} />
         </div>
       </Router>
@@ -19,23 +23,3 @@ class App extends Component {
 }
 
 export default App;
-
-// class App extends React.Component {
-//   render() {
-//     return (
-//         <NavigationBar />
-//     )
-//   }
-// }
-
-// class App extends Component {
-//   render() {
-//     return (
-//       <div className="container">
-//         <NavigationBar />
-//         <Route path='/' component={Greetings} />
-//         <Route path='/signup' component={SignupPage} />
-//       </div>
-//     )
-//   }
-// }

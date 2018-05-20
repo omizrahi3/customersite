@@ -1,23 +1,32 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-// import { BrowserRouter } from 'react-router-dom';
-// import Routes from './Routes';
+import ReactDom from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
+import axios from 'axios';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
+import reducers from './reducers'
 
-import reducers from './reducers';
-import App from './components/App';
+const axiosInstance = axios.create({
+  baseURL: '/api',
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+  }
+});
 
 const store = createStore(
   reducers,
-  compose(
-    applyMiddleware(thunk),
-    window.devToolsExtension ? window.devToolsExtension() : f => f
-  )
+  composeWithDevTools(applyMiddleware(thunk.withExtraArgument(axiosInstance)))
 );
 
-ReactDOM.render(
-<Provider store={store}><App /></Provider>, 
+ReactDom.render(
+  <BrowserRouter>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </BrowserRouter>,
   document.getElementById('root')
 );

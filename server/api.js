@@ -8,9 +8,12 @@ api.use(bodyParser.urlencoded({ extended: false }))
 api.use(bodyParser.json())
 
 api.post('/users', (req, res) => {
+  console.log('api requested');
+  console.log(req.body);
   const { errors, isValid } = validateSignupInput(req.body);
 
   if (isValid) {
+    console.log('is valid');
     res.json(
       {
         success: true
