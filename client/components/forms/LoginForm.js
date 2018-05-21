@@ -23,14 +23,22 @@ class LoginForm extends React.Component {
     const errors = this.validate(this.state.data);
     this.setState({ errors });
     if (Object.keys(errors).length === 0) {
-      this.props.submit(this.state.data)
+      this.setState({ loading: true })
+      this.props
+        .submit(this.state.data)
+        .catch(err => 
+          {
+            console.log(err);
+            this.setState({ errors: err, loading: false })
+          }
+      );
     }
   };
 
   validate = data => {
     const errors = {};
-    if (!Validator.isEmail(data.EmailAddress)) errors.email = "Invalid email";
-    if (!data.Password) errors.password = "Invalid Password";
+    if (!Validator.isEmail(data.EmailAddress)) errors.email = "Please Enter Valid Email";
+    if (!data.Password) errors.password = "Please Enter Password";
     return errors;
   };
 
@@ -39,6 +47,12 @@ class LoginForm extends React.Component {
 
     return (
       <Form onSubmit={this.onSubmit} loading={loading}>
+        {errors.server && (
+          <Message negative>
+            <Message.Header>Something went wrong</Message.Header>
+            <p>{errors.server}</p>
+          </Message>
+        )}
         <Form.Field error={!!errors.email}>
           <label htmlFor="email">Email</label>
           <input
