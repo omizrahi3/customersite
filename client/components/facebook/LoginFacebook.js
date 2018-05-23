@@ -12,17 +12,18 @@ class LoginFacebook extends Component {
   componentClicked = () => console.log('facebook button clicked');
 
   responseFacebook = response => {
-    const { accessToken } = response;
     console.log(response);
+    const { accessToken } = response;
     const data = {
       Token: accessToken
     }
     this.setState({ loading: true });
     this.props
       .submitFB(data)
-      .catch(err => 
-        this.setState({ fbErrors: err, loading: false })
-      );
+      .catch(err => {
+        this.setState({ loading: false });
+        this.props.displayError(err);
+      });
   };
 
   render() {
@@ -39,12 +40,6 @@ class LoginFacebook extends Component {
     );
     return (
       <div>
-        {fbErrors.server && (
-          <Message negative>
-            <Message.Header>Something went wrong</Message.Header>
-            <p>{fbErrors.server}</p>
-          </Message>
-        )}
         {fbContent}
       </div>
     )
@@ -52,7 +47,8 @@ class LoginFacebook extends Component {
 }
 
 LoginFacebook.propTypes = {
-  submitFB: PropTypes.func.isRequired
+  submitFB: PropTypes.func.isRequired,
+  displayError: PropTypes.func.isRequired
 };
 
 export default LoginFacebook;

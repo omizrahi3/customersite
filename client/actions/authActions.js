@@ -10,37 +10,6 @@ export const userLoggedOut = () => ({
   type: USER_LOGGED_OUT
 });
 
-export const login2 = credentials => dispatch =>
-  api.user.login(credentials)
-  .then(user => {
-    const { ValidAppUser, Authenticated, AppUserId, Token } = user;
-    console.log(user);
-    if (!ValidAppUser || !Authenticated) {
-      return Promise.reject({
-        server: 'Invalid Credentials'
-      });
-    } else {
-      console.log('Login Successful');
-      localStorage.chatwithJWT = Token;
-      dispatch(userLoggedIn(user));
-    }
-  });
-
-  export const loginFB2 = credentials => dispatch =>
-  api.user.loginFB(credentials).then(user => {
-    const { ValidAppUser, Authenticated, AppUserId, Token } = user;
-    console.log(user);
-    if (!ValidAppUser || !Authenticated) {
-      return Promise.reject({
-        server: 'Something Went Wrong'
-      });
-    } else {
-      console.log('Facebook Login Successful');
-      localStorage.chatwithJWT = Token;
-      dispatch(userLoggedIn(user));
-    }
-  });
-
 export const logout = () => dispatch => {
   localStorage.removeItem("chatwithJWT");
   dispatch(userLoggedOut());

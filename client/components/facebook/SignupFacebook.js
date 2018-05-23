@@ -21,6 +21,7 @@ class SignupFacebook extends Component {
         autoLoad={false}
         fields="first_name,last_name,email,picture,gender,birthday"
         scope="public_profile,user_birthday,user_gender"
+        textButton="Signup with Facebook"
         onClick={this.componentClicked}
         callback={this.responseFacebook} />
     );
