@@ -4,6 +4,12 @@ export default {
   user: {
     login: credentials => {
       return axios.post("/api/auth/AuthenticateAppUserByEmail", credentials).then(res => res.data.Response)
+    },
+    loginFB: credentials => {
+      return axios.post("/api/auth/AuthenticateAppUserByFacebook", credentials).then(res => res.data.Response)
+    },
+    signup: user => {
+      return axios.post("/api/auth/CreateAppUser", user).then(res => res.data)
     }
   }
 };
