@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from "prop-types";
+import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
 import { Message } from "semantic-ui-react";
 import LoginForm from '../forms/LoginForm';
@@ -24,6 +25,7 @@ class LoginPage extends React.Component {
     return (
       <div>
         <h1>Login page</h1>
+        <Link to="/signup">Not a member? Signup</Link> 
         {pageErrors.server && (
           <Message negative>
             <Message.Header>Something went wrong</Message.Header>
@@ -31,6 +33,7 @@ class LoginPage extends React.Component {
           </Message>
         )}
         <LoginForm submit={this.submit} />
+        <Link to="/forgot_password">Forgot Password?</Link> 
         <br/>
         <LoginFacebook submitFB={this.submitFB} displayError={this.displayError} />
       </div>

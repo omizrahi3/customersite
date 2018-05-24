@@ -10,6 +10,8 @@ export default {
     },
     signup: user => {
       return axios.post("/api/auth/CreateAppUser", user).then(res => res.data)
-    }
+    },
+    resetPasswordRequest: email =>
+      axios.post("/api/auth/reset_password_request", { email })
   }
 };

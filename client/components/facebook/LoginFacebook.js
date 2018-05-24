@@ -5,8 +5,7 @@ import FacebookLogin from 'react-facebook-login';
 
 class LoginFacebook extends Component {
   state = {
-    loading: false,
-    fbErrors: {}
+    loading: false
   };
 
   componentClicked = () => console.log('facebook button clicked');
@@ -27,7 +26,7 @@ class LoginFacebook extends Component {
   };
 
   render() {
-    const { fbErrors, loading } = this.state;
+    const { loading } = this.state;
 
     const fbContent = (
       <FacebookLogin
