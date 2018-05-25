@@ -18,7 +18,7 @@ import webpackConfig from '../webpack.dev'
 
 const app = express();
 
-app.use('/api', proxy('www.api.getchatwith.com'));
+app.use('/api', proxy('www.qa.getchatwith.com'));
 
 const compiler = webpack(webpackConfig);
 

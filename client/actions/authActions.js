@@ -11,6 +11,7 @@ export const userLoggedOut = () => ({
 });
 
 export const logout = () => dispatch => {
+  localStorage.removeItem("chatwithUserId");
   localStorage.removeItem("chatwithJWT");
   dispatch(userLoggedOut());
 };
@@ -29,6 +30,7 @@ export const login = (credentials) => (dispatch) =>
         AppUserId,
         Token
       };
+      localStorage.chatwithUserId = AppUserId;
       localStorage.chatwithJWT = Token;
       dispatch(userLoggedIn(userData));
     });
@@ -66,6 +68,7 @@ export const loginFB = (credentials) => (dispatch) =>
         AppUserId,
         Token
       };
+      localStorage.chatwithUserId = AppUserId;
       localStorage.chatwithJWT = Token;
       dispatch(userLoggedIn(userData));
     });

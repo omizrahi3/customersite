@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
+import decode from "jwt-decode";
 import { BrowserRouter, Route } from 'react-router-dom';
 import App from './App';
 import { userLoggedIn } from "./actions/authActions";
@@ -14,9 +15,11 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(thunk))
 );
 
-if (localStorage.chatwithJWT) {
+if (localStorage.chatwithJWT && localStorage.chatwithUserId) {
+  console.log(localStorage.chatwithJWT);
   const user = {
     Token: localStorage.chatwithJWT,
+    AppUserId: localStorage.chatwithUserId
   };
   store.dispatch(userLoggedIn(user));
 }
