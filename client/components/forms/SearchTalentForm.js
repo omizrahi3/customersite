@@ -1,13 +1,14 @@
 import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
-import { Form, Dropdown } from "semantic-ui-react";
+import { Form, Dropdown, List } from "semantic-ui-react";
 
 class SearchTalentForm extends React.Component {
   state = {
     query: "",
     loading: false,
     options: [],
+    listItems: ['apple', 'orange', 'pear'],
     talents: {}
   };
 
@@ -44,6 +45,9 @@ class SearchTalentForm extends React.Component {
           text: `${talent.FirstName} ${talent.LastName}`
         })
       });
+      window.saveOptions = options;
+      window.saveTalents = talentsHash;
+      console.log(talentsHash);
       this.setState({ loading: false, options, talents: talentsHash });
     })
     .catch((error) => {
@@ -64,6 +68,13 @@ class SearchTalentForm extends React.Component {
           loading={this.state.loading}
           onChange={this.onChange}
         />
+        {this.state.listItems && (
+          <List>
+            <List.Item>{this.state.listItems[0]}</List.Item>
+            <List.Item>{this.state.listItems[1]}</List.Item>
+            <List.Item>{this.state.listItems[2]}</List.Item>
+          </List>
+        )}
       </Form>
     );
   }

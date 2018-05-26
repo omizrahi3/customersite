@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from "react-redux";
 import { Segment } from 'semantic-ui-react';
 import SearchTalentForm from '../forms/SearchTalentForm';
-import TalentForm from "../forms/TalentForm";
+// import TalentForm from "../forms/TalentForm";
 /*
 This should probably be changed.
 
@@ -26,9 +26,6 @@ class FilmAndTvPage extends Component {
       <Segment>
         <h1>Search for Film and Television Talent</h1>
         <SearchTalentForm onTalentSelect={this.onTalentSelect}/>
-        {this.state.talent && (
-          <TalentForm submit={this.addTalent} talent={this.state.talent} />
-        )}
       </Segment>
     )
   }

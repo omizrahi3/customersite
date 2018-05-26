@@ -10,7 +10,7 @@ class DashboardPage extends React.Component {
   onInit = props => console.log(props);
 
   render() {
-    const { talent } = this.props;
+    
     return (
       <div>
         <AddFildAndTvCard />
@@ -20,17 +20,12 @@ class DashboardPage extends React.Component {
 }
 
 DashboardPage.propTypes = {
-  talent: PropTypes.arrayOf(
-    PropTypes.shape({
-      title: PropTypes.string.isRequired
-    }).isRequired
-  ).isRequired
+
 };
 
 function mapStateToProps(state) {
   return {
-    user: state.user,
-    talent: allTalentSelector(state)
+    user: state.user
   };
 }
 
