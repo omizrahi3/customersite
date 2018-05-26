@@ -42,7 +42,7 @@ const App = ({ location, isAuthenticated }) => (
     />
     <UserRoute
       location={location}
-      path='/talent/film_and_tv'
+      path='/talent/film-and-tv'
       exact
       component={FilmAndTvPage}
     />
