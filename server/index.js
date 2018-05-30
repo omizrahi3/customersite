@@ -29,7 +29,7 @@ app.use(webpackMiddleware(compiler, {
 
 app.use(webpackHotMiddleware(compiler));
 
-// app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, '../public')));
 
 app.use('/api', api);
 

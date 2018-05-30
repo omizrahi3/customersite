@@ -7,6 +7,8 @@ import LoginPage from './components/pages/LoginPage';
 import SignupPage from './components/pages/SignupPage';
 import DashboardPage from './components/pages/DashboardPage';
 import FilmAndTvPage from './components/pages/FilmAndTvPage';
+import MusicSearchPage from './components/pages/MusicSearchPage';
+import TalentPage from './components/pages/TalentPage';
 import ForgotPasswordPage from './components/pages/ForgotPasswordPage';
 import GuestRoute from './components/routes/GuestRoute';
 import UserRoute from './components/routes/UserRoute';
@@ -42,9 +44,21 @@ const App = ({ location, isAuthenticated }) => (
     />
     <UserRoute
       location={location}
-      path='/talent/film-and-tv'
+      path='/search/film-and-tv'
       exact
       component={FilmAndTvPage}
+    />
+    <UserRoute
+      location={location}
+      path='/search/music'
+      exact
+      component={MusicSearchPage}
+    />
+    <UserRoute
+      location={location}
+      path='/talent/:talentid'
+      exact
+      component={TalentPage}
     />
   </div>
 );

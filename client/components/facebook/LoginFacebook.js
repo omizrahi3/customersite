@@ -14,7 +14,7 @@ class LoginFacebook extends Component {
     console.log(response);
     const { accessToken } = response;
     const data = {
-      Token: accessToken
+      Token: "EAAbM5nmjKxMBAO0vcQpZC8U1aUF7x2bYK22DZBvn8gnrOg8Qoz6UyhMpuRSmPqAG5wL9omZBenj09hhxaRcT4lbpg8FucjyBD8I4cahr6s8QmyVfDuDD0D6XHdrGjkPS0y8ykwef6Hi6FSFfSYU3MGAPo2s434IsrFZAq8jggrbvYR4o5pRbZCfGqKdXb5pEP7Na5BCZBPzWB6EFdNoZCa3HuXZCViMpAeMLRC9pAUgikQZDZD"
     }
     this.setState({ loading: true });
     this.props

@@ -7,12 +7,12 @@ export default function products(state = {}, action = {}) {
   }
 }
 
-export const talentSelector = state => state.talent;
+export const talentsSelector = state => state.talents;
 
-export const talentSelectorTEST = state => {
+export const talentsSelectorTEST = state => {
   return { 1 : {title: "the first title"}, 2 : {title: "the second title"} }
 }
 
-export const allTalentSelector = createSelector(talentSelector, talentHash =>
-  Object.values(talentHash)
+export const allTalentsSelector = createSelector(talentsSelector, talentsHash =>
+  Object.values(talentsHash)
 );
