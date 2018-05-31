@@ -3,83 +3,78 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Form, Dropdown, List, Image } from "semantic-ui-react";
+import Pagination from 'semantic-ui-react-button-pagination';
 import TalentLinkCard from '../cards/TalentLinkCard';
 
 class TalentSearch extends React.Component {
   state = {
     keys: [],
     talents: {},
-    paginationIndex: 0,
-    paginationTotal: 10,
-    resultsCount: 0
+    resultsPerPage: 15,
+    TotalCount: 0,
+    offset: 0
   };
 
-  componentDidMount() {
-    console.log('TalentSearch did mount');
-    console.log(this.props);
-
+  GetAppTalentByCategoryWeb = (offset) => {
     const instance = axios.create({timeout: 3000});
     instance.defaults.headers.common['token'] = this.props.user.Token;
     instance.post(this.props.endpoint, 
       {
         CategoryId: this.props.CategoryId,
-        ResultNumberBegin: this.state.paginationIndex,
-        paginationTotal: this.state.paginationTotal
+        ResultNumberBegin: offset,
+        ResultNumberEnd: this.state.resultsPerPage
       }
     )
     .then(res => res.data.Response)
-    .then(res => {
-      const { LandingData } = res;
-      this.setState({ numResults: res.resultsCount });
-      return LandingData;
-    })
-    .then(talents => {
+    .then(searchResults => {
+      const { LandingData, TotalCount } = searchResults;
       const keys = [];
       const talentsHash = {};
-      talents.forEach(talent => {
+      LandingData.forEach(talent => {
         talent.ProfilePictureReference = "/images/man.png";
         talentsHash[talent.TalentId] = talent;
         keys.push(talent.TalentId);
       });
-      window.keys = keys;
-      window.talentsHash = talentsHash;
-      this.setState({ keys, talents: talentsHash });
+      this.setState({ keys, talents: talentsHash, TotalCount, offset });
     })
   }
 
-  renderTalents(keys) {
-    return keys.map(key => {
-      const hashedTalent = this.state.talents[key];
-      return <TalentLinkCard key={key}
-                TalentId={hashedTalent.TalentId}
-                FirstName={hashedTalent.FirstName}
-                LastName={hashedTalent.LastName}
-                KnownFor={hashedTalent.KnownFor}
-                ProfilePictureReference={hashedTalent.ProfilePictureReference} />
-    });
+  componentDidMount() {
+    console.log('TalentSearch did mount');
+    console.log(this.props);
+
+    this.GetAppTalentByCategoryWeb(0);
   }
 
-  renderTalents2(options) {
-    return options.map(talent => {
-      const { key } = talent;
-      const hashedTalent = this.state.talents[key];
-      return <List.Item key={key}>
-        <Image avatar src={hashedTalent.ProfilePictureReference} />
-        <List.Content>
-          <List.Header>{`${hashedTalent.FirstName} ${hashedTalent.LastName}`}</List.Header>
-          {`${hashedTalent.KnownFor}`}
-        </List.Content>
-      </List.Item>
-    });
+  renderTalents = keys => keys.map(key => {
+    const hashedTalent = this.state.talents[key];
+    return  <TalentLinkCard
+              key={key}
+              TalentId={hashedTalent.TalentId}
+              FirstName={hashedTalent.FirstName}
+              LastName={hashedTalent.LastName}
+              KnownFor={hashedTalent.KnownFor}
+              ProfilePictureReference={hashedTalent.ProfilePictureReference}
+            />
+  })
+
+  handleClick = offset => {
+    this.GetAppTalentByCategoryWeb(offset);
   }
 
   render() {
     const { CategoryId } = this.props;
     return (
       <div>
+        <Pagination
+          offset={this.state.offset}
+          limit={this.state.resultsPerPage}
+          total={this.state.TotalCount}
+          onClick={(e, props, offset) => this.handleClick(offset)}
+        />
         {this.state.keys.length > 0 && (
           <div>
-            <h1>{CategoryId}</h1>
+            <h1>{`CategoryId: ${CategoryId}`}</h1>
             {this.renderTalents(this.state.keys)}
           </div>
         )}

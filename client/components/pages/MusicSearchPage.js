@@ -14,7 +14,7 @@ make a call to the api on component did mount to fetch product details for talen
 class MusicSearchPage extends Component {
   state = {
     endpoint: '/api/api/GetAppTalentByCategoryWeb',
-    CategoryId: '6BAF3D6162EB4D2B8D9D363C04BB0539',
+    CategoryId: '021D71E9EE9E4C849111A438C1322DBD',
     talent: null
   }
 
