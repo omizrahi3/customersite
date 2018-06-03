@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { Grid, Segment, Image, Breadcrumb, Header, Modal, Button } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 class TalentPage extends Component {
@@ -37,12 +39,61 @@ class TalentPage extends Component {
     });
   }
 
+  atc = () => (
+    <Modal size="tiny" trigger={<Button>Add To Card</Button>}>
+      <Modal.Header>
+        Purchase Product
+      </Modal.Header>
+    </Modal>
+  )
+
+  notify = () => (
+    <Modal size="tiny" trigger={<Button>Notify Me When Available</Button>}>
+      <Modal.Header>
+        Notify When Available
+      </Modal.Header>
+    </Modal>
+  )
+
+  renderProducts = keys => keys.map(key => {
+    const hashedProduct = this.state.products[key];
+    const atc = hashedProduct.CurrentUnfulfilled !== 0 
+    ? 
+    (this.atc())
+    :
+    (this.notify());
+    return  (
+      <Segment.Group horizontal key={key}>
+        <Segment>${hashedProduct.Price}</Segment>
+        <Segment>{hashedProduct.ProductDescription}</Segment>
+        {atc}
+      </Segment.Group>
+    )
+  })
+
   render() {
-    const { FirstName, LastName } = this.state;
+    const { FirstName, LastName, ProfilePictureReference, KnownFor } = this.state;
     return (
-      <div>
-        Hello {`${FirstName} ${LastName}`}
-      </div>
+      <Grid centered columns={3}>
+          <Grid.Column>
+            <Segment basic><Image src={ProfilePictureReference} /></Segment>
+          </Grid.Column>
+          <Grid.Column>
+            <Segment basic>
+            <Breadcrumb>
+              <Breadcrumb.Section as={Link} to="/dashboard">Home</Breadcrumb.Section>
+              <Breadcrumb.Divider icon='right chevron' />
+              <Breadcrumb.Section as={Link} to="/search/music">Talent</Breadcrumb.Section>
+              <Breadcrumb.Divider icon='right chevron' />
+              <Breadcrumb.Section active>{`${FirstName} ${LastName}`}</Breadcrumb.Section>
+            </Breadcrumb>
+            </Segment>
+            <Segment basic><Header as='h1' color='blue'>{`${FirstName} ${LastName}`}</Header></Segment>
+            <Segment basic><Header as='h3' color='grey'>{KnownFor}</Header></Segment>
+            <Segment basic><Header as='h2' color='blue'>Products</Header></Segment>
+            {this.state.keys.length > 0 && (this.renderProducts(this.state.keys))}
+          </Grid.Column>
+      </Grid>
     )
   }
 }

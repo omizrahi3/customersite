@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
+import { Segment, Divider } from "semantic-ui-react";
 import SignupForm from "../forms/SignupForm";
 import SignupFacebook from '../facebook/SignupFacebook';
 import { signup } from "../../actions/userActions";
@@ -14,12 +16,12 @@ class SignupPage extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Signup page</h1>
+      <Segment>
+        <Link to="/login">Already a member? Login</Link> 
         <SignupForm submit={this.submit} />
-        <br/>
+        <Divider horizontal>Or</Divider>
         <SignupFacebook />
-      </div>
+      </Segment>
     );
   }
 }

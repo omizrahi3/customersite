@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
-import { Segment } from 'semantic-ui-react';
+import { Segment, Breadcrumb, Header, Button, Label } from 'semantic-ui-react';
+import { Link } from "react-router-dom";
 import TalentSearch from '../search/TalentSearch';
 /*
 This should probably be changed.
@@ -29,10 +30,28 @@ class MusicSearchPage extends Component {
   render() {
     const { endpoint, CategoryId } = this.state;
     return (
-      <Segment>
-        <h1>Search for Music Talent</h1>
-        <TalentSearch onTalentSelect={this.onTalentSelect} endpoint={endpoint} CategoryId={CategoryId}/>
-      </Segment>
+      <div>
+        <Segment basic>
+          <Breadcrumb>
+            <Breadcrumb.Section as={Link} to="/dashboard">Home</Breadcrumb.Section>
+            <Breadcrumb.Divider icon='right chevron' />
+            <Breadcrumb.Section active>Talent</Breadcrumb.Section>
+          </Breadcrumb>
+          <Header color="blue">MUSIC</Header>
+        </Segment>
+        <Segment basic>
+          <Header as='h5' color="grey">Additional Categories</Header>
+          <Label basic color='green' size='big' as={Link} to="/dashboard">
+            SPORTS
+          </Label>
+          <Label basic color='purple' size='big' as={Link} to="/dashboard">
+            BRANDS
+          </Label>
+        </Segment>
+        <Segment basic>
+          <TalentSearch onTalentSelect={this.onTalentSelect} endpoint={endpoint} CategoryId={CategoryId}/>
+        </Segment>
+      </div>
     )
   }
 }

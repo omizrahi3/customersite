@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from "prop-types";
 import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
-import { Message } from "semantic-ui-react";
+import { Segment, Message, Divider } from "semantic-ui-react";
 import LoginForm from '../forms/LoginForm';
 import LoginFacebook from '../facebook/LoginFacebook';
 import { login, loginFB } from '../../actions/authActions';
@@ -23,8 +23,7 @@ class LoginPage extends React.Component {
   render() {
     const { pageErrors } = this.state;
     return (
-      <div>
-        <h1>Login page</h1>
+      <Segment padded>
         <Link to="/signup">Not a member? Signup</Link> 
         {pageErrors.server && (
           <Message negative>
@@ -34,9 +33,9 @@ class LoginPage extends React.Component {
         )}
         <LoginForm submit={this.submit} />
         <Link to="/forgot_password">Forgot Password?</Link> 
-        <br/>
+        <Divider horizontal>Or</Divider>
         <LoginFacebook submitFB={this.submitFB} displayError={this.displayError} />
-      </div>
+      </Segment>
     );
   }
 }

@@ -73,14 +73,17 @@ class TalentSearch extends React.Component {
 
   renderTalents = keys => keys.map(key => {
     const hashedTalent = this.state.talents[key];
-    return  <TalentLinkCard
-              key={key}
-              TalentId={hashedTalent.TalentId}
-              FirstName={hashedTalent.FirstName}
-              LastName={hashedTalent.LastName}
-              KnownFor={hashedTalent.KnownFor}
-              ProfilePictureReference={hashedTalent.ProfilePictureReference}
-            />
+    return  (
+      <Grid.Column key={key}>
+        <TalentLinkCard
+          TalentId={hashedTalent.TalentId}
+          FirstName={hashedTalent.FirstName}
+          LastName={hashedTalent.LastName}
+          KnownFor={hashedTalent.KnownFor}
+          ProfilePictureReference={hashedTalent.ProfilePictureReference}
+        />
+      </Grid.Column>
+          )
   })
 
   handleClick = offset => {
@@ -163,10 +166,11 @@ class TalentSearch extends React.Component {
           </Grid.Column>
         </Grid>
         {this.state.keys.length > 0 && (
-          <div>
-            <h1>{`CategoryId: ${CategoryId}`}</h1>
-            {this.renderTalents(this.state.keys)}
-          </div>
+          <Grid>
+            <Grid.Row columns={5}>
+              {this.renderTalents(this.state.keys)}
+            </Grid.Row>
+          </Grid>
         )}
       </div>
     );

@@ -17,7 +17,12 @@ import TopNavigation from './components/navigation/TopNavigation';
 const App = ({ location, isAuthenticated }) => (
   <div className="ui container">
     {isAuthenticated && <TopNavigation />}
-    <Route location={location} path='/' exact component={HomePage} />
+    <GuestRoute
+      location={location}
+      path='/'
+      exact
+      component={HomePage}
+    />
     <GuestRoute
       location={location}
       path='/login'

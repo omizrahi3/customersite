@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Grid, Image, Segment, Label } from 'semantic-ui-react'
 import { connect } from "react-redux";
 import { allTalentsSelector } from "../../reducers/talents";
 import AddFildAndTvCard from '../cards/AddFilmAndTvCard';
@@ -14,9 +15,75 @@ class DashboardPage extends React.Component {
     const { talents } = this.props;
     return (
       <div>
-        <AddTalentCard title={'Film and Television'} endpoint={'/talent/film-and-tv'} />
-        <AddTalentCard title={'Music'} endpoint={'/search/music'} />
-        <AddTalentCard title={'Sports'} endpoint={'/search/sports'} />
+        <Segment>
+          <Label size='big'>
+            Subscriptions
+          </Label>
+        </Segment>
+        <Segment>
+          <Label size='big'>
+            Categories
+          </Label>
+          <Grid>
+          <Grid.Row columns={3}>
+            <Grid.Column>
+              <AddTalentCard title={'Film and Television'} endpoint={'/talent/film-and-tv'} />
+            </Grid.Column>
+            <Grid.Column>
+              <AddTalentCard title={'Music'} endpoint={'/search/music'} />
+            </Grid.Column>
+            <Grid.Column>
+              <AddTalentCard title={'Sports'} endpoint={'/search/sports'} />
+            </Grid.Column>
+          </Grid.Row>
+          </Grid>
+        </Segment>
+        <Grid>
+          <Grid.Row columns={3}>
+            <Grid.Column>
+              <AddTalentCard title={'Film and Television'} endpoint={'/talent/film-and-tv'} />
+            </Grid.Column>
+            <Grid.Column>
+              <AddTalentCard title={'Music'} endpoint={'/search/music'} />
+            </Grid.Column>
+            <Grid.Column>
+              <AddTalentCard title={'Sports'} endpoint={'/search/sports'} />
+            </Grid.Column>
+          </Grid.Row>
+
+          <Grid.Row columns={4}>
+            <Grid.Column>
+              <Image src='/images/man.png' />
+            </Grid.Column>
+            <Grid.Column>
+              <Image src='/images/man.png' />
+            </Grid.Column>
+            <Grid.Column>
+              <Image src='/images/man.png' />
+            </Grid.Column>
+            <Grid.Column>
+              <Image src='/images/man.png' />
+            </Grid.Column>
+          </Grid.Row>
+
+          <Grid.Row columns={5}>
+            <Grid.Column>
+              <Image src='/images/man.png' />
+            </Grid.Column>
+            <Grid.Column>
+              <Image src='/images/man.png' />
+            </Grid.Column>
+            <Grid.Column>
+              <Image src='/images/man.png' />
+            </Grid.Column>
+            <Grid.Column>
+              <Image src='/images/man.png' />
+            </Grid.Column>
+            <Grid.Column>
+              <Image src='/images/man.png' />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
       </div>
     );
   }
