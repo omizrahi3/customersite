@@ -12,12 +12,7 @@ const SubscriptionCard = ({ ProductId, TalentFirstName, TalentLastName, Descript
       Description,
       ProfilePictureReference
     }
-  }} centered>
-    <Image src={ProfilePictureReference} />
-    <Card.Content textAlign="center">
-      <Card.Header>{`${TalentFirstName} ${TalentLastName}`}</Card.Header>
-      {`${Description.substring(0, 10)}`}
-    </Card.Content>
+  }} raised image={ProfilePictureReference}>
   </Card>
 );  
 

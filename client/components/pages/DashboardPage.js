@@ -17,9 +17,11 @@ class DashboardPage extends React.Component {
 
   componentDidMount = () => {
     console.log(this.props.user);
+    const { Token, AppUserId } = this.props.user;
     const instance = axios.create({timeout: 3000});
-    instance.defaults.headers.common['token'] = this.props.user.Token;
-    instance.post('/api/api/GetProductByUser', { UserId: 'A0F12D9534D2406BB04AFD7DBC462526' })
+    const userId = 'A0F12D9534D2406BB04AFD7DBC462526'
+    instance.defaults.headers.common['token'] = Token;
+    instance.post('/api/api/GetProductByUser', { UserId: userId })
     .then(res => res.data.Response)
     .then(subs => {
       console.log(subs);
@@ -45,15 +47,14 @@ class DashboardPage extends React.Component {
   renderSubscriptions = keys => keys.map(key => {
     const hashedSub = this.state.subscriptions[key];
     return  (
-      <Grid.Column key={key}>
         <SubscriptionCard
-          ProductId={hashedSub.TalentId}
+          key={key}
+          ProductId={hashedSub.ProductId}
           TalentFirstName={hashedSub.TalentFirstName}
           TalentLastName={hashedSub.TalentLastName}
           Description={hashedSub.Description}
           ProfilePictureReference={hashedSub.ProfilePictureReference}
         />
-      </Grid.Column>
       )
   })
 
@@ -67,19 +68,8 @@ class DashboardPage extends React.Component {
           </Label>
           <Divider hidden />
           {this.state.keys.length > 0 && (
-            <Grid>
-              <Grid.Row columns={2}>
-                {this.renderSubscriptions(this.state.keys)}
-              </Grid.Row>
-            </Grid>
-          )}
-          <Divider hidden />
-          {this.state.keys.length > 0 && (
             <Card.Group itemsPerRow={6}>
-            <Card raised image='/images/man.png' />
-            <Card raised image='/images/man.png' />
-            <Card raised image='/images/man.png' />
-            <Card raised image='/images/man.png' />
+            {this.renderSubscriptions(this.state.keys)}
           </Card.Group>
           )}
         </Segment>
