@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Form, Dropdown, List, Image, Input, Grid, Button, Icon } from "semantic-ui-react";
+import { Form, Dropdown, List, Image, Input, Grid, Button, Icon, Card } from "semantic-ui-react";
 import Pagination from 'semantic-ui-react-button-pagination';
 import TalentLinkCard from '../cards/TalentLinkCard';
 
@@ -74,16 +74,15 @@ class TalentSearch extends React.Component {
   renderTalents = keys => keys.map(key => {
     const hashedTalent = this.state.talents[key];
     return  (
-      <Grid.Column key={key}>
         <TalentLinkCard
+          key={key}
           TalentId={hashedTalent.TalentId}
           FirstName={hashedTalent.FirstName}
           LastName={hashedTalent.LastName}
           KnownFor={hashedTalent.KnownFor}
           ProfilePictureReference={hashedTalent.ProfilePictureReference}
         />
-      </Grid.Column>
-          )
+      )
   })
 
   handleClick = offset => {
@@ -166,11 +165,9 @@ class TalentSearch extends React.Component {
           </Grid.Column>
         </Grid>
         {this.state.keys.length > 0 && (
-          <Grid>
-            <Grid.Row columns={5}>
-              {this.renderTalents(this.state.keys)}
-            </Grid.Row>
-          </Grid>
+          <Card.Group itemsPerRow={5}>
+            {this.renderTalents(this.state.keys)}
+          </Card.Group>
         )}
       </div>
     );

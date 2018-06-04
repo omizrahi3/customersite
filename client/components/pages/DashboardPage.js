@@ -93,19 +93,6 @@ class DashboardPage extends React.Component {
             <Icon name='right angle' />
           </Button>
         </Segment>
-        <Grid>
-          <Grid.Row columns={3}>
-            <Grid.Column>
-              <AddTalentCard title={'Film and Television'} endpoint={'/talent/film-and-tv'} />
-            </Grid.Column>
-            <Grid.Column>
-              <AddTalentCard title={'Music'} endpoint={'/search/music'} />
-            </Grid.Column>
-            <Grid.Column>
-              <AddTalentCard title={'Sports'} endpoint={'/search/sports'} />
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
       </div>
     );
   }
