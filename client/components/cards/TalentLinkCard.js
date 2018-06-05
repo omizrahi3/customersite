@@ -3,10 +3,11 @@ import PropTypes from "prop-types";
 import { Card, Icon, Image } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
-const TalentLinkCard = ({ TalentId, FirstName, LastName, KnownFor, ProfilePictureReference }) => (
+const TalentLinkCard = ({ previousPage, TalentId, FirstName, LastName, KnownFor, ProfilePictureReference }) => (
   <Card as={Link} to={{
     pathname: `/talent/${TalentId}`,
     state: {
+      previousPage,
       FirstName,
       LastName,
       KnownFor,

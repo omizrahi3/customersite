@@ -16,7 +16,7 @@ class DashboardPage extends React.Component {
   }
 
   componentDidMount = () => {
-    console.log(this.props.user);
+    console.log('Dashboard did mount')
     const { Token, AppUserId } = this.props.user;
     const instance = axios.create({timeout: 3000});
     const userId = 'A0F12D9534D2406BB04AFD7DBC462526'
@@ -24,7 +24,6 @@ class DashboardPage extends React.Component {
     instance.post('/api/api/GetProductByUser', { UserId: userId })
     .then(res => res.data.Response)
     .then(subs => {
-      console.log(subs);
       const keys = [];
       const subscriptionsHash = {};
       subs.forEach(sub => {
@@ -40,7 +39,6 @@ class DashboardPage extends React.Component {
   componentDidMount2 = () => this.onInit(this.props);
 
   onInit = props => {
-    console.log(this.props);
     return console.log('dashboard did mount');
   }
 
@@ -83,12 +81,12 @@ class DashboardPage extends React.Component {
             <Icon name='right angle' />
           </Button>
           <Divider fitted hidden />
-          <Button as={Link} to='/search/music' color='blue' fluid icon labelPosition='right'>
+          <Button as={Link} to='/categories/music' color='blue' fluid icon labelPosition='right'>
             MUSIC CELEBRITIES
             <Icon name='right angle' />
           </Button>
           <Divider fitted hidden />
-          <Button color='green' fluid icon labelPosition='right'>
+          <Button as={Link} to='/categories/sports' color='green' fluid icon labelPosition='right'>
             SPORTS CELEBRITIES
             <Icon name='right angle' />
           </Button>

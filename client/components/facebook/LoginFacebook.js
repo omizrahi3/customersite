@@ -5,7 +5,8 @@ import FacebookLogin from 'react-facebook-login';
 
 class LoginFacebook extends Component {
   state = {
-    loading: false
+    loading: false,
+    fbId: '1876716225959958'
   };
 
   componentClicked = () => console.log('facebook button clicked');
@@ -13,8 +14,9 @@ class LoginFacebook extends Component {
   responseFacebook = response => {
     console.log(response);
     const { accessToken } = response;
+    const tempToken = "EAAbM5nmjKxMBAO0vcQpZC8U1aUF7x2bYK22DZBvn8gnrOg8Qoz6UyhMpuRSmPqAG5wL9omZBenj09hhxaRcT4lbpg8FucjyBD8I4cahr6s8QmyVfDuDD0D6XHdrGjkPS0y8ykwef6Hi6FSFfSYU3MGAPo2s434IsrFZAq8jggrbvYR4o5pRbZCfGqKdXb5pEP7Na5BCZBPzWB6EFdNoZCa3HuXZCViMpAeMLRC9pAUgikQZDZD";
     const data = {
-      Token: "EAAbM5nmjKxMBAO0vcQpZC8U1aUF7x2bYK22DZBvn8gnrOg8Qoz6UyhMpuRSmPqAG5wL9omZBenj09hhxaRcT4lbpg8FucjyBD8I4cahr6s8QmyVfDuDD0D6XHdrGjkPS0y8ykwef6Hi6FSFfSYU3MGAPo2s434IsrFZAq8jggrbvYR4o5pRbZCfGqKdXb5pEP7Na5BCZBPzWB6EFdNoZCa3HuXZCViMpAeMLRC9pAUgikQZDZD"
+      Token: accessToken
     }
     this.setState({ loading: true });
     this.props
@@ -30,7 +32,7 @@ class LoginFacebook extends Component {
 
     const fbContent = (
       <FacebookLogin
-        appId="1876716225959958"
+        appId="1914140115544851"
         autoLoad={false}
         fields="first_name,last_name,email,picture,gender,birthday"
         scope="public_profile,user_birthday,user_gender"

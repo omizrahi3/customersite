@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "server": "nodemon --watch server --watch helpers --exec \"babel-node server/index.js\"",
-    "dev:build-client": "webpack --config webpack.babel.js"
+    "prod:build-client": "webpack --config webpack.babel.js"
   },
   "repository": {
     "type": "git",

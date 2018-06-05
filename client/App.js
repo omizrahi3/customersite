@@ -6,9 +6,10 @@ import HomePage from './components/pages/Homepage';
 import LoginPage from './components/pages/LoginPage';
 import SignupPage from './components/pages/SignupPage';
 import DashboardPage from './components/pages/DashboardPage';
-import FilmAndTvPage from './components/pages/FilmAndTvPage';
 import MusicSearchPage from './components/pages/MusicSearchPage';
+import SportsSearchPage from './components/pages/SportsSearchPage';
 import TalentPage from './components/pages/TalentPage';
+import CheckoutPage from './components/pages/CheckoutPage';
 import ForgotPasswordPage from './components/pages/ForgotPasswordPage';
 import GuestRoute from './components/routes/GuestRoute';
 import UserRoute from './components/routes/UserRoute';
@@ -49,21 +50,27 @@ const App = ({ location, isAuthenticated }) => (
     />
     <UserRoute
       location={location}
-      path='/search/film-and-tv'
+      path='/categories/music'
       exact
-      component={FilmAndTvPage}
+      component={MusicSearchPage}
     />
     <UserRoute
       location={location}
-      path='/search/music'
+      path='/categories/sports'
       exact
-      component={MusicSearchPage}
+      component={SportsSearchPage}
     />
     <UserRoute
       location={location}
       path='/talent/:talentid'
       exact
       component={TalentPage}
+    />
+    <UserRoute
+      location={location}
+      path='/checkout/:productid'
+      exact
+      component={CheckoutPage}
     />
   </div>
 );

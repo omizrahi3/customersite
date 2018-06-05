@@ -4,22 +4,17 @@ import { Segment, Breadcrumb, Header, Button, Label } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
 import TalentSearch from '../search/TalentSearch';
 
-class MusicSearchPage extends Component {
+class SportsSearchPage extends Component {
   state = {
     endpoint: '/api/api/GetAppTalentByCategoryWeb',
-    CategoryId: '021D71E9EE9E4C849111A438C1322DBD',
-    talent: null
+    CategoryId: '8B172F9BE0A6415F89E0B7EA547515B1'
   }
 
   componentDidMount = () => this.onInit(this.props);
 
-  onInit = props => {
-    console.log('MusicSearchPage did mount');
-  }
+  onInit = props => console.log('SportsSearchPage did mount');
 
   onTalentSelect = talent => this.setState({ talent });
-
-  addTalent = () => console.log('testing');
 
   render() {
     const { endpoint, CategoryId } = this.state;
@@ -31,12 +26,12 @@ class MusicSearchPage extends Component {
             <Breadcrumb.Divider icon='right chevron' />
             <Breadcrumb.Section active>Talent</Breadcrumb.Section>
           </Breadcrumb>
-          <Header color="blue">MUSIC</Header>
+          <Header color="green">SPORTS</Header>
         </Segment>
         <Segment basic>
           <Header as='h5' color="grey">Additional Categories</Header>
-          <Label basic color='green' size='big' as={Link} to="/categories/sports">
-            SPORTS
+          <Label basic color='red' size='big' as={Link} to="/categories/music">
+            MUSIC
           </Label>
           <Label basic color='purple' size='big' as={Link} to="/dashboard">
             BRANDS
@@ -56,4 +51,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(MusicSearchPage);
+export default connect(mapStateToProps)(SportsSearchPage);

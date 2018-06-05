@@ -16,6 +16,17 @@ class TalentSearch extends React.Component {
     searchQuery: ''
   };
 
+  componentDidMount() {
+    console.log('TalentSearch did mount');
+    const apiUrl = '/api/api/GetAppTalentByCategoryWeb';
+    const requestBody = {
+      CategoryId: this.props.CategoryId,
+      ResultNumberBegin: 0,
+      ResultNumberEnd: this.state.resultsPerPage
+    }
+    this.apiCall(apiUrl, requestBody, 0);
+  }
+
   apiCall = (apiUrl, requestBody, offset) => {
     const instance = axios.create({timeout: 3000});
     instance.defaults.headers.common['token'] = this.props.user.Token;
@@ -26,49 +37,11 @@ class TalentSearch extends React.Component {
       const keys = [];
       const talentsHash = {};
       LandingData.forEach(talent => {
-        talent.ProfilePictureReference = "/images/man.png";
         talentsHash[talent.TalentId] = talent;
         keys.push(talent.TalentId);
       });
       this.setState({ keys, talents: talentsHash, TotalCount, offset });
     })
-  }
-
-  GetAppTalentByCategoryWeb = (offset) => {
-    const instance = axios.create({timeout: 3000});
-    instance.defaults.headers.common['token'] = this.props.user.Token;
-    instance.post(this.props.endpoint, 
-      {
-        CategoryId: this.props.CategoryId,
-        ResultNumberBegin: offset,
-        ResultNumberEnd: this.state.resultsPerPage
-      }
-    )
-    .then(res => res.data.Response)
-    .then(searchResults => {
-      const { LandingData, TotalCount } = searchResults;
-      const keys = [];
-      const talentsHash = {};
-      LandingData.forEach(talent => {
-        talent.ProfilePictureReference = "/images/man.png";
-        talentsHash[talent.TalentId] = talent;
-        keys.push(talent.TalentId);
-      });
-      this.setState({ keys, talents: talentsHash, TotalCount, offset });
-    })
-  }
-
-  componentDidMount() {
-    console.log('TalentSearch did mount');
-    console.log(this.props);
-
-    const apiUrl = '/api/api/GetAppTalentByCategoryWeb';
-    const requestBody = {
-      CategoryId: this.props.CategoryId,
-      ResultNumberBegin: 0,
-      ResultNumberEnd: this.state.resultsPerPage
-    }
-    this.apiCall(apiUrl, requestBody, 0);
   }
 
   renderTalents = keys => keys.map(key => {
@@ -76,6 +49,7 @@ class TalentSearch extends React.Component {
     return  (
         <TalentLinkCard
           key={key}
+          previousPage={this.props.currentPage}
           TalentId={hashedTalent.TalentId}
           FirstName={hashedTalent.FirstName}
           LastName={hashedTalent.LastName}
@@ -93,7 +67,7 @@ class TalentSearch extends React.Component {
       const name = this.state.searchQuery.split(' ');
       apiUrl = '/api/api/GetAppTalentBySearch';
       requestBody = {
-        CategoryId: 'D4C54DC9580E4143B8F9CA0E87EB7996',
+        CategoryId: this.props.CategoryId,
         FirstName: name[0],
         LastName: name[1],
         ResultNumberBegin: offset,
@@ -123,7 +97,7 @@ class TalentSearch extends React.Component {
       const name = this.state.searchQuery.split(' ');
       apiUrl = '/api/api/GetAppTalentBySearch';
       requestBody = {
-        CategoryId: 'D4C54DC9580E4143B8F9CA0E87EB7996',
+        CategoryId: this.props.CategoryId,
         FirstName: name[0],
         LastName: name[1],
         ResultNumberBegin: 0,
@@ -175,6 +149,7 @@ class TalentSearch extends React.Component {
 }
 
 TalentSearch.propTypes = {
+  currentPage: PropTypes.string.isRequired,
   onTalentSelect: PropTypes.func.isRequired,
   CategoryId: PropTypes.string.isRequired,
   endpoint: PropTypes.string.isRequired

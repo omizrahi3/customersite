@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Grid, Segment, Image, Breadcrumb, Header, Modal, Button } from "semantic-ui-react";
+import { Grid, Segment, Image, Breadcrumb, Header, Modal, Button, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
 class TalentPage extends Component {
   state = {
+    previousPage: this.props.location.state.previousPage,
     FirstName: this.props.location.state.FirstName,
     LastName: this.props.location.state.LastName,
     KnownFor: this.props.location.state.KnownFor,
@@ -18,15 +19,12 @@ class TalentPage extends Component {
   componentDidMount() {
     console.log('TalentPage did mount')
     const { talentid } = this.props.match.params;
-    console.log(this.props.location.state);
-    console.log(`talentid: ${talentid}`);
 
     const instance = axios.create({timeout: 3000});
     instance.defaults.headers.common['token'] = this.props.user.Token;
-    instance.post('/api/api/GetProductOptionByTalent', { TalentId: '403E61E8A710460C8FCEE31F45260FCE' })
+    instance.post('/api/api/GetProductOptionByTalent', { TalentId: talentid })
     .then(res => res.data.Response)
     .then(products => {
-      console.log('this is a test');
       console.log(products);
       const keys = [];
       const productsHash = {};
@@ -39,8 +37,22 @@ class TalentPage extends Component {
     });
   }
 
-  atc = () => (
-    <Modal size="tiny" trigger={<Button>Add To Card</Button>}>
+  atc = (product) => (
+    <Modal size="tiny" trigger={
+      <Button as={Link} to={{
+        pathname: `/checkout/${product.ProductOptionId}`,
+        state: {
+          ProductTypeId: product.ProductTypeId,
+          ProductName: product.ProductDescription,
+          Price: product.Price,
+          TalentId: this.props.match.params.talentid
+        }
+      }}
+        color='blue' fluid icon labelPosition='right'>
+        Purchase Product
+        <Icon name='right angle' />
+      </Button>
+    }>
       <Modal.Header>
         Purchase Product
       </Modal.Header>
@@ -59,7 +71,7 @@ class TalentPage extends Component {
     const hashedProduct = this.state.products[key];
     const atc = hashedProduct.CurrentUnfulfilled !== 0 
     ? 
-    (this.atc())
+    (this.atc(hashedProduct))
     :
     (this.notify());
     return  (
@@ -72,7 +84,7 @@ class TalentPage extends Component {
   })
 
   render() {
-    const { FirstName, LastName, ProfilePictureReference, KnownFor } = this.state;
+    const { previousPage, FirstName, LastName, ProfilePictureReference, KnownFor } = this.state;
     return (
       <Grid centered columns={3}>
           <Grid.Column>
@@ -83,7 +95,7 @@ class TalentPage extends Component {
             <Breadcrumb>
               <Breadcrumb.Section as={Link} to="/dashboard">Home</Breadcrumb.Section>
               <Breadcrumb.Divider icon='right chevron' />
-              <Breadcrumb.Section as={Link} to="/search/music">Talent</Breadcrumb.Section>
+              <Breadcrumb.Section as={Link} to={previousPage}>Talent</Breadcrumb.Section>
               <Breadcrumb.Divider icon='right chevron' />
               <Breadcrumb.Section active>{`${FirstName} ${LastName}`}</Breadcrumb.Section>
             </Breadcrumb>

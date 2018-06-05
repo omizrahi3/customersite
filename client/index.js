@@ -16,7 +16,6 @@ const store = createStore(
 );
 
 if (localStorage.chatwithJWT && localStorage.chatwithUserId) {
-  console.log(localStorage.chatwithJWT);
   const user = {
     Token: localStorage.chatwithJWT,
     AppUserId: localStorage.chatwithUserId

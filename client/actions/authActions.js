@@ -35,26 +35,6 @@ export const login = (credentials) => (dispatch) =>
       dispatch(userLoggedIn(userData));
     });
 
-// export const loginFB = (credentials) => (dispatch) => {
-//   let errorMessage = 'Hardcoded Failure Message';
-//   return api.user.loginFB(credentials)
-//     .then(user => {
-//       errorMessage = "new error message";
-//       const { Error = false } = user;
-//       if (Error) return Promise.reject({server: errorMessage})
-//       else return user;
-//     })
-//     .then(user => {
-//       const { AppUserId, Token } = user;
-//       const userData = {
-//         AppUserId,
-//         Token
-//       };
-//       localStorage.chatwithJWT = Token;
-//       dispatch(userLoggedIn(userData));
-//     });
-// };
-
 export const loginFB = (credentials) => (dispatch) =>
   api.user.loginFB(credentials)
     .then(user => {
