@@ -18,7 +18,7 @@ import webpackConfig from '../webpack.dev'
 
 const app = express();
 
-app.use('/api', proxy('www.qa.getchatwith.com'));
+// app.use('/api', proxy('www.qa.getchatwith.com'));
 
 const compiler = webpack(webpackConfig);
 
@@ -36,10 +36,6 @@ app.use('/api', api);
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, './index.html'))
 });
-
-// app.listen(3000, () => {
-//   console.log('listening to port 3000')
-// });
 
 https.createServer(certOptions, app).listen(3000, () => {
   console.log('listening to port 3000 on HTTPS');

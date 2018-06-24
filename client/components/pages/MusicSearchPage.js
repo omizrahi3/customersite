@@ -6,7 +6,7 @@ import TalentSearch from '../search/TalentSearch';
 
 class MusicSearchPage extends Component {
   state = {
-    endpoint: '/api/api/GetAppTalentByCategoryWeb',
+    endpoint: 'http://www.qa.getchatwith.com/api/GetAppTalentByCategoryWeb',
     CategoryId: '021D71E9EE9E4C849111A438C1322DBD',
     talent: null
   }

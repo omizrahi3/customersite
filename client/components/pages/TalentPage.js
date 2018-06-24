@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Grid, Segment, Image, Breadcrumb, Header, Modal, Button, Icon } from "semantic-ui-react";
+import { Grid, Segment, Image, Breadcrumb, Header, Modal, Button, Icon, Label } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -22,7 +22,7 @@ class TalentPage extends Component {
 
     const instance = axios.create({timeout: 3000});
     instance.defaults.headers.common['token'] = this.props.user.Token;
-    instance.post('/api/api/GetProductOptionByTalent', { TalentId: talentid })
+    instance.post('http://www.qa.getchatwith.com/home/GetProductOptionByTalent', { TalentId: talentid })
     .then(res => res.data.Response)
     .then(products => {
       console.log(products);
@@ -42,9 +42,10 @@ class TalentPage extends Component {
       <Button as={Link} to={{
         pathname: `/checkout/${product.ProductOptionId}`,
         state: {
+          talentid: this.props.match.params.talentid,
           ProductTypeId: product.ProductTypeId,
           ProductName: product.ProductDescription,
-          Price: product.Price,
+          Price: product.WebPrice,
           TalentId: this.props.match.params.talentid
         }
       }}
@@ -69,6 +70,8 @@ class TalentPage extends Component {
 
   renderProducts = keys => keys.map(key => {
     const hashedProduct = this.state.products[key];
+    console.log('///////////////////////////////');
+    console.log(hashedProduct);
     const atc = hashedProduct.CurrentUnfulfilled !== 0 
     ? 
     (this.atc(hashedProduct))
@@ -103,6 +106,11 @@ class TalentPage extends Component {
             <Segment basic><Header as='h1' color='blue'>{`${FirstName} ${LastName}`}</Header></Segment>
             <Segment basic><Header as='h3' color='grey'>{KnownFor}</Header></Segment>
             <Segment basic><Header as='h2' color='blue'>Products</Header></Segment>
+            <Label as='a' color='blue' size='big'>
+              <Label.Detail>Friend</Label.Detail>
+              <Label.Detail>Friend</Label.Detail>
+              Purchase Now
+            </Label>
             {this.state.keys.length > 0 && (this.renderProducts(this.state.keys))}
           </Grid.Column>
       </Grid>

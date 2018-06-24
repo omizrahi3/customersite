@@ -6,7 +6,7 @@ import TalentSearch from '../search/TalentSearch';
 
 class SportsSearchPage extends Component {
   state = {
-    endpoint: '/api/api/GetAppTalentByCategoryWeb',
+    endpoint: 'http://www.qa.getchatwith.com/api/GetAppTalentByCategoryWeb',
     CategoryId: '8B172F9BE0A6415F89E0B7EA547515B1'
   }
 

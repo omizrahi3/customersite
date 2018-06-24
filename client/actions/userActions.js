@@ -1,8 +1,12 @@
 import api from "../api";
-import { USER_REGISTERED_FORM } from "./types";
+import { USER_REGISTERED_FORM, PROFILE_UPDATED } from "./types";
 
 export const userRegistered = () => ({
   type: USER_REGISTERED_FORM
+});
+
+export const profileUpdated = () => ({
+  type: PROFILE_UPDATED
 });
 
 export const signup = data => dispatch =>
@@ -27,3 +31,15 @@ export const signup = data => dispatch =>
       }
       dispatch(userRegistered());
     });
+
+export const updatedProfile = data => dispatch =>
+  api.user.updateProfile(data).then(res => {
+    console.log(res);
+    const { Response } = res;
+    if (Response.Error) {
+      return Promise.reject({
+        server: Response.Response.Error
+      });
+    }
+    dispatch(profileUpdated());
+  });

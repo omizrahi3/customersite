@@ -6,10 +6,12 @@ import HomePage from './components/pages/Homepage';
 import LoginPage from './components/pages/LoginPage';
 import SignupPage from './components/pages/SignupPage';
 import DashboardPage from './components/pages/DashboardPage';
+import ProfilePage from './components/pages/ProfilePage';
 import MusicSearchPage from './components/pages/MusicSearchPage';
 import SportsSearchPage from './components/pages/SportsSearchPage';
 import TalentPage from './components/pages/TalentPage';
-import CheckoutPage from './components/pages/CheckoutPage';
+import SubscriptionPage from './components/pages/SubscriptionPage';
+import CheckoutPage2 from './components/pages/CheckoutPage2';
 import ForgotPasswordPage from './components/pages/ForgotPasswordPage';
 import GuestRoute from './components/routes/GuestRoute';
 import UserRoute from './components/routes/UserRoute';
@@ -50,6 +52,12 @@ const App = ({ location, isAuthenticated }) => (
     />
     <UserRoute
       location={location}
+      path='/profile'
+      exact
+      component={ProfilePage}
+    />
+    <UserRoute
+      location={location}
       path='/categories/music'
       exact
       component={MusicSearchPage}
@@ -68,9 +76,15 @@ const App = ({ location, isAuthenticated }) => (
     />
     <UserRoute
       location={location}
+      path='/subscriptions/:subscriptionid'
+      exact
+      component={SubscriptionPage}
+    />
+    <UserRoute
+      location={location}
       path='/checkout/:productid'
       exact
-      component={CheckoutPage}
+      component={CheckoutPage2}
     />
   </div>
 );

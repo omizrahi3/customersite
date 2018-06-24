@@ -1,4 +1,4 @@
-import { USER_LOGGED_IN, USER_LOGGED_OUT, USER_REGISTERED_FORM } from "../actions/types";
+import { USER_LOGGED_IN, USER_LOGGED_OUT, USER_REGISTERED_FORM, PROFILE_UPDATED } from "../actions/types";
 
 export default function user(state = {}, action = {}) {
   switch (action.type) {
@@ -8,6 +8,8 @@ export default function user(state = {}, action = {}) {
       return {};
     case USER_REGISTERED_FORM:
       return {};
+    case PROFILE_UPDATED:
+      return state;
     default:
       return state;
   }

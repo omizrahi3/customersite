@@ -12,6 +12,19 @@ const expOptions = [
 
 class CheckoutPage extends Component {
   state = {
+    options: [
+      {
+        key: 1,
+        value: 1,
+        number: '1234'
+      },
+      {
+        key: 2,
+        value: 2,
+        number: '5678'
+      }
+    ],
+    card: {},
     data: {
       FullName: "",
       CardNumber: "",
@@ -35,16 +48,16 @@ class CheckoutPage extends Component {
     console.log(AppUserId);
     console.log(this.state)
 
-    // const instance = axios.create({timeout: 3000});
-    // instance.defaults.headers.common['token'] = this.props.user.Token;
-    // instance.post('/api/api/GetAppUserCreditCards', { AppUserId })
-    // .then(res => res.data.Response)
-    // .then( cards => {
-    //   console.log(cards);
-    //   if (cards.length === 0) {
-    //     console.log('no cards');
-    //   }
-    // })
+    const instance = axios.create({timeout: 3000});
+    instance.defaults.headers.common['token'] = this.props.user.Token;
+    instance.post('http://www.qa.getchatwith.com/api/GetAppUserCreditCards', { AppUserId })
+    .then(res => res.data.Response)
+    .then( cards => {
+      console.log(cards);
+      if (cards.length === 0) {
+        console.log('no cards');
+      }
+    })
   }
 
   onChange = e =>
@@ -73,7 +86,7 @@ class CheckoutPage extends Component {
     console.log(data);
     const instance = axios.create({timeout: 3000});
     instance.defaults.headers.common['token'] = this.props.user.Token;
-    instance.post('/api/api/CreateWebTransactionNew', data)
+    instance.post('http://www.qa.getchatwith.com/api/CreateWebTransactionNew', data)
     .then(res => res.data.Response)
     .then( response => {
       console.log(response);
@@ -93,7 +106,8 @@ class CheckoutPage extends Component {
   render() {
     const { data } = this.state;
     return (
-      <Form onSubmit={this.onSubmit}>
+      <div>
+        <Form onSubmit={this.onSubmit}>
         <Form.Field>
           <label>Full Name</label>
           <input
@@ -151,6 +165,7 @@ class CheckoutPage extends Component {
         </Form.Field>
         <Button primary>Purchase</Button>
       </Form>
+      </div>
     )
   }
 }

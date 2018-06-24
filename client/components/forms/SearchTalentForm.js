@@ -30,7 +30,7 @@ class SearchTalentForm extends React.Component {
     this.setState({ loading: true });
     const instance = axios.create({timeout: 1000});
     instance.defaults.headers.common['token'] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHJpbmciOiJkZWZhdWx0IiwiaWF0IjoxNTI3Mjg5MzE3fQ.FB40tuqn1xUaSxSwCs6GpMAjen5zx1btH__eQuY0S7w";
-    instance.post('/api/api/GetAppTalentByCategory', {
+    instance.post('http://www.qa.getchatwith.com/api/GetAppTalentByCategory', {
       CategoryId: '6BAF3D6162EB4D2B8D9D363C04BB0539'
     })
     .then(res => res.data.Response)

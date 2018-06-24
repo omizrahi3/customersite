@@ -18,7 +18,7 @@ class TalentSearch extends React.Component {
 
   componentDidMount() {
     console.log('TalentSearch did mount');
-    const apiUrl = '/api/api/GetAppTalentByCategoryWeb';
+    const apiUrl = 'http://www.qa.getchatwith.com/api/GetAppTalentByCategoryWeb';
     const requestBody = {
       CategoryId: this.props.CategoryId,
       ResultNumberBegin: 0,
@@ -65,7 +65,7 @@ class TalentSearch extends React.Component {
     if (this.state.searchQuery) {
       console.log('GetAppTalentBySearch');
       const name = this.state.searchQuery.split(' ');
-      apiUrl = '/api/api/GetAppTalentBySearch';
+      apiUrl = 'http://www.qa.getchatwith.com/api/GetAppTalentBySearch';
       requestBody = {
         CategoryId: this.props.CategoryId,
         FirstName: name[0],
@@ -75,7 +75,7 @@ class TalentSearch extends React.Component {
       }
     } else {
       console.log('GetAppTalentByCategoryWeb');
-      apiUrl = '/api/api/GetAppTalentByCategoryWeb';
+      apiUrl = 'http://www.qa.getchatwith.com/api/GetAppTalentByCategoryWeb';
       requestBody = {
         CategoryId: this.props.CategoryId,
         ResultNumberBegin: offset,
@@ -95,7 +95,7 @@ class TalentSearch extends React.Component {
     if (this.state.searchQuery) {
       console.log('GetAppTalentBySearch');
       const name = this.state.searchQuery.split(' ');
-      apiUrl = '/api/api/GetAppTalentBySearch';
+      apiUrl = 'http://www.qa.getchatwith.com/api/GetAppTalentBySearch';
       requestBody = {
         CategoryId: this.props.CategoryId,
         FirstName: name[0],
@@ -105,7 +105,7 @@ class TalentSearch extends React.Component {
       }
     } else {
       console.log('GetAppTalentByCategoryWeb');
-      apiUrl = '/api/api/GetAppTalentByCategoryWeb';
+      apiUrl = 'http://www.qa.getchatwith.com/api/GetAppTalentByCategoryWeb';
       requestBody = {
         CategoryId: this.props.CategoryId,
         ResultNumberBegin: 0,

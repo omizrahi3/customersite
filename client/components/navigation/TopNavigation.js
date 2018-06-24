@@ -15,6 +15,7 @@ const TopNavigation = ({ user, logout }) => (
       <Dropdown trigger={<Icon name="user" size='huge' />}>
         <Dropdown.Menu>
           <Dropdown.Item onClick={() => logout()}>Logout</Dropdown.Item>
+          <Dropdown.Item as={Link} to='/profile'>Profile</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
     </Menu.Menu>
