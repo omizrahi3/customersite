@@ -10,8 +10,9 @@ import ProfilePage from './components/pages/ProfilePage';
 import MusicSearchPage from './components/pages/MusicSearchPage';
 import SportsSearchPage from './components/pages/SportsSearchPage';
 import TalentPage from './components/pages/TalentPage';
+import CartPage from './components/pages/CartPage';
 import SubscriptionPage from './components/pages/SubscriptionPage';
-import CheckoutPage2 from './components/pages/CheckoutPage2';
+import CheckoutPage from './components/pages/CheckoutPage';
 import ForgotPasswordPage from './components/pages/ForgotPasswordPage';
 import GuestRoute from './components/routes/GuestRoute';
 import UserRoute from './components/routes/UserRoute';
@@ -82,9 +83,15 @@ const App = ({ location, isAuthenticated }) => (
     />
     <UserRoute
       location={location}
+      path='/cart'
+      exact
+      component={CartPage}
+    />
+    <UserRoute
+      location={location}
       path='/checkout/:productid'
       exact
-      component={CheckoutPage2}
+      component={CheckoutPage}
     />
   </div>
 );

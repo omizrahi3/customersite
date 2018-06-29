@@ -1,181 +1,146 @@
 import React, { Component } from 'react'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Form, Button } from "semantic-ui-react";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { Segment, Checkbox } from "semantic-ui-react";
+import CreditCardForm from '../forms/CreditCardForm';
+import ExistingCheckoutForm from '../forms/ExistingCheckoutForm';
+import UpdateCheckoutForm from '../forms/UpdateCheckoutForm';
+import NewCheckoutForm from '../forms/NewCheckoutForm';
+import { checkoutExisting, checkoutNew, checkoutUpdate } from '../../actions/checkoutActions';
 
-const expOptions = [
-  { key: '1', text: 'January', value: 'january' },
-  { key: '2', text: 'February', value: 'february' },
-]
-
-class CheckoutPage extends Component {
+class CheckoutPage2 extends Component {
   state = {
-    options: [
-      {
-        key: 1,
-        value: 1,
-        number: '1234'
-      },
-      {
-        key: 2,
-        value: 2,
-        number: '5678'
-      }
-    ],
-    card: {},
-    data: {
-      FullName: "",
-      CardNumber: "",
-      CvcNumber: "",
-      ExpMonth: "",
-      ExpYear: ""
-    },
-    ProductTypeId: this.props.location.state.ProductTypeId,
+    card: null,
+    noCard: null,
+    updateCard: false,
+    addNewCard: false,
     ProductName: this.props.location.state.ProductName,
-    Price: this.props.location.state.Price,
-    TalentId: this.props.location.state.TalentId,
-    keys: [],
-    creditcards: {}
+    ProductOptionId: this.props.location.state.ProductOptionId,
+    Amount: this.props.location.state.Price,
+    talentid: this.props.location.state.talentid
   }
 
-  componentDidMount() {
-    console.log('CheckoutPage did mount')
+  componentDidMount = () => {
     const { productid } = this.props.match.params;
-    const { Token, AppUserId } = this.props.user;
-    console.log(Token);
-    console.log(AppUserId);
-    console.log(this.state)
+    console.log(this.props.user);
+    console.log(this.props.location.state);
+  }
 
-    const instance = axios.create({timeout: 3000});
-    instance.defaults.headers.common['token'] = this.props.user.Token;
-    instance.post('http://www.qa.getchatwith.com/api/GetAppUserCreditCards', { AppUserId })
-    .then(res => res.data.Response)
-    .then( cards => {
-      console.log(cards);
-      if (cards.length === 0) {
-        console.log('no cards');
+  noCardAvailable = () => this.setState({ noCard: true });
+
+  onCardSelect = card => this.setState({ card });
+
+  submitExisting = (data) => {
+    console.log('submitExisting');
+    const checkoutData = {
+      Token: this.props.user.Token,
+      checkout: {
+        ProductOptionId: this.props.match.params.productid,
+        ProductName: this.state.ProductName,
+        AppUserId: this.props.user.AppUserId,
+        SessionId: '',
+        Amount: this.state.Amount.toString(),
+        TalentId: this.state.talentid,
+        PaymentToken: data.PaymentToken,
+        DateMapperId: ''
       }
-    })
+    }
+    return this.props.checkoutExisting(checkoutData).then(() => this.props.history.push('/dashboard'));
   }
 
-  onChange = e =>
-    this.setState({
-      data: { ...this.state.data, [e.target.name]: e.target.value }
-  });
+  submitUpdate = (data) => {
+    console.log('submitUpdate');
+    const checkoutData = {
+      Token: this.props.user.Token,
+      checkout: {
+        ProductOptionId: this.props.match.params.productid,
+        ProductName: this.state.ProductName,
+        AppUserId: this.props.user.AppUserId,
+        SessionId: '',
+        Amount: this.state.Amount.toString(),
+        TalentId: this.state.talentid,
+        CreditCard: {
+          cardholderName: data.cardholderName,
+          cvv: data.cvv,
+          expirationDate: data.expirationDate,
+          number: data.maskedNumber
+        },
+        DateMapperId: ""
+      }
+    }
+    console.log(checkoutData);
+    return this.props.checkoutUpdate(checkoutData).then(() => this.props.history.push('/dashboard'));
+  }
 
-  onSubmit = e => {
-    e.preventDefault();
-    console.log(this.state.data);
-    const { productid } = this.props.match.params;
-    const { Token, AppUserId } = this.props.user;
-    const expDate = `${this.state.data.ExpMonth}/${this.state.data.ExpYear}`;
-    const data = {
-      "ProductOptionId": this.props.match.params.productid,
-      "ProductName": this.state.ProductName,
-      "AppUserId": AppUserId,
-      "SessionId":"",
-      "Amount": this.state.Price,
-      "TalentId": this.state.TalentId,
-      "NameOnCard": this.state.data.FullName,
-      "Cvv": this.state.data.CvcNumber,
-      "ExpirationDate": expDate,
-      "CardNumber": this.state.data.CardNumber
-    };
+  submitNew = (data) => {
+    console.log('submitNew');
     console.log(data);
-    const instance = axios.create({timeout: 3000});
-    instance.defaults.headers.common['token'] = this.props.user.Token;
-    instance.post('http://www.qa.getchatwith.com/api/CreateWebTransactionNew', data)
-    .then(res => res.data.Response)
-    .then( response => {
-      console.log(response);
-    })
-  };
+    const checkoutData = {
+      Token: this.props.user.Token,
+      checkout: {
+        ProductOptionId: this.props.match.params.productid,
+        ProductName: this.state.ProductName,
+        AppUserId: this.props.user.AppUserId,
+        SessionId: '',
+        Amount: this.state.Amount.toString(),
+        TalentId: this.state.talentid,
+        NameOnCard: data.cardholderName,
+        Cvv: data.cvv,
+        ExpirationDate: data.expirationDate,
+        CardNumber: data.maskedNumber,
+        DateMapperId: ''
+      }
+    }
+    return this.props.checkoutNew(checkoutData).then(() => this.props.history.push('/dashboard'));
+  }
 
-
-
-  renderCreditCards = keys => keys.map(key => {
-    return  (
-      <div>
-        you have credit cards
-      </div>
-    )
-  })
+  checkboxSelection = (checked) => {
+    this.setState({ updateCard: checked })
+  }
 
   render() {
-    const { data } = this.state;
+    const { AppUserId, Token } = this.props.user;
     return (
-      <div>
-        <Form onSubmit={this.onSubmit}>
-        <Form.Field>
-          <label>Full Name</label>
-          <input
-            type="text"
-            id="name"
-            name="FullName"
-            placeholder="Name as it appears on card"
-            value={data.FullName}
-            onChange={this.onChange}
-          />
-        </Form.Field>
-        <Form.Field>
-          <label>Card Number</label>
-          <input
-            type="text"
-            id="card"
-            name="CardNumber"
-            placeholder="Card #"
-            value={data.CardNumber}
-            onChange={this.onChange}
-          />
-        </Form.Field>
-        <Form.Field>
-          <label>CVC</label>
-          <input
-            type="text"
-            id="cvc"
-            name="CvcNumber"
-            placeholder="CVC"
-            value={data.CvcNumber}
-            onChange={this.onChange}
-          />
-        </Form.Field>
-        <Form.Field>
-          <label>Month</label>
-          <input
-            type="text"
-            id="month"
-            name="ExpMonth"
-            placeholder="Month"
-            value={data.ExpMonth}
-            onChange={this.onChange}
-          />
-        </Form.Field>
-        <Form.Field>
-          <label>Year</label>
-          <input
-            type="text"
-            id="year"
-            name="ExpYear"
-            placeholder="Year"
-            value={data.ExpYear}
-            onChange={this.onChange}
-          />
-        </Form.Field>
-        <Button primary>Purchase</Button>
-      </Form>
-      </div>
+      <Segment.Group>
+        <Segment>
+          <h1>Your Product</h1>
+        </Segment>
+        <Segment>
+          <CreditCardForm noCardAvailable={this.noCardAvailable} checkboxSelection={this.checkboxSelection} onCardSelect={this.onCardSelect} AppUserId={AppUserId} Token={Token}/>
+
+          {this.state.card && !this.state.updateCard && (
+            <div>
+              <h1>Select Card</h1>
+              <ExistingCheckoutForm submit={this.submitExisting} card={this.state.card} />
+            </div>
+          )}
+          {this.state.card && this.state.updateCard && (
+            <div>
+              <h1>Update Card</h1>
+              <UpdateCheckoutForm submit={this.submitUpdate} />
+            </div>
+          )}
+          {!this.state.card && this.state.noCard && (
+            <div>
+              <h1>Add Card</h1>
+              <NewCheckoutForm submit={this.submitNew} />
+            </div>
+          )}
+        </Segment>
+      </Segment.Group>
     )
   }
 }
 
-CheckoutPage.propTypes = {
+CheckoutPage2.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       productid: PropTypes.string.isRequired
     }).isRequired
-  }).isRequired
+  }).isRequired,
+  checkoutExisting: PropTypes.func.isRequired,
+  checkoutNew: PropTypes.func.isRequired,
+  checkoutUpdate: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -184,4 +149,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(CheckoutPage);
+export default connect(mapStateToProps, { checkoutExisting, checkoutNew, checkoutUpdate })(CheckoutPage2);

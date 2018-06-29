@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Grid, Segment, Image, Breadcrumb, Header, Modal, Button, Icon, Label } from "semantic-ui-react";
+import { Grid, Segment, Image, Breadcrumb, Header, Modal, Button, Icon, Label, Form, TextArea } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import { atc } from '../../actions/cartActions';
 import axios from "axios";
 
 class TalentPage extends Component {
@@ -13,7 +14,11 @@ class TalentPage extends Component {
     KnownFor: this.props.location.state.KnownFor,
     ProfilePictureReference: this.props.location.state.ProfilePictureReference,
     keys: [],
-    products: {}
+    products: {},
+    data: {
+      VideoMessage: ""
+    },
+    modalOpen: false
   }
 
   componentDidMount() {
@@ -37,26 +42,88 @@ class TalentPage extends Component {
     });
   }
 
-  atc = (product) => (
-    <Modal size="tiny" trigger={
-      <Button as={Link} to={{
-        pathname: `/checkout/${product.ProductOptionId}`,
-        state: {
-          talentid: this.props.match.params.talentid,
-          ProductTypeId: product.ProductTypeId,
-          ProductName: product.ProductDescription,
-          Price: product.WebPrice,
-          TalentId: this.props.match.params.talentid
-        }
-      }}
-        color='blue' fluid icon labelPosition='right'>
-        Purchase Product
-        <Icon name='right angle' />
-      </Button>
-    }>
+  // atc = (product) => (
+  //   <Modal size="tiny" trigger={
+  //     <Button as={Link} to={{
+  //       pathname: `/checkout/${product.ProductOptionId}`,
+  //       state: {
+  //         talentid: this.props.match.params.talentid,
+  //         ProductTypeId: product.ProductTypeId,
+  //         ProductName: product.ProductDescription,
+  //         Price: product.WebPrice,
+  //         TalentId: this.props.match.params.talentid
+  //       }
+  //     }}
+  //       color='blue' fluid icon labelPosition='right'>
+  //       Purchase Product
+  //       <Icon name='right angle' />
+  //     </Button>
+  //   }>
+  //     <Modal.Header>
+  //       Purchase Product
+  //     </Modal.Header>
+  //   </Modal>
+  // )
+
+  atcFeedHandleClick = (e, data) => {
+    const hashedProduct = this.state.products[data.value];
+    hashedProduct.ProfilePictureReference = this.state.ProfilePictureReference;
+    console.log(hashedProduct);
+    this.props.atc(hashedProduct);
+  }
+
+  atcVideoMessageHandleClick = (e, data) => {
+    this.setState({ modalOpen: false });
+    const hashedProduct = this.state.products[data.value];
+    hashedProduct.VideoMessage = this.state.data.VideoMessage;
+    hashedProduct.ProfilePictureReference = this.state.ProfilePictureReference;
+    console.log(hashedProduct);
+    this.props.atc(hashedProduct);
+  }
+
+  onChange = e => {
+    console.log(e);
+    this.setState({
+      ...this.state,
+      data: { ...this.state.data, [e.target.name]: e.target.value }
+    });
+  }
+
+  handleOpen = () => this.setState({ modalOpen: true })
+
+  atcFeed = (key, price) => (
+    <Button value={key} onClick={this.atcFeedHandleClick}>
+      <Button.Content>ADD TO CART</Button.Content>
+    </Button>
+  )
+
+  atcVideo = (key, price) => (
+    <Modal size="tiny" trigger={<Button onClick={this.handleOpen}>Show Modal</Button>}
+      open={this.state.modalOpen}
+      onClose={this.handleClose}
+      >
       <Modal.Header>
-        Purchase Product
+        Notify When Available
       </Modal.Header>
+      <Modal.Content>
+        <Form>
+          <Form.Field>
+            <TextArea 
+            maxLength="140"
+            placeholder='First name'
+            name="VideoMessage" onChange={(e, { value }) => this.setState({
+                ...this.state,
+                data: { ...this.state.data, [e.target.name]: e.target.value }
+              })
+            } />
+          </Form.Field>
+        </Form>
+      </Modal.Content>
+      <Modal.Actions>
+        <Button value={key} color='green' onClick={this.atcVideoMessageHandleClick}>
+          <Icon name='checkmark' /> Yes
+        </Button>
+      </Modal.Actions>
     </Modal>
   )
 
@@ -72,16 +139,19 @@ class TalentPage extends Component {
     const hashedProduct = this.state.products[key];
     console.log('///////////////////////////////');
     console.log(hashedProduct);
-    const atc = hashedProduct.CurrentUnfulfilled !== 0 
-    ? 
-    (this.atc(hashedProduct))
-    :
-    (this.notify());
+    let product;
+    if (hashedProduct.CurrentUnfulfilled === 0) {
+      product = (this.notify());
+    } else if (hashedProduct.ProductDescription === 'Feed') {
+      product = (this.atcFeed(key, hashedProduct.WebPrice));
+    } else if (hashedProduct.ProductDescription === 'Video Message') {
+      product = (this.atcVideo(key, hashedProduct.WebPrice));
+    }
     return  (
       <Segment.Group horizontal key={key}>
-        <Segment>${hashedProduct.Price}</Segment>
+        <Segment>${hashedProduct.WebPrice}</Segment>
         <Segment>{hashedProduct.ProductDescription}</Segment>
-        {atc}
+        {product}
       </Segment.Group>
     )
   })
@@ -123,7 +193,8 @@ TalentPage.propTypes = {
     params: PropTypes.shape({
       talentid: PropTypes.string.isRequired
     }).isRequired
-  }).isRequired
+  }).isRequired,
+  atc: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -132,4 +203,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(TalentPage);
+export default connect(mapStateToProps, { atc })(TalentPage);
