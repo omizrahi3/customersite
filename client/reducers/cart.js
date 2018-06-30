@@ -1,8 +1,10 @@
-import { PRODUCT_ADDED, REMOVE_PRODUCT, LOAD_CART } from "../actions/types";
+import { PRODUCT_ADDED, REMOVE_PRODUCT, LOAD_CART, REPLACE_CART } from "../actions/types";
 
 export default function cart(state = [], action = {}) {
   switch (action.type) {
     case LOAD_CART :
+      return [...action.cart];
+    case REPLACE_CART :
       return [...action.cart];
     case PRODUCT_ADDED :
       return [...state, action.product];

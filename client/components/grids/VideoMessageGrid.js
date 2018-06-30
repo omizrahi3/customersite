@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Grid, Segment, Image, Header, Button } from "semantic-ui-react";
+import { Grid, Segment, Image, Header, Button, Modal } from "semantic-ui-react";
 
 const VideoMessageGrid = ({ item, handleRemoveClick }) => (
   <Grid.Row key={item.ProductOptionId} stretched>
@@ -10,12 +10,15 @@ const VideoMessageGrid = ({ item, handleRemoveClick }) => (
     <Grid.Column width={12}>
       <Segment basic vertical>
         <Header as='h3'>
-          {item.TalentFirstName} {item.TalentLastName}
+          <Header.Content>
+            {item.TalentFirstName} {item.TalentLastName}
+            <Header.Subheader>{item.ProductDescription}</Header.Subheader>
+          </Header.Content>
         </Header>
       </Segment>
       <Segment basic vertical>
         <Header as='h4'>
-          {item.ProductDescription}
+          {item.VideoMessage}
         </Header>
       </Segment>
       <Segment basic vertical textAlign='right'>
@@ -25,7 +28,17 @@ const VideoMessageGrid = ({ item, handleRemoveClick }) => (
       </Segment>
       <div>
         <Button value={item.ProductOptionId} onClick={handleRemoveClick}>REMOVE</Button>
-        <Button>EDIT</Button>
+        <Modal trigger={<Button>EDIT</Button>} closeIcon>
+          <Modal.Content>
+            <p>
+              Your inbox is getting full, would you like us to enable automatic archiving of old messages?
+            </p>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button color='green'>Yes
+            </Button>
+          </Modal.Actions>
+        </Modal>
         <Button>IS THIS A GIFT?</Button>
       </div>
     </Grid.Column>

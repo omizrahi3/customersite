@@ -42,29 +42,6 @@ class TalentPage extends Component {
     });
   }
 
-  // atc = (product) => (
-  //   <Modal size="tiny" trigger={
-  //     <Button as={Link} to={{
-  //       pathname: `/checkout/${product.ProductOptionId}`,
-  //       state: {
-  //         talentid: this.props.match.params.talentid,
-  //         ProductTypeId: product.ProductTypeId,
-  //         ProductName: product.ProductDescription,
-  //         Price: product.WebPrice,
-  //         TalentId: this.props.match.params.talentid
-  //       }
-  //     }}
-  //       color='blue' fluid icon labelPosition='right'>
-  //       Purchase Product
-  //       <Icon name='right angle' />
-  //     </Button>
-  //   }>
-  //     <Modal.Header>
-  //       Purchase Product
-  //     </Modal.Header>
-  //   </Modal>
-  // )
-
   atcFeedHandleClick = (e, data) => {
     const hashedProduct = this.state.products[data.value];
     hashedProduct.ProfilePictureReference = this.state.ProfilePictureReference;

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Grid, Segment, Card, Image, Header, Button, List } from 'semantic-ui-react';
 import FeedGrid from '../grids/FeedGrid';
-import VideoMessageGrid from '../grids/VideoMessageGrid';
+import VideoMessage2Grid from '../grids/VideoMessage2Grid';
 import { rfc } from '../../actions/cartActions';
 
 class CartPage extends Component {
@@ -42,7 +42,7 @@ class CartPage extends Component {
       )
     } else if (item.ProductDescription === "Video Message") {
       return  (
-        <VideoMessageGrid
+        <VideoMessage2Grid
           key={item.ProductOptionId}
           item={item}
           handleRemoveClick={this.handleRemoveClick}

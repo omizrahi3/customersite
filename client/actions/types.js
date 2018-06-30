@@ -6,3 +6,4 @@ export const PROFILE_UPDATED = "PROFILE_UPDATED";
 export const PRODUCT_ADDED = "PRODUCT_ADDED";
 export const REMOVE_PRODUCT = "REMOVE_PRODUCT";
 export const LOAD_CART = "LOAD_CART";
+export const REPLACE_CART = "REPLACE_CART";
