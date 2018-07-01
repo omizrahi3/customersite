@@ -8,8 +8,7 @@ import VideoMessage2Grid from '../grids/VideoMessage2Grid';
 import NewCheckoutForm from '../forms/NewCheckoutForm';
 import ExistingCheckoutForm from '../forms/ExistingCheckoutForm';
 import CreditCardForm from '../forms/CreditCardForm';
-import { checkoutExisting, checkoutNew, checkoutUpdate } from '../../actions/checkoutActions';
-import { rfc } from '../../actions/cartActions';
+import { checkoutExisting, checkoutNew, checkoutUpdate, checkoutGuest } from '../../actions/checkoutActions';
 
 class BillingPage extends Component {
   state = {
@@ -21,7 +20,10 @@ class BillingPage extends Component {
     noCard: null,
     updateCard: false,
     loading: '',
-    success: false
+    success: false,
+    data: {
+      guestEmail: ''
+    }
   }
 
   componentDidMount() {
@@ -40,6 +42,12 @@ class BillingPage extends Component {
     this.setState({subtotal, user});
   }
 
+  onChange = e =>
+    this.setState({
+      ...this.state,
+      data: { ...this.state.data, [e.target.name]: e.target.value }
+    });
+
   noCardAvailable = () => this.setState({ noCard: true });
 
   checkboxSelection = (checked) => {
@@ -51,10 +59,37 @@ class BillingPage extends Component {
   submitNewGuest = (data) => {
     console.log('submitNewGuest');
     console.log(data);
+    this.setState({loading: 'true'});
+    const checkoutData = {
+      EmailAddress: this.state.data.guestEmail,
+      CreditCard: {
+        cardholderName: `${data.firstName} ${data.lastName}`,
+        cvv: data.cvv,
+        expirationDate: `${data.expMonth}/${data.expYear}`,
+        number: data.cardNumber
+      },
+      Products: []
+    };
+    this.props.cart.map(item => {
+      const product = {
+        "ProductOptionId": item.ProductOptionId,
+        "ProductName": item.ProductDescription,
+        "SessionId":"",
+        "Amount": item.WebPrice,
+        "TalentId": item.TalentId,
+        "DateMapperId": ""
+      }
+      checkoutData.Products.push(product);
+    });
+    console.log(checkoutData);
+    this.props.checkoutGuest(checkoutData)
+      .then(() => this.setState({ loading: 'false', success: true }))
+      .catch(() => this.setState({ loading: 'false', success: false }));
   }
 
   submitNew = (data) => {
     console.log('submitNew');
+    this.setState({loading: 'true'});
     console.log(data);
     const checkoutData = {
       AppUserId: this.props.user.AppUserId,
@@ -81,7 +116,9 @@ class BillingPage extends Component {
       checkout: checkoutData
     }
     console.log('READY');
-    return this.props.checkoutNew(checkoutObject).then(() => this.props.history.push('/dashboard'));
+    this.props.checkoutNew(checkoutObject)
+      .then(() => this.setState({ loading: 'false', success: true }))
+      .catch(() => this.setState({ loading: 'false', success: false }));
   }
 
   submitUpdate = (data) => {
@@ -121,11 +158,6 @@ class BillingPage extends Component {
       .catch(() => this.setState({ loading: 'false', success: false }));
   }
 
-  handleRemoveClick = (e, data) => {
-    console.log(data.value);
-    this.props.rfc(data.value);
-  }
-
   guestGrid = () => (
     <Grid columns={2} divided>
       <Grid.Row>
@@ -147,6 +179,7 @@ class BillingPage extends Component {
                     id="guestEmail"
                     name="guestEmail"
                     placeholder=""
+                    onChange={this.onChange}
                   />
               </Form.Field>
             </Form>
@@ -163,8 +196,8 @@ class BillingPage extends Component {
               </Header.Content>
             </Header>
             <div>
-              <Button color='blue'>SIGN IN</Button>
-              <Button color='blue'>SIGN UP</Button>
+              <Button color='blue' as={Link} to='/login'>SIGN IN</Button>
+              <Button color='blue' as={Link} to='/signup'>SIGN UP</Button>
             </div>
           </Segment>
         </Grid.Column>
@@ -243,7 +276,7 @@ class BillingPage extends Component {
               <Message.Header>
                 Purchase Complete. Confirmation Email Sent.
               </Message.Header>
-              <Link to="/dashboard">Go to your dashboard</Link>
+              <Link to="/talent">Browse More Talents</Link>
             </Message.Content>
           </Message>
         )}
@@ -322,9 +355,9 @@ class BillingPage extends Component {
 }
 
 BillingPage.propTypes = {
+  checkoutGuest: PropTypes.func.isRequired,
   checkoutNew: PropTypes.func.isRequired,
-  checkoutExisting: PropTypes.func.isRequired,
-  rfc: PropTypes.func.isRequired
+  checkoutExisting: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -334,4 +367,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { checkoutNew, checkoutExisting, rfc })(BillingPage);
+export default connect(mapStateToProps, { checkoutGuest, checkoutNew, checkoutExisting })(BillingPage);

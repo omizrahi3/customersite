@@ -24,7 +24,9 @@ class SportsSearchPage extends Component {
           <Breadcrumb>
             <Breadcrumb.Section as={Link} to="/dashboard">Home</Breadcrumb.Section>
             <Breadcrumb.Divider icon='right chevron' />
-            <Breadcrumb.Section active>Talent</Breadcrumb.Section>
+            <Breadcrumb.Section as={Link} to="/talent">Talent</Breadcrumb.Section>
+            <Breadcrumb.Divider icon='right chevron' />
+            <Breadcrumb.Section active>Sports</Breadcrumb.Section>
           </Breadcrumb>
           <Header color="green">SPORTS</Header>
         </Segment>

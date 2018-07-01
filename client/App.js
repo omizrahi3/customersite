@@ -7,6 +7,7 @@ import LoginPage from './components/pages/LoginPage';
 import SignupPage from './components/pages/SignupPage';
 import DashboardPage from './components/pages/DashboardPage';
 import ProfilePage from './components/pages/ProfilePage';
+import TalentLandingPage from './components/pages/TalentLandingPage';
 import MusicSearchPage from './components/pages/MusicSearchPage';
 import SportsSearchPage from './components/pages/SportsSearchPage';
 import TalentPage from './components/pages/TalentPage';
@@ -58,19 +59,25 @@ const App = ({ location, isAuthenticated }) => (
       exact
       component={ProfilePage}
     />
-    <UserRoute
+    <Route
+      location={location}
+      path='/talent'
+      exact
+      component={TalentLandingPage}
+    />
+    <Route
       location={location}
       path='/categories/music'
       exact
       component={MusicSearchPage}
     />
-    <UserRoute
+    <Route
       location={location}
       path='/categories/sports'
       exact
       component={SportsSearchPage}
     />
-    <UserRoute
+    <Route
       location={location}
       path='/talent/:talentid'
       exact

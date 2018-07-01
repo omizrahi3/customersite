@@ -29,9 +29,11 @@ class MusicSearchPage extends Component {
           <Breadcrumb>
             <Breadcrumb.Section as={Link} to="/dashboard">Home</Breadcrumb.Section>
             <Breadcrumb.Divider icon='right chevron' />
-            <Breadcrumb.Section active>Talent</Breadcrumb.Section>
+            <Breadcrumb.Section as={Link} to="/talent">Talent</Breadcrumb.Section>
+            <Breadcrumb.Divider icon='right chevron' />
+            <Breadcrumb.Section active>Music</Breadcrumb.Section>
           </Breadcrumb>
-          <Header color="blue">MUSIC</Header>
+          <Header color="red">MUSIC</Header>
         </Segment>
         <Segment basic>
           <Header as='h5' color="grey">Additional Categories</Header>

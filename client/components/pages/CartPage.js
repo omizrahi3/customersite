@@ -73,7 +73,7 @@ class CartPage extends Component {
             <Icon name="warning sign" />
             <Message.Content>
               <Message.Header>Cart Is Empty. Please </Message.Header>
-              <Link to="/categories/music">Go Back to Talent Search</Link>
+              <Link to="/talent">Go Back to Talent Search</Link>
             </Message.Content>
           </Message>
         )}

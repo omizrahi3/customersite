@@ -25,6 +25,9 @@ export default {
       axios.post("http://www.qa.getchatwith.com/auth/reset_password_request", { email })
   },
   checkout: {
+    guest: data => {
+      return axios.post("http://www.qa.getchatwith.com/home/CreateWebTransactionGuest", data).then(res => res.data)
+    },
     existing: data => {
       const instance = axios.create({ timeout: 3000 });
       instance.defaults.headers.common['token'] = data.Token;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Grid, Segment, Image, Breadcrumb, Header, Modal, Button, Icon, Label, Form, TextArea } from "semantic-ui-react";
+import { Grid, Segment, Image, Breadcrumb, Header, Modal, Button, Icon, Label, Form, TextArea, Message } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { atc } from '../../actions/cartActions';
 import axios from "axios";
@@ -18,7 +18,8 @@ class TalentPage extends Component {
     data: {
       VideoMessage: ""
     },
-    modalOpen: false
+    modalOpen: false,
+    productAdded: false
   }
 
   componentDidMount() {
@@ -47,11 +48,12 @@ class TalentPage extends Component {
     const hashedProduct = this.state.products[data.value];
     hashedProduct.ProfilePictureReference = this.state.ProfilePictureReference;
     console.log(hashedProduct);
+    this.setState({ productAdded: true });
     this.props.atc(hashedProduct);
   }
 
   atcVideoMessageHandleClick = (e, data) => {
-    this.setState({ modalOpen: false });
+    this.setState({ modalOpen: false, productAdded: true });
     const hashedProduct = this.state.products[data.value];
     hashedProduct.VideoMessage = this.state.data.VideoMessage;
     hashedProduct.ProfilePictureReference = this.state.ProfilePictureReference;
@@ -135,9 +137,19 @@ class TalentPage extends Component {
   })
 
   render() {
-    const { previousPage, FirstName, LastName, ProfilePictureReference, KnownFor } = this.state;
+    const { previousPage, FirstName, LastName, ProfilePictureReference, KnownFor, productAdded } = this.state;
     return (
-      <Grid centered columns={3}>
+      <div>
+        {productAdded && (
+          <Message success icon>
+            <Icon name="checkmark" />
+            <Message.Content>
+              <Message.Header>Product Added. Please </Message.Header>
+              <Link to="/cart">Go To Cart.</Link>
+            </Message.Content>
+          </Message>
+        )}
+        <Grid centered columns={3}>
           <Grid.Column>
             <Segment basic><Image src={ProfilePictureReference} /></Segment>
           </Grid.Column>
@@ -146,7 +158,9 @@ class TalentPage extends Component {
             <Breadcrumb>
               <Breadcrumb.Section as={Link} to="/dashboard">Home</Breadcrumb.Section>
               <Breadcrumb.Divider icon='right chevron' />
-              <Breadcrumb.Section as={Link} to={previousPage}>Talent</Breadcrumb.Section>
+              <Breadcrumb.Section as={Link} to="/talent">Talent</Breadcrumb.Section>
+              <Breadcrumb.Divider icon='right chevron' />
+              <Breadcrumb.Section as={Link} to={previousPage}>Category</Breadcrumb.Section>
               <Breadcrumb.Divider icon='right chevron' />
               <Breadcrumb.Section active>{`${FirstName} ${LastName}`}</Breadcrumb.Section>
             </Breadcrumb>
@@ -162,6 +176,7 @@ class TalentPage extends Component {
             {this.state.keys.length > 0 && (this.renderProducts(this.state.keys))}
           </Grid.Column>
       </Grid>
+      </div>
     )
   }
 }
