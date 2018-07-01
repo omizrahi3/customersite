@@ -11,6 +11,7 @@ import MusicSearchPage from './components/pages/MusicSearchPage';
 import SportsSearchPage from './components/pages/SportsSearchPage';
 import TalentPage from './components/pages/TalentPage';
 import CartPage from './components/pages/CartPage';
+import BillingPage from './components/pages/BillingPage';
 import SubscriptionPage from './components/pages/SubscriptionPage';
 import CheckoutPage from './components/pages/CheckoutPage';
 import ForgotPasswordPage from './components/pages/ForgotPasswordPage';
@@ -81,7 +82,7 @@ const App = ({ location, isAuthenticated }) => (
       exact
       component={SubscriptionPage}
     />
-    <UserRoute
+    <Route
       location={location}
       path='/cart'
       exact
@@ -92,6 +93,12 @@ const App = ({ location, isAuthenticated }) => (
       path='/checkout/:productid'
       exact
       component={CheckoutPage}
+    />
+    <Route
+      location={location}
+      path='/billing'
+      exact
+      component={BillingPage}
     />
   </div>
 );

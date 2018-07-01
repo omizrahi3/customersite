@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Form, Button, Grid, Segment, Image, Message } from "semantic-ui-react";
+import { Form, Button, Grid, Segment, Image, Message, Input } from "semantic-ui-react";
 
 class ExistingCheckoutForm extends React.Component {
   state = {
@@ -30,18 +30,14 @@ class ExistingCheckoutForm extends React.Component {
 
   onSubmit = e => {
     e.preventDefault();
-    this.props
-        .submit(this.state.data)
-        .catch(err => 
-          this.setState({ errors: err })
-        );
+    this.props.submit(this.state.data);
   };
 
   render() {
     const { data, errors } = this.state;
 
     return (
-      <Segment>
+      <Segment basic secondary>
         <Form onSubmit={this.onSubmit}>
           {errors.server && (
             <Message negative>
@@ -49,63 +45,25 @@ class ExistingCheckoutForm extends React.Component {
               <p>{errors.server}</p>
             </Message>
           )}
-          <Grid columns={2} stackable>
-            <Grid.Row>
-              <Grid.Column>
-                <Form.Field>
-                  <label htmlFor="title">Cardholder Name</label>
-                  <input
-                    disabled
-                    type="text"
-                    id="cardholderName"
-                    name="cardholderName"
-                    placeholder="Name"
-                    value={data.cardholderName}
-                  />
-                </Form.Field>
-
-                <Form.Field>
-                  <label htmlFor="maskedNumber">Card Number</label>
-                  <input
-                    disabled
-                    type="text"
-                    id="maskedNumber"
-                    name="maskedNumber"
-                    placeholder="Card Number"
-                    value={data.maskedNumber}
-                  />
-                </Form.Field>
-                <Form.Field>
-                  <label htmlFor="cardType">Card Type</label>
-                  <input
-                    disabled
-                    type="text"
-                    id="cardType"
-                    name="cardType"
-                    placeholder="Card Type"
-                    value={data.cardType}
-                  />
-                </Form.Field>
-                <Form.Field>
-                  <label htmlFor="expirationDate">Card Type</label>
-                  <input
-                    disabled
-                    type="text"
-                    id="expirationDate"
-                    name="expirationDate"
-                    placeholder="Card Expiration"
-                    value={data.expirationDate}
-                  />
-                </Form.Field>
-
-              </Grid.Column>
-
-            </Grid.Row>
-
-            <Grid.Row>
-              <Button primary>Checkout</Button>
-            </Grid.Row>
-          </Grid>
+            <Form.Field
+              disabled
+              width={12}
+              id='cardholderName'
+              control={Input}
+              label='CARD HOLDER NAME*'
+              name="cardholderName"
+              value={data.cardholderName}
+            />
+            <Form.Field
+              disabled
+              width={12}
+              id='maskedNumber'
+              control={Input}
+              label='CARD NUMBER*'
+              name="maskedNumber"
+              value={data.maskedNumber}
+            />
+            <Button primary>PLACE ORDER</Button>
         </Form>
       </Segment>
     );

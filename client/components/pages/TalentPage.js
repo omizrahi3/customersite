@@ -26,7 +26,7 @@ class TalentPage extends Component {
     const { talentid } = this.props.match.params;
 
     const instance = axios.create({timeout: 3000});
-    instance.defaults.headers.common['token'] = this.props.user.Token;
+    // instance.defaults.headers.common['token'] = this.props.user.Token;
     instance.post('http://www.qa.getchatwith.com/home/GetProductOptionByTalent', { TalentId: talentid })
     .then(res => res.data.Response)
     .then(products => {
@@ -34,6 +34,7 @@ class TalentPage extends Component {
       const keys = [];
       const productsHash = {};
       products.forEach(product => {
+        product.TalentId = talentid;
         productsHash[product.ProductOptionId] = product;
         keys.push(product.ProductOptionId);
       });

@@ -37,16 +37,8 @@ export const rfc = ProductOptionId => dispatch => {
 export const editCart = product => (dispatch, getState) => {
   const cart = getState().cart;
   const found = cart.findIndex(element => {
-    console.log('/////////////////////////////////////');
-    console.log(product)
-    console.log(element.ProductOptionId);
-    console.log('/////////////////////////////////////');
-    if (product.ProductOptionId === element.ProductOptionId) {
-      console.log('winner winner chicken dinner');
-    }
     return element.ProductOptionId === product.ProductOptionId;
   });
-  console.log(found);
   const storedCart = JSON.parse(localStorage.getItem("chatwithCart"));
   const newCart = storedCart.map((existing, index) => index === found ? product : existing)
   localStorage.setItem("chatwithCart", JSON.stringify(newCart));

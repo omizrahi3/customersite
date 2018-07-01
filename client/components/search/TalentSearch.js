@@ -18,7 +18,7 @@ class TalentSearch extends React.Component {
 
   componentDidMount() {
     console.log('TalentSearch did mount');
-    const apiUrl = 'http://www.qa.getchatwith.com/api/GetAppTalentByCategoryWeb';
+    const apiUrl = 'http://www.qa.getchatwith.com/home/GetAppTalentByCategoryWeb';
     const requestBody = {
       CategoryId: this.props.CategoryId,
       ResultNumberBegin: 0,
@@ -46,6 +46,9 @@ class TalentSearch extends React.Component {
 
   renderTalents = keys => keys.map(key => {
     const hashedTalent = this.state.talents[key];
+    if (hashedTalent.KnownFor === 0) {
+      hashedTalent.KnownFor = "";
+    }
     return  (
         <TalentLinkCard
           key={key}
@@ -75,7 +78,7 @@ class TalentSearch extends React.Component {
       }
     } else {
       console.log('GetAppTalentByCategoryWeb');
-      apiUrl = 'http://www.qa.getchatwith.com/api/GetAppTalentByCategoryWeb';
+      apiUrl = 'http://www.qa.getchatwith.com/home/GetAppTalentByCategoryWeb';
       requestBody = {
         CategoryId: this.props.CategoryId,
         ResultNumberBegin: offset,

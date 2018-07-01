@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Grid, Segment, Card, Image, Header, Button, List } from 'semantic-ui-react';
+import { Link } from "react-router-dom";
+import { Grid, Segment, Card, Message, Header, Button, Breadcrumb, Icon } from 'semantic-ui-react';
 import FeedGrid from '../grids/FeedGrid';
 import VideoMessage2Grid from '../grids/VideoMessage2Grid';
 import { rfc } from '../../actions/cartActions';
@@ -25,14 +26,18 @@ class CartPage extends Component {
 
   handleRemoveClick = (e, data) => {
     console.log(data.value);
+    let subtotal = 0;
+    this.props.cart.map(item => {
+      if (item.ProductOptionId !== data.value) {
+        subtotal += item.WebPrice;
+      }
+    })
+    this.setState({subtotal})
     this.props.rfc(data.value);
   }
 
   renderCartItems = cart => cart.map(item => {
-    console.log(item);
-    
     if (item.ProductDescription === "Feed") {
-      console.log('HELLO');
       return  (
         <FeedGrid
           key={item.ProductOptionId}
@@ -55,6 +60,23 @@ class CartPage extends Component {
     const { cart } = this.props;
     return (
       <div>
+        <Segment basic>
+          <Breadcrumb>
+            <Breadcrumb.Section as={Link} to="/dashboard">Home</Breadcrumb.Section>
+            <Breadcrumb.Divider icon='right chevron' />
+            <Breadcrumb.Section active>Cart</Breadcrumb.Section>
+          </Breadcrumb>
+          <Header color="yellow">BILLING</Header>
+        </Segment>
+        {cart.length === 0  && (
+          <Message negative icon>
+            <Icon name="warning sign" />
+            <Message.Content>
+              <Message.Header>Cart Is Empty. Please </Message.Header>
+              <Link to="/categories/music">Go Back to Talent Search</Link>
+            </Message.Content>
+          </Message>
+        )}
         <Grid>
           <Grid.Column width={12}>
             <Segment inverted color='blue'>{cart.length} Items</Segment>
@@ -107,7 +129,12 @@ class CartPage extends Component {
               </Grid>
               </Card.Content>
               <Card.Content>
-                <Button>CHECKOUT</Button>
+                {cart.length > 0 && (
+                  <Button as={Link} to='/billing'>CHECKOUT</Button>
+                )}
+                {this.props.cart.length === 0 && (
+                  <Button disabled as={Link} to='/billing'>CHECKOUT</Button>
+                )}
               </Card.Content>
             </Card>
           </Grid.Column>

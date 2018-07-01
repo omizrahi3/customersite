@@ -6,7 +6,7 @@ import TalentSearch from '../search/TalentSearch';
 
 class MusicSearchPage extends Component {
   state = {
-    endpoint: 'http://www.qa.getchatwith.com/api/GetAppTalentByCategoryWeb',
+    endpoint: 'http://www.qa.getchatwith.com/home/GetAppTalentByCategoryWeb',
     CategoryId: '021D71E9EE9E4C849111A438C1322DBD',
     talent: null
   }
@@ -50,10 +50,4 @@ class MusicSearchPage extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    user: state.user
-  };
-}
-
-export default connect(mapStateToProps)(MusicSearchPage);
+export default connect(null)(MusicSearchPage);
