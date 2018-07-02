@@ -1,0 +1,771 @@
+div#scopedheader {
+  /*! CSS Used from: https://getchatwith.com/wp-content/themes/composer/_css/pix-icons.css?ver=3.2.3&nocache=1 ; media=all */
+  /*! CSS Used from: https://getchatwith.com/wp-content/themes/composer/_css/bootstrap.min.css?ver=3.1.1&nocache=1 ; media=all */
+  /*! CSS Used from: https://getchatwith.com/wp-content/themes/composer/_css/main.css?ver=3.2.3&nocache=1 ; media=all */
+  /*! CSS Used from: https://getchatwith.com/wp-content/uploads/composer/custom.css?ver=1530503308&nocache=1 ; media=all */
+  /*! CSS Used from: https://getchatwith.com/wp-content/themes/composer/_css/responsive.css?ver=3.2.3&nocache=1 ; media=all */
+  /*! CSS Used from: Embedded */
+  /*! CSS Used fontfaces */
+}
+@media all {
+  div#scopedheader [class*=" pixicon-"]:before {
+    font-family: "pix-fonts" !important;
+    font-style: normal!important;
+    font-weight: normal!important;
+    font-variant: normal!important;
+    text-transform: none!important;
+    speak: none;
+    line-height: 1.05;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  div#scopedheader .pixicon-elegant-search:before {
+    content: "\7e";
+  }
+}
+@media all {
+  div#scopedheader header,
+  div#scopedheader nav {
+    display: block;
+  }
+  div#scopedheader a {
+    background: transparent;
+  }
+  div#scopedheader a:active,
+  div#scopedheader a:hover {
+    outline: 0;
+  }
+  div#scopedheader img {
+    border: 0;
+  }
+  div#scopedheader input {
+    color: inherit;
+    font: inherit;
+    margin: 0;
+  }
+  div#scopedheader input::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+  }
+  div#scopedheader input {
+    line-height: normal;
+  }
+  div#scopedheader * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  div#scopedheader *:before,
+  div#scopedheader *:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  div#scopedheader input {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+  }
+  div#scopedheader a {
+    color: #428bca;
+    text-decoration: none;
+  }
+  div#scopedheader a:hover,
+  div#scopedheader a:focus {
+    color: #2a6496;
+    text-decoration: underline;
+  }
+  div#scopedheader a:focus {
+    outline: thin dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+  }
+  div#scopedheader img {
+    vertical-align: middle;
+  }
+  div#scopedheader ul {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  div#scopedheader .container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  div#scopedheader .clearfix:before,
+  div#scopedheader .clearfix:after,
+  div#scopedheader .container:before,
+  div#scopedheader .container:after {
+    content: " ";
+    display: table;
+  }
+  div#scopedheader .clearfix:after,
+  div#scopedheader .container:after {
+    clear: both;
+  }
+}
+@media all and (print) {
+  div#scopedheader * {
+    text-shadow: none!important;
+    color: #000!important;
+    background: transparent!important;
+    box-shadow: none!important;
+  }
+  div#scopedheader a,
+  div#scopedheader a:visited {
+    text-decoration: underline;
+  }
+  div#scopedheader a[href]:after {
+    content: " (" attr(href) ")";
+  }
+  div#scopedheader a[href^="#"]:after {
+    content: "";
+  }
+  div#scopedheader img {
+    page-break-inside: avoid;
+  }
+  div#scopedheader img {
+    max-width: 100%!important;
+  }
+}
+@media all and (min-width: 768px) {
+  div#scopedheader .container {
+    width: 750px;
+  }
+}
+@media all and (min-width: 992px) {
+  div#scopedheader .container {
+    width: 970px;
+  }
+}
+@media all and (min-width: 1200px) {
+  div#scopedheader .container {
+    width: 1170px;
+  }
+}
+@media all {
+  div#scopedheader body :focus {
+    outline: none;
+  }
+  div#scopedheader a {
+    text-decoration: none;
+    -webkit-transition: all ease-in-out 0.3s;
+    -moz-transition: all ease-in-out 0.3s;
+    -ms-transition: all ease-in-out 0.3s;
+    -o-transition: all ease-in-out 0.3s;
+    transition: all ease-in-out 0.3s;
+  }
+  div#scopedheader a:hover {
+    text-decoration: none;
+    color: #a5a5a5;
+  }
+  div#scopedheader a:focus,
+  div#scopedheader a:active {
+    outline: none;
+    text-decoration: none;
+  }
+  div#scopedheader ul {
+    padding: 0px;
+    padding-left: 10px;
+    list-style-position: inside;
+    margin-bottom: 0;
+  }
+  div#scopedheader img {
+    max-width: 100%;
+    height: auto;
+  }
+  div#scopedheader .full-header .header-wrap .container {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+  div#scopedheader .header {
+    border-bottom: 1px solid #f1f2f2;
+  }
+  div#scopedheader .header-elem {
+    float: left;
+    margin-left: 35px;
+  }
+  div#scopedheader .header-elem:first-child {
+    margin-left: 0;
+  }
+  div#scopedheader .mobile-menu {
+    display: none;
+  }
+  div#scopedheader .pix-menu {
+    float: right;
+    height: 100px;
+    position: relative;
+    z-index: 1;
+    display: none;
+    margin-left: 20px;
+  }
+  div#scopedheader .pix-menu-trigger {
+    position: relative;
+    display: block;
+    width: 18px;
+    height: 16px;
+    cursor: pointer;
+    top: 50%;
+    margin-top: -10px;
+  }
+  div#scopedheader .pix-menu-trigger span {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 3px;
+    margin-top: -2px;
+    background-color: #000;
+    font-size: 0px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-transition: background-color 0.2s;
+    -moz-transition: background-color 0.2s;
+    -ms-transition: background-color 0.2s;
+    -o-transition: background-color 0.2s;
+    transition: background-color 0.2s;
+  }
+  div#scopedheader .pix-menu-trigger span:before,
+  div#scopedheader .pix-menu-trigger span:after {
+    position: absolute;
+    left: 0;
+    width: 80%;
+    height: 100%;
+    background: #000;
+    content: '';
+    -webkit-transition: -webkit-transform 0.3s;
+    -moz-transition: -moz-transform 0.3s;
+    -ms-transition: -ms-transform 0.3s;
+    -o-transition: -o-transform 0.3s;
+    transition: transform 0.3s;
+  }
+  div#scopedheader .pix-menu-trigger span:before {
+    -webkit-transform: translateY(-250%);
+    -moz-transform: translateY(-250%);
+    -ms-transform: translateY(-250%);
+    -o-transform: translateY(-250%);
+    transform: translateY(-250%);
+    right: 0;
+    left: auto;
+    width: 130%;
+  }
+  div#scopedheader .pix-menu-trigger span:after {
+    -webkit-transform: translateY(250%);
+    -moz-transform: translateY(250%);
+    -ms-transform: translateY(250%);
+    -o-transform: translateY(250%);
+    transform: translateY(250%);
+    width: 60%;
+    left: auto;
+    right: 0;
+  }
+  div#scopedheader .header-con li {
+    list-style: none;
+  }
+  div#scopedheader .header-wrap {
+    position: relative;
+    z-index: 10;
+    background: #fff;
+  }
+  div#scopedheader .header-con {
+    top: -100%;
+    -webkit-transition: top ease .5s;
+    -moz-transition: top ease .5s;
+    -ms-transition: top ease .5s;
+    -o-transition: top ease .5s;
+    transition: top ease .5s;
+  }
+  div#scopedheader #logo {
+    float: left;
+    line-height: 100px;
+    font-size: 30px;
+    font-family: "Poppins", Arial, sans-serif;
+    font-weight: 700;
+  }
+  div#scopedheader .light-logo {
+    display: none;
+  }
+  div#scopedheader .dark-logo {
+    display: inline-block;
+  }
+  div#scopedheader .sticky-logo {
+    display: none;
+  }
+  div#scopedheader .mobile-res-logo {
+    display: none;
+  }
+  div#scopedheader .main-nav {
+    float: right;
+    line-height: 100px;
+    text-align: left;
+  }
+  div#scopedheader .main-nav .menu {
+    float: left;
+    padding-left: 0;
+  }
+  div#scopedheader .main-nav ul {
+    margin-bottom: 0;
+  }
+  div#scopedheader .main-nav .menu li {
+    float: left;
+    font-family: "Poppins", Arial, sans-serif;
+    font-size: 14px;
+    margin-bottom: 0;
+    text-transform: uppercase;
+    -webkit-backface-visibility: hidden;
+  }
+  div#scopedheader .main-nav .menu > li:last-child > a {
+    padding-right: 0;
+  }
+  div#scopedheader .main-nav li a {
+    color: #1a1a1a;
+    font-weight: 500;
+    padding: 0 18px;
+    display: block;
+  }
+  div#scopedheader .main-nav .current-menu-item > a {
+    opacity: 1;
+  }
+  div#scopedheader #inner-header {
+    position: relative;
+  }
+  div#scopedheader .main-nav li.pix-submenu {
+    position: relative;
+  }
+  div#scopedheader .widget-right {
+    float: right;
+    margin-left: 20px;
+  }
+  div#scopedheader .search-btn {
+    position: relative;
+    cursor: pointer;
+    padding-left: 10px;
+    line-height: 100px;
+    height: 100px;
+    float: left;
+    color: #1a1a1a;
+    -webkit-transition: all ease-in-out 0.3s;
+    -moz-transition: all ease-in-out 0.3s;
+    -ms-transition: all ease-in-out 0.3s;
+    -o-transition: all ease-in-out 0.3s;
+    transition: all ease-in-out 0.3s;
+  }
+  div#scopedheader .search-btn .pix-icon {
+    padding-left: 0;
+  }
+  div#scopedheader .topSearchForm {
+    position: absolute;
+    right: 0;
+    top: 100px;
+    background: #1a1a1a;
+    z-index: 1;
+    padding: 8px;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transform: translateY(15px);
+    -moz-transform: translateY(15px);
+    -ms-transform: translateY(15px);
+    -o-transform: translateY(15px);
+    transform: translateY(15px);
+    -webkit-transition: all ease 0.3s;
+    -moz-transition: all ease 0.3s;
+    -ms-transition: all ease 0.3s;
+    transition: all ease 0.3s;
+    z-index: -1;
+    line-height: initial;
+  }
+  div#scopedheader .textfield {
+    border: none;
+    padding: 4px 10px;
+    width: 250px;
+    font-style: normal;
+    font-size: 14px;
+    font-family: "Poppins", Arial, sans-serif;
+    color: #fff;
+    height: 30px;
+    background: none;
+    outline: none;
+  }
+  div#scopedheader .pix-icon {
+    padding-left: 2px;
+    vertical-align: middle;
+  }
+  div#scopedheader ul {
+    padding: 0px;
+  }
+  div#scopedheader a,
+  div#scopedheader .main-nav .current-menu-item > a,
+  div#scopedheader .main-nav li:hover > a {
+    color: #00a9d1;
+  }
+  div#scopedheader ::-moz-selection {
+    background: #00a9d1;
+    color: #fff;
+  }
+  div#scopedheader ::selection {
+    background: #00a9d1;
+    color: #fff;
+  }
+  div#scopedheader .container {
+    max-width: 100%;
+  }
+}
+@media all and (screen) and (min-width: 1200px) {
+  div#scopedheader .container {
+    width: 1230px;
+  }
+}
+@media all {
+  div#scopedheader #logo,
+  div#scopedheader .main-nav .menu li,
+  div#scopedheader .textfield {
+    font-family: 'Poppins', Arial, sans-serif;
+  }
+}
+@media all and (screen) and (max-width: 991px) {
+  div#scopedheader .container {
+    max-width: 682px;
+    width: 100%;
+  }
+}
+@media all and (screen) and (max-width: 767px) {
+  div#scopedheader .container {
+    max-width: 428px;
+  }
+}
+@media all and (screen) and (max-width: 480px) {
+  div#scopedheader .container {
+    max-width: 80%;
+  }
+}
+@media all and (screen) and (max-width: 991px) {
+  div#scopedheader .pix-menu {
+    display: block;
+  }
+  div#scopedheader .main-nav {
+    display: none!important;
+  }
+  div#scopedheader .widget-right {
+    display: none!important;
+  }
+}
+@media all and (screen) and (max-width: 991px) {
+  div#scopedheader .container {
+    width: 682px;
+  }
+  div#scopedheader .mobile-res-logo {
+    display: inline-block;
+  }
+  div#scopedheader .mobile-logo-yes .dark-logo,
+  div#scopedheader .mobile-logo-yes .light-logo {
+    display: none!important;
+  }
+  div#scopedheader .widget-right {
+    display: none!important;
+  }
+  div#scopedheader #logo {
+    text-align: left;
+  }
+  div#scopedheader .mobile-menu {
+    display: block;
+  }
+  div#scopedheader .search-btn {
+    margin-left: 15px;
+    margin-top: 6px;
+    color: #fff;
+    -webkit-backface-visibility: hidden;
+    display: none;
+  }
+  div#scopedheader .topSearchForm {
+    top: 49px;
+    left: 0;
+    right: auto;
+    width: 166px;
+  }
+}
+@media all and (screen) and (max-width: 767px) {
+  div#scopedheader .container {
+    width: 428px;
+  }
+  div#scopedheader .pix-menu {
+    height: 80px;
+    line-height: inherit;
+  }
+  div#scopedheader #inner-header {
+    text-align: center;
+  }
+  div#scopedheader .mobile-menu {
+    line-height: 21px;
+    margin-top: 27px;
+  }
+  div#scopedheader #logo {
+    text-align: left;
+    display: inline-block;
+    line-height: 80px;
+  }
+}
+@media all and (screen) and (max-width: 480px) {
+  div#scopedheader .full-header .header-wrap .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  div#scopedheader .container {
+    max-width: 80%;
+    min-width: 280px;
+  }
+  div#scopedheader #logo {
+    display: inline-block;
+    max-width: 80%;
+  }
+  div#scopedheader .header-elem {
+    float: none;
+    display: inline-block;
+  }
+}
+@media all and (screen) and (max-width: 320px) {
+  div#scopedheader .container {
+    min-width: 80%;
+  }
+  div#scopedheader .full-header .header-wrap .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  div#scopedheader #inner-header {
+    text-align: center;
+  }
+}
+div#scopedheader #menu-item-479 {
+  background: #12457b;
+  padding-right: 20px;
+}
+div#scopedheader #menu-item-479 a {
+  color: #fff;
+}
+div#scopedheader #menu-item-479 a:hover {
+  color: #1d9ad6;
+}
+@font-face {
+  font-family: "pix-fonts";
+  src: url(https://getchatwith.com/wp-content/themes/composer/_fonts/pix-fonts/pix-fonts.eot);
+  src: url(https://getchatwith.com/wp-content/themes/composer/_fonts/pix-fonts/pix-fonts.eot#iefix) format("embedded-opentype"), url(https://getchatwith.com/wp-content/themes/composer/_fonts/pix-fonts/pix-fonts.woff) format("woff"), url(https://getchatwith.com/wp-content/themes/composer/_fonts/pix-fonts/pix-fonts.ttf) format("truetype"), url(https://getchatwith.com/wp-content/themes/composer/_fonts/pix-fonts/pix-fonts.svg#pix-fonts) format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 100;
+  src: local('Poppins Thin'), local('Poppins-Thin'), url(https://fonts.gstatic.com/s/poppins/v5/pxiGyp8kv8JHgFVrLPTucXtAOvWDSHFF.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 100;
+  src: local('Poppins Thin'), local('Poppins-Thin'), url(https://fonts.gstatic.com/s/poppins/v5/pxiGyp8kv8JHgFVrLPTufntAOvWDSHFF.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 100;
+  src: local('Poppins Thin'), local('Poppins-Thin'), url(https://fonts.gstatic.com/s/poppins/v5/pxiGyp8kv8JHgFVrLPTucHtAOvWDSA.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Poppins Light'), local('Poppins-Light'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLDz8Z11lFd2JQEl8qw.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Poppins Light'), local('Poppins-Light'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLDz8Z1JlFd2JQEl8qw.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Poppins Light'), local('Poppins-Light'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLDz8Z1xlFd2JQEk.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Poppins Regular'), local('Poppins-Regular'), url(https://fonts.gstatic.com/s/poppins/v5/pxiEyp8kv8JHgFVrJJbecnFHGPezSQ.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Poppins Regular'), local('Poppins-Regular'), url(https://fonts.gstatic.com/s/poppins/v5/pxiEyp8kv8JHgFVrJJnecnFHGPezSQ.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Poppins Regular'), local('Poppins-Regular'), url(https://fonts.gstatic.com/s/poppins/v5/pxiEyp8kv8JHgFVrJJfecnFHGPc.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Poppins Medium'), local('Poppins-Medium'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLGT9Z11lFd2JQEl8qw.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Poppins Medium'), local('Poppins-Medium'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLGT9Z1JlFd2JQEl8qw.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Poppins Medium'), local('Poppins-Medium'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLGT9Z1xlFd2JQEk.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Poppins SemiBold'), local('Poppins-SemiBold'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLEj6Z11lFd2JQEl8qw.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Poppins SemiBold'), local('Poppins-SemiBold'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLEj6Z1JlFd2JQEl8qw.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Poppins SemiBold'), local('Poppins-SemiBold'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLEj6Z1xlFd2JQEk.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Poppins Bold'), local('Poppins-Bold'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLCz7Z11lFd2JQEl8qw.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Poppins Bold'), local('Poppins-Bold'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLCz7Z1JlFd2JQEl8qw.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Poppins Bold'), local('Poppins-Bold'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLCz7Z1xlFd2JQEk.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 900;
+  src: local('Poppins Black'), local('Poppins-Black'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLBT5Z11lFd2JQEl8qw.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 900;
+  src: local('Poppins Black'), local('Poppins-Black'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLBT5Z1JlFd2JQEl8qw.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 900;
+  src: local('Poppins Black'), local('Poppins-Black'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLBT5Z1xlFd2JQEk.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Poppins Light'), local('Poppins-Light'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLDz8Z11lFd2JQEl8qw.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Poppins Light'), local('Poppins-Light'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLDz8Z1JlFd2JQEl8qw.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Poppins Light'), local('Poppins-Light'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLDz8Z1xlFd2JQEk.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Poppins Regular'), local('Poppins-Regular'), url(https://fonts.gstatic.com/s/poppins/v5/pxiEyp8kv8JHgFVrJJbecnFHGPezSQ.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Poppins Regular'), local('Poppins-Regular'), url(https://fonts.gstatic.com/s/poppins/v5/pxiEyp8kv8JHgFVrJJnecnFHGPezSQ.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Poppins Regular'), local('Poppins-Regular'), url(https://fonts.gstatic.com/s/poppins/v5/pxiEyp8kv8JHgFVrJJfecnFHGPc.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Poppins Bold'), local('Poppins-Bold'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLCz7Z11lFd2JQEl8qw.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Poppins Bold'), local('Poppins-Bold'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLCz7Z1JlFd2JQEl8qw.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Poppins Bold'), local('Poppins-Bold'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLCz7Z1xlFd2JQEk.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}

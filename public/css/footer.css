@@ -1,0 +1,749 @@
+div#headerfooter {
+  /*! CSS Used from: https://getchatwith.com/wp-content/themes/composer/_css/pix-icons.css?ver=3.2.3&nocache=1 ; media=all */
+  /*! CSS Used from: https://getchatwith.com/wp-content/themes/composer/_css/bootstrap.min.css?ver=3.1.1&nocache=1 ; media=all */
+  /*! CSS Used from: https://getchatwith.com/wp-content/themes/composer/_css/main.css?ver=3.2.3&nocache=1 ; media=all */
+  /*! CSS Used from: https://getchatwith.com/wp-content/uploads/composer/custom.css?ver=1530492350&nocache=1 ; media=all */
+  /*! CSS Used from: https://getchatwith.com/wp-content/themes/composer/_css/responsive.css?ver=3.2.3&nocache=1 ; media=all */
+  /*! CSS Used from: Embedded */
+  /*! CSS Used fontfaces */
+}
+@media all {
+  div#headerfooter [class^="pixicon-"]:before {
+    font-family: "pix-fonts" !important;
+    font-style: normal!important;
+    font-weight: normal!important;
+    font-variant: normal!important;
+    text-transform: none!important;
+    speak: none;
+    line-height: 1.05;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  div#headerfooter .pixicon-facebook:before {
+    content: "\e0bb";
+  }
+  div#headerfooter .pixicon-twitter:before {
+    content: "\e0bc";
+  }
+  div#headerfooter .pixicon-instagram:before {
+    content: "\e0c2";
+  }
+  div#headerfooter .pixicon-linked-in:before {
+    content: "\e0c5";
+  }
+}
+@media all {
+  div#headerfooter footer {
+    display: block;
+  }
+  div#headerfooter a {
+    background: transparent;
+  }
+  div#headerfooter a:active,
+  div#headerfooter a:hover {
+    outline: 0;
+  }
+  div#headerfooter img {
+    border: 0;
+  }
+  div#headerfooter * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  div#headerfooter *:before,
+  div#headerfooter *:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  div#headerfooter a {
+    color: #428bca;
+    text-decoration: none;
+  }
+  div#headerfooter a:hover,
+  div#headerfooter a:focus {
+    color: #2a6496;
+    text-decoration: underline;
+  }
+  div#headerfooter a:focus {
+    outline: thin dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+  }
+  div#headerfooter img {
+    vertical-align: middle;
+  }
+  div#headerfooter h3 {
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+  }
+  div#headerfooter h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  div#headerfooter h3 {
+    font-size: 24px;
+  }
+  div#headerfooter p {
+    margin: 0 0 10px;
+  }
+  div#headerfooter ul {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  div#headerfooter .container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  div#headerfooter .row {
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+  div#headerfooter .col-md-3,
+  div#headerfooter .col-md-12 {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  div#headerfooter .clearfix:before,
+  div#headerfooter .clearfix:after,
+  div#headerfooter .container:before,
+  div#headerfooter .container:after,
+  div#headerfooter .row:before,
+  div#headerfooter .row:after {
+    content: " ";
+    display: table;
+  }
+  div#headerfooter .clearfix:after,
+  div#headerfooter .container:after,
+  div#headerfooter .row:after {
+    clear: both;
+  }
+}
+@media all and (print) {
+  div#headerfooter * {
+    text-shadow: none!important;
+    color: #000!important;
+    background: transparent!important;
+    box-shadow: none!important;
+  }
+  div#headerfooter a,
+  div#headerfooter a:visited {
+    text-decoration: underline;
+  }
+  div#headerfooter a[href]:after {
+    content: " (" attr(href) ")";
+  }
+  div#headerfooter img {
+    page-break-inside: avoid;
+  }
+  div#headerfooter img {
+    max-width: 100%!important;
+  }
+  div#headerfooter p,
+  div#headerfooter h3 {
+    orphans: 3;
+    widows: 3;
+  }
+  div#headerfooter h3 {
+    page-break-after: avoid;
+  }
+}
+@media all and (min-width: 768px) {
+  div#headerfooter .container {
+    width: 750px;
+  }
+}
+@media all and (min-width: 992px) {
+  div#headerfooter .container {
+    width: 970px;
+  }
+}
+@media all and (min-width: 1200px) {
+  div#headerfooter .container {
+    width: 1170px;
+  }
+}
+@media all and (min-width: 992px) {
+  div#headerfooter .col-md-3,
+  div#headerfooter .col-md-12 {
+    float: left;
+  }
+  div#headerfooter .col-md-12 {
+    width: 100%;
+  }
+  div#headerfooter .col-md-3 {
+    width: 25%;
+  }
+}
+@media all {
+  div#headerfooter body :focus {
+    outline: none;
+  }
+  div#headerfooter h3 {
+    margin-top: 0;
+    color: #1a1a1a;
+    font-family: "Poppins", Arial, sans-serif;
+    font-weight: 700;
+    line-height: 1.5;
+    word-wrap: break-word;
+  }
+  div#headerfooter p {
+    margin-bottom: 20px;
+  }
+  div#headerfooter h3 {
+    font-size: 18px;
+  }
+  div#headerfooter a {
+    text-decoration: none;
+    -webkit-transition: all ease-in-out 0.3s;
+    -moz-transition: all ease-in-out 0.3s;
+    -ms-transition: all ease-in-out 0.3s;
+    -o-transition: all ease-in-out 0.3s;
+    transition: all ease-in-out 0.3s;
+  }
+  div#headerfooter a:hover {
+    text-decoration: none;
+    color: #a5a5a5;
+  }
+  div#headerfooter a:focus,
+  div#headerfooter a:active {
+    outline: none;
+    text-decoration: none;
+  }
+  div#headerfooter ul {
+    padding: 0px;
+    padding-left: 10px;
+    list-style-position: inside;
+    margin-bottom: 0;
+  }
+  div#headerfooter img {
+    max-width: 100%;
+    height: auto;
+  }
+  div#headerfooter .header-elem {
+    float: left;
+    margin-left: 35px;
+  }
+  div#headerfooter .header-elem:first-child {
+    margin-left: 0;
+  }
+  div#headerfooter .social-icons {
+    margin-bottom: 0;
+  }
+  div#headerfooter .social-icons a {
+    text-align: center;
+    color: #a5a5a5;
+    font-size: 13px;
+    display: inline-block;
+    width: 30px;
+    -webkit-transition: all ease 0.3s;
+    -moz-transition: all ease 0.3s;
+    -o-transition: all ease 0.3s;
+    transition: all ease 0.3s;
+    float: left;
+  }
+  div#headerfooter .social-icons a:hover,
+  div#headerfooter .social-icons a:active {
+    -webkit-transition: all ease 0.3s;
+    -moz-transition: all ease 0.3s;
+    -o-transition: all ease 0.3s;
+    transition: all ease 0.3s;
+    -webkit-transition-delay: 0.1s;
+    -moz-transition-delay: 0.1s;
+    -o-transition-delay: 0.1s;
+    transition-delay: 0.1s;
+    color: #fff;
+  }
+  div#headerfooter .social-icons a.facebook:hover {
+    color: #3b5998;
+  }
+  div#headerfooter .social-icons a.twitter:hover {
+    color: #55acee;
+  }
+  div#headerfooter .social-icons a.linkedin:hover {
+    color: #0e76a8;
+  }
+  div#headerfooter .social-icons a.instagram:hover {
+    color: #125688;
+  }
+  div#headerfooter ul {
+    padding: 0px;
+  }
+  div#headerfooter .widget {
+    margin-bottom: 40px;
+  }
+  div#headerfooter .widget .widgettitle {
+    font-size: 17px;
+    font-weight: 500;
+    margin-bottom: 30px;
+    margin-top: 0;
+  }
+  div#headerfooter .widget li {
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 25px;
+    list-style: none;
+  }
+  div#headerfooter .widget li:last-child {
+    margin-bottom: 0px;
+  }
+  div#headerfooter .widget li a {
+    color: #7C7C7C;
+  }
+  div#headerfooter .widget li:after {
+    content: "8";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    font-family: "pix-fonts";
+    color: #a5a5a5;
+  }
+  div#headerfooter .widget.widget_nav_menu li {
+    padding-left: 20px;
+    margin-bottom: 10px;
+    color: #1a1a1a;
+    text-decoration: none;
+  }
+  div#headerfooter .widget.widget_nav_menu li:last-child {
+    margin-bottom: 0;
+  }
+  div#headerfooter #pageFooterCon a:hover {
+    color: #FFF;
+  }
+  div#headerfooter footer {
+    clear: both;
+  }
+  div#headerfooter .footer-dark #pageFooterCon .widget li a,
+  div#headerfooter .footer-dark #pageFooterCon a {
+    color: #a5a5a5;
+  }
+  div#headerfooter .footer-dark #pageFooterCon .widget li a:hover,
+  div#headerfooter .footer-dark #pageFooterCon a:hover {
+    color: #fff;
+  }
+  div#headerfooter footer .widget .widgettitle {
+    font-family: "Poppins", Arial, sans-serif;
+  }
+  div#headerfooter .footer-dark #pageFooterCon .widget .widgettitle {
+    color: #fff;
+  }
+  div#headerfooter footer .widget.widget_nav_menu li {
+    padding-left: 0;
+  }
+  div#headerfooter footer .widget.widget_nav_menu li:after {
+    content: none;
+  }
+  div#headerfooter .footer-dark .widget.widget_nav_menu li {
+    color: #fff;
+  }
+  div#headerfooter footer .social-icons a {
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    border-radius: 50%;
+  }
+  div#headerfooter footer.footer-dark .widget li:after {
+    color: #fff;
+  }
+  div#headerfooter .pageFooterCon {
+    padding: 60px 0 40px;
+  }
+  div#headerfooter .footer-dark .pageFooterCon {
+    background: #232323;
+    color: #a5a5a5;
+  }
+  div#headerfooter .pageFooterCon .widget:last-child {
+    margin-bottom: 20px;
+  }
+  div#headerfooter .amz-custom-footer-layout #pageFooter .widget {
+    margin-bottom: 40px;
+  }
+  div#headerfooter .amz-custom-footer-layout #pageFooter .widget:last-child {
+    margin-bottom: 0;
+  }
+  div#headerfooter footer .widget:first-child,
+  div#headerfooter footer .widget:nth-last-child(1) {
+    margin-bottom: 0;
+  }
+  div#headerfooter .footer-bottom {
+    background: #EDEDED;
+    padding: 20px 0;
+  }
+  div#headerfooter .footer-dark .footer-bottom {
+    background: #191919;
+  }
+  div#headerfooter .copyright p {
+    text-align: center;
+    margin-bottom: 0px;
+    font-size: 14px;
+  }
+  div#headerfooter .footer-dark .copyright a {
+    color: #a5a5a5;
+  }
+  div#headerfooter .footer-dark .copyright a:hover {
+    color: #FFF;
+  }
+  div#headerfooter .copyright .header-elem {
+    float: left;
+    clear: both;
+    margin-left: 0;
+  }
+  div#headerfooter .copyright .col-md-12 {
+    text-align: center;
+  }
+  div#headerfooter .copyright .col-md-12 .header-elem {
+    float: left;
+    width: 100%;
+  }
+  div#headerfooter .copyright .col-md-12 .social-icons {
+    display: inline-block;
+  }
+  div#headerfooter .copyright-text,
+  div#headerfooter .copyright-text a {
+    font-family: "Poppins", Arial, sans-serif;
+  }
+  div#headerfooter a,
+  div#headerfooter .widget li a:hover,
+  div#headerfooter #pageFooterCon .widget li a:hover {
+    color: #00a9d1;
+  }
+  div#headerfooter ::-moz-selection {
+    background: #00a9d1;
+    color: #fff;
+  }
+  div#headerfooter ::selection {
+    background: #00a9d1;
+    color: #fff;
+  }
+  div#headerfooter .container {
+    max-width: 100%;
+  }
+}
+@media all and (screen) and (min-width: 1200px) {
+  div#headerfooter .container {
+    width: 1230px;
+  }
+}
+@media all {
+  div#headerfooter h3,
+  div#headerfooter footer .widget .widgettitle,
+  div#headerfooter .copyright-text,
+  div#headerfooter .copyright-text a {
+    font-family: 'Poppins', Arial, sans-serif;
+  }
+}
+@media all and (screen) and (max-width: 991px) {
+  div#headerfooter .container {
+    max-width: 682px;
+    width: 100%;
+  }
+}
+@media all and (screen) and (max-width: 767px) {
+  div#headerfooter .container {
+    max-width: 428px;
+  }
+}
+@media all and (screen) and (max-width: 480px) {
+  div#headerfooter .container {
+    max-width: 80%;
+  }
+}
+@media all and (screen) and (max-width: 991px) {
+  div#headerfooter .container {
+    width: 682px;
+  }
+  div#headerfooter .col-md-3,
+  div#headerfooter .col-md-12 {
+    width: 100%;
+  }
+  div#headerfooter #pageFooter .widget,
+  div#headerfooter .amz-custom-footer-layout #pageFooter .widget:last-child {
+    margin-bottom: 40px;
+  }
+  div#headerfooter #pageFooter .col-md-3:last-child .widget {
+    margin-bottom: 20px;
+  }
+}
+@media all and (screen) and (max-width: 767px) {
+  div#headerfooter .container {
+    width: 428px;
+  }
+  div#headerfooter .footer-bottom {
+    height: auto;
+    line-height: normal;
+  }
+  div#headerfooter .copyright {
+    padding: 22px 0;
+  }
+}
+@media all and (screen) and (max-width: 480px) {
+  div#headerfooter .container {
+    max-width: 80%;
+    min-width: 280px;
+  }
+  div#headerfooter .header-elem {
+    float: none;
+    display: inline-block;
+  }
+}
+@media all and (screen) and (max-width: 320px) {
+  div#headerfooter .container {
+    min-width: 80%;
+  }
+}
+div#headerfooter .footer-dark .pageFooterCon {
+  background: #12457b;
+  color: #fff;
+}
+div#headerfooter .footer-dark #pageFooterCon .widget li a,
+div#headerfooter .footer-dark #pageFooterCon a {
+  color: #fff;
+}
+div#headerfooter .footer-dark #pageFooterCon .widget li a:hover,
+div#headerfooter .footer-dark #pageFooterCon a:hover {
+  color: #1d9ad6;
+}
+div#headerfooter .footer-dark #pageFooterCon .widget .widgettitle {
+  text-transform: uppercase;
+}
+div#headerfooter .widget.widget_nav_menu li {
+  margin-bottom: 0px!important;
+}
+div#headerfooter .widget .widgettitle {
+  margin-bottom: 0px;
+}
+div#headerfooter .footer-dark .footer-bottom {
+  background: #12457b;
+  color: fff;
+  font-size: 12px;
+}
+div#headerfooter .footer-dark .copyright a {
+  color: #fff;
+}
+div#headerfooter .copyright p {
+  color: #fff;
+}
+@font-face {
+  font-family: "pix-fonts";
+  src: url(https://getchatwith.com/wp-content/themes/composer/_fonts/pix-fonts/pix-fonts.eot);
+  src: url(https://getchatwith.com/wp-content/themes/composer/_fonts/pix-fonts/pix-fonts.eot#iefix) format("embedded-opentype"), url(/fonts/pix-fonts.woff) format("woff"), url(https://getchatwith.com/wp-content/themes/composer/_fonts/pix-fonts/pix-fonts.ttf) format("truetype"), url(https://getchatwith.com/wp-content/themes/composer/_fonts/pix-fonts/pix-fonts.svg#pix-fonts) format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 100;
+  src: local('Poppins Thin'), local('Poppins-Thin'), url(https://fonts.gstatic.com/s/poppins/v5/pxiGyp8kv8JHgFVrLPTucXtAOvWDSHFF.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 100;
+  src: local('Poppins Thin'), local('Poppins-Thin'), url(https://fonts.gstatic.com/s/poppins/v5/pxiGyp8kv8JHgFVrLPTufntAOvWDSHFF.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 100;
+  src: local('Poppins Thin'), local('Poppins-Thin'), url(https://fonts.gstatic.com/s/poppins/v5/pxiGyp8kv8JHgFVrLPTucHtAOvWDSA.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Poppins Light'), local('Poppins-Light'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLDz8Z11lFd2JQEl8qw.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Poppins Light'), local('Poppins-Light'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLDz8Z1JlFd2JQEl8qw.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Poppins Light'), local('Poppins-Light'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLDz8Z1xlFd2JQEk.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Poppins Regular'), local('Poppins-Regular'), url(https://fonts.gstatic.com/s/poppins/v5/pxiEyp8kv8JHgFVrJJbecnFHGPezSQ.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Poppins Regular'), local('Poppins-Regular'), url(https://fonts.gstatic.com/s/poppins/v5/pxiEyp8kv8JHgFVrJJnecnFHGPezSQ.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Poppins Regular'), local('Poppins-Regular'), url(https://fonts.gstatic.com/s/poppins/v5/pxiEyp8kv8JHgFVrJJfecnFHGPc.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Poppins Medium'), local('Poppins-Medium'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLGT9Z11lFd2JQEl8qw.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Poppins Medium'), local('Poppins-Medium'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLGT9Z1JlFd2JQEl8qw.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Poppins Medium'), local('Poppins-Medium'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLGT9Z1xlFd2JQEk.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Poppins SemiBold'), local('Poppins-SemiBold'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLEj6Z11lFd2JQEl8qw.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Poppins SemiBold'), local('Poppins-SemiBold'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLEj6Z1JlFd2JQEl8qw.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Poppins SemiBold'), local('Poppins-SemiBold'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLEj6Z1xlFd2JQEk.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Poppins Bold'), local('Poppins-Bold'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLCz7Z11lFd2JQEl8qw.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Poppins Bold'), local('Poppins-Bold'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLCz7Z1JlFd2JQEl8qw.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Poppins Bold'), local('Poppins-Bold'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLCz7Z1xlFd2JQEk.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 900;
+  src: local('Poppins Black'), local('Poppins-Black'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLBT5Z11lFd2JQEl8qw.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 900;
+  src: local('Poppins Black'), local('Poppins-Black'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLBT5Z1JlFd2JQEl8qw.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 900;
+  src: local('Poppins Black'), local('Poppins-Black'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLBT5Z1xlFd2JQEk.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Poppins Light'), local('Poppins-Light'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLDz8Z11lFd2JQEl8qw.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Poppins Light'), local('Poppins-Light'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLDz8Z1JlFd2JQEl8qw.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Poppins Light'), local('Poppins-Light'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLDz8Z1xlFd2JQEk.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Poppins Regular'), local('Poppins-Regular'), url(https://fonts.gstatic.com/s/poppins/v5/pxiEyp8kv8JHgFVrJJbecnFHGPezSQ.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Poppins Regular'), local('Poppins-Regular'), url(https://fonts.gstatic.com/s/poppins/v5/pxiEyp8kv8JHgFVrJJnecnFHGPezSQ.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Poppins Regular'), local('Poppins-Regular'), url(https://fonts.gstatic.com/s/poppins/v5/pxiEyp8kv8JHgFVrJJfecnFHGPc.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Poppins Bold'), local('Poppins-Bold'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLCz7Z11lFd2JQEl8qw.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Poppins Bold'), local('Poppins-Bold'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLCz7Z1JlFd2JQEl8qw.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Poppins Bold'), local('Poppins-Bold'), url(https://fonts.gstatic.com/s/poppins/v5/pxiByp8kv8JHgFVrLCz7Z1xlFd2JQEk.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
