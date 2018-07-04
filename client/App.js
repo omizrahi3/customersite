@@ -19,11 +19,13 @@ import ForgotPasswordPage from './components/pages/ForgotPasswordPage';
 import GuestRoute from './components/routes/GuestRoute';
 import UserRoute from './components/routes/UserRoute';
 import TopNavigation from './components/navigation/TopNavigation';
+import NavigationBar from './components/navigation/NavigationBar';
 import Footer from './components/navigation/Footer';
 
 const App = ({ location, isAuthenticated }) => (
   <div className="ui container">
     {isAuthenticated && <TopNavigation />}
+    <NavigationBar />
     <GuestRoute
       location={location}
       path='/'
