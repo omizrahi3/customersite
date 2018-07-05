@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Form, Button, Message, Input, Select } from "semantic-ui-react";
+import { Form, Button, Message, Input, Select, Segment } from "semantic-ui-react";
 import isEmail from "validator/lib/isEmail";
 import InlineError from "../messages/InlineError";
 
@@ -32,10 +32,11 @@ class SignupForm extends React.Component {
       Firstname: "",
       Lastname: "",
       Gender: "",
-      Birthdate: "",
       Password: "",
       PasswordConfirm: "",
-      Month: ""
+      Date: "",
+      Month: "",
+      Year: ""
     },
     dateOptions: [],
     yearOptions: [],
@@ -78,14 +79,13 @@ class SignupForm extends React.Component {
     e.preventDefault();
     const errors = this.validate(this.state.data);
     this.setState({ errors });
-    // if (Object.keys(errors).length === 0) {
-    //   this.props
-    //     .submit(this.state.data)
-    //     .catch(err =>
-    //       this.setState({ errors: err })
-    //     );
-    // }
-    console.log(this.state.data);
+    if (Object.keys(errors).length === 0) {
+      const { data } = this.state;
+      if (!!data.Date && !!data.Month & !!data.Year) {
+        data.Birthdate = `${data.Year}-${data.Month}-${data.Date}`;
+      }
+      this.props.submit(data);
+    }
   };
 
   validate = data => {
@@ -99,11 +99,13 @@ class SignupForm extends React.Component {
       errors.password = "Password Does Not Match";
       errors.passwordconfirm = "Password Does Not Match";
     }
+    if (!data.Date || !data.Month || !data.Year) errors.birthdate = "Birthdate Required";
     return errors;
   };
 
   render() {
     const { data, errors } = this.state;
+    const { signupSuccess } = this.props;
 
     return (
       <Form size='large' onSubmit={this.onSubmit}>
@@ -115,28 +117,37 @@ class SignupForm extends React.Component {
         )}
         <Form.Field
           error={!!errors.firstname}
+          disabled={signupSuccess}
           width={6}
           id='firstname'
           control={Input}
           label='First Name *'
-          placeholder={errors.firstname}
+          placeholder=''
           name="Firstname"
           value={data.Firstname}
           onChange={this.onChange}
         />
+        {errors.firstname && (
+          <InlineError text={errors.firstname} />
+        )}
         <Form.Field
           error={!!errors.lastname}
+          disabled={signupSuccess}
           width={6}
           id='lastname'
           control={Input}
           label='Last Name *'
-          placeholder={errors.lastname}
+          placeholder=''
           name="Lastname"
           value={data.Lastname}
           onChange={this.onChange}
         />
+        {errors.lastname && (
+          <InlineError text={errors.lastname} />
+        )}
         <Form.Field
           error={!!errors.email}
+          disabled={signupSuccess}
           width={6}
           id='email'
           control={Input}
@@ -146,9 +157,12 @@ class SignupForm extends React.Component {
           value={data.EmailAddress}
           onChange={this.onChange}
         />
-
+        {errors.email && (
+          <InlineError text={errors.email} />
+        )}
         <Form.Field
           error={!!errors.password}
+          disabled={signupSuccess}
           width={6}
           type="password"
           id='password'
@@ -159,32 +173,29 @@ class SignupForm extends React.Component {
           value={data.Password}
           onChange={this.onChange}
         />
-        
+        {errors.password && (
+          <InlineError text={errors.password} />
+        )}
         <Form.Field
           error={!!errors.passwordconfirm}
+          disabled={signupSuccess}
           width={6}
           type="password"
           id='passwordConfirm'
           control={Input}
           label='Password Confirm *'
           placeholder={errors.passwordconfirm}
-          name="Password"
+          name="PasswordConfirm"
           value={data.PasswordConfirm}
           onChange={this.onChange}
         />
-
-        <Form.Field
-          control={Select}
-          width={6}
-          selectOnBlur={false}
-          label='Gender'
-          options={options}
-          name="Gender"
-          onChange={this.onChange2}
-        />
-
+        {errors.passwordconfirm && (
+          <InlineError text={errors.passwordconfirm} />
+        )}
         <Form.Group>
           <Form.Field
+            error={!!errors.birthdate}
+            disabled={signupSuccess}
             control={Select}
             width={4}
             selectOnBlur={false}
@@ -194,6 +205,8 @@ class SignupForm extends React.Component {
             onChange={this.onChange2}
           />
           <Form.Field
+            error={!!errors.birthdate}
+            disabled={signupSuccess}
             control={Select}
             width={4}
             selectOnBlur={false}
@@ -203,6 +216,8 @@ class SignupForm extends React.Component {
             onChange={this.onChange2}
           />
           <Form.Field
+            error={!!errors.birthdate}
+            disabled={signupSuccess}
             control={Select}
             width={4}
             selectOnBlur={false}
@@ -212,14 +227,27 @@ class SignupForm extends React.Component {
             onChange={this.onChange2}
           />
         </Form.Group>
-
-        <Button primary>Sign Up</Button>
+        {errors.birthdate && (
+          <InlineError text={errors.birthdate} />
+        )}
+        <Form.Field
+          disabled={signupSuccess}
+          control={Select}
+          width={6}
+          selectOnBlur={false}
+          label='Gender'
+          options={options}
+          name="Gender"
+          onChange={this.onChange2}
+        />
+        <Button size='large' primary>Sign Up</Button>
       </Form>
     );
   }
 }
 
 SignupForm.propTypes = {
+  signupSuccess: PropTypes.bool.isRequired,
   submit: PropTypes.func.isRequired
 };
 

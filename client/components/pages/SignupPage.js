@@ -2,29 +2,43 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
-import { Segment, Divider, Message, Grid, Header, Icon } from "semantic-ui-react";
+import { Segment, Message, Grid, Header, Icon } from "semantic-ui-react";
 import SignupForm from "../forms/SignupForm";
-import SignupFacebook from '../facebook/SignupFacebook';
 import { signup, signupFB } from "../../actions/userActions";
 
 class SignupPage extends React.Component {
   state = {
-    pageErrors: {},
     loading: '',
     success: false,
-    serverMessage: 'Duplicate Email Address'
+    serverError: '',
   };
 
-  displayError = (err) => this.setState({ pageErrors: err })
-
-  submit = data =>
+  submit2 = data =>
     this.props.signup(data).then(() => this.props.history.push("/login"));
+
+  submit = (data) => {
+    console.log('Signup Page: submit');
+    this.setState({loading: 'true'});
+    const signupData = {
+      EmailAddress: data.EmailAddress,
+      Firstname: data.Firstname,
+      Lastname: data.Lastname,
+      Gender: data.Gender,
+      Birthdate: data.Birthdate,
+      Password: data.Password,
+      ContentType: "image/jpeg"
+    };
+    console.log(signupData);
+    this.props.signup(signupData)
+      .then(() => this.setState({ loading: 'false', success: true }))
+      .catch((err) => this.setState({ loading: 'false', success: false, serverError: err.server }));
+  }
 
   submitFB = data =>
     this.props.signupFB(data).then(() => this.props.history.push("/login"));
 
   render() {
-    const { pageErrors, loading, success } = this.state;
+    const { loading, success, serverError } = this.state;
     return (
       <div>
         {loading === 'true' && (
@@ -50,7 +64,7 @@ class SignupPage extends React.Component {
           <Message negative icon>
             <Icon name="warning sign" />
             <Message.Content>
-              <Message.Header>Registration Failed. {this.state.serverMessage}</Message.Header>
+              <Message.Header>Registration Failed. {serverError}</Message.Header>
             </Message.Content>
           </Message>
         )}
@@ -64,12 +78,6 @@ class SignupPage extends React.Component {
         </Grid>
         <Segment basic secondary>
           <Link to="/login">Already a member? Login</Link>
-          {pageErrors.server && (
-            <Message negative>
-              <Message.Header>Something went wrong</Message.Header>
-              <p>{pageErrors.server}</p>
-            </Message>
-          )}
           <Header as='h3' color='grey'>
             <Header.Content>
               REGISTER FOR CHATWITH
@@ -78,10 +86,11 @@ class SignupPage extends React.Component {
               </Header.Subheader>
             </Header.Content>
           </Header>
-          <SignupForm submit={this.submit} />
-          <Divider horizontal>Or</Divider>
-          <SignupFacebook submitFB={this.submitFB} displayError={this.displayError} />
+          <SignupForm signupSuccess={success} submit={this.submit} />
         </Segment>
+        <Segment basic></Segment>
+        <Segment basic></Segment>
+        <Segment basic></Segment>
       </div>
     );
   }

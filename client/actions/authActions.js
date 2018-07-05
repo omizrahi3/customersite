@@ -19,6 +19,8 @@ export const logout = () => dispatch => {
 export const login = (credentials) => (dispatch) => 
   api.user.login(credentials)
     .then(user => {
+      console.log('over here');
+      console.log(user);
       const { ValidAppUser, Authenticated } = user;
       if (!ValidAppUser) return Promise.reject({server: 'User Does Not Exist'})
       else if (!Authenticated) return Promise.reject({server: 'Password Does Not Match'})

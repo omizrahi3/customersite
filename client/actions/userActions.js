@@ -11,6 +11,8 @@ export const profileUpdated = () => ({
 
 export const signup = data => dispatch =>
   api.user.signup(data).then(res => {
+    console.log('testing');
+    console.log(res);
     const { Error, Response } = res;
     if (Error) {
       return Promise.reject({

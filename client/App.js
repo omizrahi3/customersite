@@ -20,11 +20,9 @@ import GuestRoute from './components/routes/GuestRoute';
 import UserRoute from './components/routes/UserRoute';
 import TopNavigation from './components/navigation/TopNavigation';
 import NavigationBar from './components/navigation/NavigationBar';
-import Footer from './components/navigation/Footer';
 
 const App = ({ location, isAuthenticated }) => (
   <div className="ui container">
-    {isAuthenticated && <TopNavigation />}
     <NavigationBar />
     <GuestRoute
       location={location}
@@ -32,7 +30,7 @@ const App = ({ location, isAuthenticated }) => (
       exact
       component={HomePage}
     />
-    <GuestRoute
+    <Route
       location={location}
       path='/login'
       exact

@@ -175,7 +175,10 @@ class TalentPage extends Component {
             </Label>
             {this.state.keys.length > 0 && (this.renderProducts(this.state.keys))}
           </Grid.Column>
-      </Grid>
+        </Grid>
+        <Segment basic></Segment>
+        <Segment basic></Segment>
+        <Segment basic></Segment>
       </div>
     )
   }

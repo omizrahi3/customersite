@@ -4,7 +4,7 @@ import {withRouter} from 'react-router'
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as actions from "../../actions/authActions";
-import { Menu, Segment, Breadcrumb, Label, Header } from "semantic-ui-react";
+import { Menu, Segment, Breadcrumb, Label, Header, Icon } from "semantic-ui-react";
 
 class NavigationBar extends Component {
   state = {
@@ -32,67 +32,83 @@ class NavigationBar extends Component {
       case '/signup':
         this.setState({page: 'signup'});
         break
+      case '/talent':
+        this.setState({page: 'talent'});
+        break
       default:
       this.setState({page: '/'});
     }
   }
   render() {
-    const { user, cart, logout } = this.props;
-    const { page } = this.state;
+    const { user, cart, logout, location } = this.props;
+    const { pathname } = location;
     return (
-      <Menu secondary>
+      <div>
+      <Segment basic></Segment>
+      <Menu icon='labeled' secondary>
         <Menu.Menu position="left">
-          <Segment basic>
-            {page === 'login' && (
-              <div>
-                <Breadcrumb>
-                  <Breadcrumb.Section as={Link} to="https://getchatwith.com/">Home</Breadcrumb.Section>
-                  <Breadcrumb.Divider icon='right chevron' />
-                  <Breadcrumb.Section active>Login</Breadcrumb.Section>
-                </Breadcrumb>
-                <Header size='huge' color="yellow">LOGIN</Header>
-              </div>
-            )}
-            {page === 'signup' && (
-              <div>
-                <Breadcrumb>
-                  <Breadcrumb.Section as={Link} to="https://getchatwith.com/">Home</Breadcrumb.Section>
-                  <Breadcrumb.Divider icon='right chevron' />
-                  <Breadcrumb.Section active>Register</Breadcrumb.Section>
-                </Breadcrumb>
-                <Header size='huge' color="yellow">REGISTER</Header>
-              </div>
-            )}
-            {page === 'talent' && (
+          <Menu.Item>
+            {pathname === '/login' && (
               <Breadcrumb>
-                <Breadcrumb.Section as={Link} to="/dashboard">Home</Breadcrumb.Section>
+                <Breadcrumb.Section as={Link} to="https://getchatwith.com/">Home</Breadcrumb.Section>
                 <Breadcrumb.Divider icon='right chevron' />
-                <Breadcrumb.Section as={Link} to="/talent">Talent</Breadcrumb.Section>
-                <Breadcrumb.Divider icon='right chevron' />
-                <Breadcrumb.Section active>Sports</Breadcrumb.Section>
+                <Breadcrumb.Section active>Login</Breadcrumb.Section>
               </Breadcrumb>
             )}
-          </Segment>
+            {pathname === '/signup' && (
+              <Breadcrumb>
+                <Breadcrumb.Section as={Link} to="https://getchatwith.com/">Home</Breadcrumb.Section>
+                <Breadcrumb.Divider icon='right chevron' />
+                <Breadcrumb.Section active>Register</Breadcrumb.Section>
+              </Breadcrumb>
+            )}
+            {pathname === '/talent' && (
+              <Breadcrumb>
+                <Breadcrumb.Section as={Link} to="https://getchatwith.com/">Home</Breadcrumb.Section>
+                <Breadcrumb.Divider icon='right chevron' />
+                <Breadcrumb.Section active>Talent</Breadcrumb.Section>
+              </Breadcrumb>
+            )}
+          </Menu.Item>
         </Menu.Menu>
 
         <Menu.Menu position="right">
-          <Menu.Item>
-            <Link to="/cart">Cart</Link>
+          <Menu.Item as={Link} to="/cart" name='cart arrow down'>
+            {cart.length === 0 && (
+              <Icon name='cart arrow down' />
+            )}
+            {cart.length > 0 && (
+              <Icon color='green' name='cart arrow down' />
+            )}
+            CART
           </Menu.Item>
           {Object.keys(user).length !== 0 && user.constructor === Object && (
-            <Menu.Item>
-              <Link to="/profile">Profile</Link>
+            <Menu.Item as={Link} to="/profile" name='cart arrow down'>
+              <Icon name='user' />
+              PROFILE
             </Menu.Item>
           )}
           {Object.keys(user).length !== 0 && user.constructor === Object && (
-            <Menu.Item>
-              <Label as='a' onClick={() => logout()}>
-                Logout
-              </Label>
+            <Menu.Item name='logout' onClick={() => logout()}>
+              <Icon name='sign out' />
+              LOG OUT
             </Menu.Item>
           )}
         </Menu.Menu>
       </Menu>
+      <Segment basic compact>
+        {pathname === '/login' && (
+          <Header size='huge' color="yellow">LOGIN</Header>
+        )}
+        {pathname === '/signup' && (
+          <Header size='huge' color="yellow">REGISTER</Header>
+        )}
+        {pathname === '/talent' && (
+          <Header size='huge' color="yellow">SEARCH</Header>
+        )}
+      </Segment>
+      <Segment basic></Segment>
+      </div>
     )
   }
 }

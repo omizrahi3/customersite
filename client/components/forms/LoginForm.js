@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Form, Button, Message } from "semantic-ui-react";
+import { Form, Button, Input, Message } from "semantic-ui-react";
 import isEmail from "validator/lib/isEmail";
 import InlineError from "../messages/InlineError";
 
@@ -23,12 +23,8 @@ class LoginForm extends React.Component {
     const errors = this.validate(this.state.data);
     this.setState({ errors });
     if (Object.keys(errors).length === 0) {
-      this.setState({ loading: true })
-      this.props
-        .submit(this.state.data)
-        .catch(err => 
-          this.setState({ errors: err, loading: false })
-        );
+      console.log(this.state.data);
+      this.props.submit(this.state.data)
     }
   };
 
@@ -40,41 +36,37 @@ class LoginForm extends React.Component {
   };
 
   render() {
-    const { data, errors, loading } = this.state;
+    const { data, errors } = this.state;
+    const { loggedIn } = this.props;
 
     return (
-      <Form onSubmit={this.onSubmit} loading={loading}>
-        {errors.server && (
-          <Message negative>
-            <Message.Header>Something went wrong</Message.Header>
-            <p>{errors.server}</p>
-          </Message>
-        )}
-        <Form.Field error={!!errors.email}>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="EmailAddress"
-            placeholder="example@example.com"
-            value={data.EmailAddress}
-            onChange={this.onChange}
-          />
-          {errors.email && <InlineError text={errors.email} />}
-        </Form.Field>
-
-        <Form.Field error={!!errors.password}>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="Password"
-            placeholder="Make it secure"
-            value={data.Password}
-            onChange={this.onChange}
-          />
-          {errors.password && <InlineError text={errors.password} />}
-        </Form.Field>
+      <Form onSubmit={this.onSubmit}>
+        <Form.Field
+          disabled={loggedIn}
+          error={!!errors.email}
+          width={6}
+          type="email"
+          id='email'
+          control={Input}
+          label={`${errors.email !== undefined ? errors.email:'Email *'}`}
+          placeholder=''
+          name="EmailAddress"
+          value={data.EmailAddress}
+          onChange={this.onChange}
+        />
+        <Form.Field
+          disabled={loggedIn}
+          error={!!errors.password}
+          width={6}
+          type="password"
+          id='password'
+          control={Input}
+          label={`${errors.password !== undefined ? errors.password:'Password *'}`}
+          placeholder=''
+          name="Password"
+          value={data.Password}
+          onChange={this.onChange}
+        />
         <Button primary>Login</Button>
       </Form>
     );
@@ -82,6 +74,7 @@ class LoginForm extends React.Component {
 }
 
 LoginForm.propTypes = {
+  loggedIn: PropTypes.bool.isRequired,
   submit: PropTypes.func.isRequired
 };
 

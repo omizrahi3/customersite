@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
-import { Segment, Breadcrumb, Header, Button, Label } from 'semantic-ui-react';
+import { Segment, Menu, Header, Button, Label } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
 
 class TalentLandingPage extends Component {
@@ -13,14 +13,26 @@ class TalentLandingPage extends Component {
   render() {
     return (
       <div>
-        <Segment basic>
-          <Breadcrumb>
-            <Breadcrumb.Section as={Link} to="/dashboard">Home</Breadcrumb.Section>
-            <Breadcrumb.Divider icon='right chevron' />
-            <Breadcrumb.Section active>Talent</Breadcrumb.Section>
-          </Breadcrumb>
-          <Header color="blue">CATEGORIES</Header>
-        </Segment>
+        <Menu secondary>
+          <Menu.Menu position="left">
+          </Menu.Menu>
+          <Menu.Menu position="right">
+            <Menu.Item as={Link} to ='/categories/music'>
+              <Header size='huge' color="red">
+                FILM & TV
+              </Header>
+            </Menu.Item>
+            <Menu.Item>
+              <Header size='huge' color="blue">MUSIC</Header>
+            </Menu.Item>
+            <Menu.Item>
+            <Header size='huge' color="green">SPORTS</Header>
+            </Menu.Item>
+            <Menu.Item>
+              <Header size='huge' color="purple">BRANDS</Header>
+            </Menu.Item>
+          </Menu.Menu>
+        </Menu>
         <Segment basic>
           <Header as='h5' color="grey">Categories</Header>
           <Label basic color='red' size='big' as={Link} to="/categories/music">
@@ -33,6 +45,9 @@ class TalentLandingPage extends Component {
             BRANDS
           </Label>
         </Segment>
+        <Segment basic></Segment>
+        <Segment basic></Segment>
+        <Segment basic></Segment>
       </div>
     )
   }
