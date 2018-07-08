@@ -54,10 +54,12 @@ export const checkoutUpdate = data => dispatch =>
   .then(res => {
     console.log('RESPONSE');
     console.log(res);
-    const { Error = false, Response = '' } = res.CreateProductValue;
+    // const { Error = false, Response = '' } = res.CreateProductValue;
+    const { Error = false, Response = '' } = res.Response[0].Response.CreateProductValue;
     if (Error) return Promise.reject({server: Response})
     else return res;
   })
   .then(res => {
+    localStorage.removeItem("chatwithCart");
     dispatch(checkoutSuccess());
   })

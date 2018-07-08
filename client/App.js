@@ -2,20 +2,17 @@ import React from 'react'
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import PropTypes from "prop-types";
-import HomePage from './components/pages/Homepage';
 import LoginPage from './components/pages/LoginPage';
 import SignupPage from './components/pages/SignupPage';
-import DashboardPage from './components/pages/DashboardPage';
 import ProfilePage from './components/pages/ProfilePage';
 import TalentLandingPage from './components/pages/TalentLandingPage';
 import MusicSearchPage from './components/pages/MusicSearchPage';
 import SportsSearchPage from './components/pages/SportsSearchPage';
 import BrandSearchPage from './components/pages/BrandSearchPage';
+import FilmSearchPage from './components/pages/FilmSearchPage';
 import TalentPage from './components/pages/TalentPage';
 import CartPage from './components/pages/CartPage';
 import BillingPage from './components/pages/BillingPage';
-import SubscriptionPage from './components/pages/SubscriptionPage';
-import CheckoutPage from './components/pages/CheckoutPage';
 import ForgotPasswordPage from './components/pages/ForgotPasswordPage';
 import ResetPasswordPage from './components/pages/ResetPasswordPage';
 import GuestRoute from './components/routes/GuestRoute';
@@ -25,12 +22,6 @@ import NavigationBar from './components/navigation/NavigationBar';
 const App = ({ location, isAuthenticated }) => (
   <div className="ui container">
     <NavigationBar />
-    <GuestRoute
-      location={location}
-      path='/'
-      exact
-      component={HomePage}
-    />
     <GuestRoute
       location={location}
       path='/login'
@@ -54,12 +45,6 @@ const App = ({ location, isAuthenticated }) => (
       path='/reset_password'
       exact
       component={ResetPasswordPage}
-    />
-    <UserRoute
-      location={location}
-      path='/dashboard'
-      exact
-      component={DashboardPage}
     />
     <UserRoute
       location={location}
@@ -93,27 +78,21 @@ const App = ({ location, isAuthenticated }) => (
     />
     <Route
       location={location}
+      path='/categories/film-tv'
+      exact
+      component={FilmSearchPage}
+    />
+    <Route
+      location={location}
       path='/talent/:talentid'
       exact
       component={TalentPage}
-    />
-    <UserRoute
-      location={location}
-      path='/subscriptions/:subscriptionid'
-      exact
-      component={SubscriptionPage}
     />
     <Route
       location={location}
       path='/cart'
       exact
       component={CartPage}
-    />
-    <UserRoute
-      location={location}
-      path='/checkout/:productid'
-      exact
-      component={CheckoutPage}
     />
     <Route
       location={location}

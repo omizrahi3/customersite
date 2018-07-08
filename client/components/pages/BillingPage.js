@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { Grid, Segment, Card, Header, Button, Form, Breadcrumb, Message, Icon } from 'semantic-ui-react';
-import FeedGrid from '../grids/FeedGrid';
-import VideoMessage2Grid from '../grids/VideoMessage2Grid';
+import { Grid, Segment, Card, Header, Button, Form, Message, Icon } from 'semantic-ui-react';
 import NewCheckoutForm from '../forms/NewCheckoutForm';
 import ExistingCheckoutForm from '../forms/ExistingCheckoutForm';
 import CreditCardForm from '../forms/CreditCardForm';
@@ -105,7 +103,7 @@ class BillingPage extends Component {
       AppUserId: this.props.user.AppUserId,
       NameOnCard: `${data.firstName} ${data.lastName}`,
       Cvv: data.cvv,
-      ExpirationDate: `${data.expMonth}/${data.expYear}`,
+      ExpirationDate: `${data.Month}/${data.Year}`,
       CardNumber: data.cardNumber,
       Products: []
     };
@@ -211,6 +209,61 @@ class BillingPage extends Component {
   submitUpdate = (data) => {
     console.log('submitUpdate');
     console.log(data);
+
+    this.setState({loading: 'true'});
+    console.log(data);
+    const checkoutData = {
+      AppUserId: this.props.user.AppUserId,
+      CreditCard: {
+        cardholderName: `${data.firstName} ${data.lastName}`,
+        cvv: data.cvv,
+        expirationDate: `${data.Month}/${data.Year}`,
+        number: data.cardNumber
+      },
+      Products: []
+    };
+    this.props.cart.map(item => {
+      if (item.ProductDescription === 'Feed') {
+        console.log('FEED')
+        const product = {
+          "ProductOptionId": item.ProductOptionId,
+          "Amount": item.WebPrice,
+          "TalentId": item.TalentId,
+          "FeedChatSessionId": item.FeedChatSessionId
+        }
+        checkoutData.Products.push(product);
+      } 
+      if (item.ProductDescription === 'Video Message') {
+        console.log('VIDEO MESSAGE')
+        const product = {
+          "ProductOptionId": item.ProductOptionId,
+          "ProductName": item.VideoMessage,
+          "Amount": item.WebPrice,
+          "TalentId": item.TalentId,
+        }
+        checkoutData.Products.push(product);
+      }
+      if (item.ProductDescription === 'Live Chat') {
+        console.log('LIVE CHAT')
+        const product = {
+          "ProductOptionId": item.ProductOptionId,
+          "Amount": item.WebPrice,
+          "TalentId": item.TalentId,
+          "DateMapperId": item.DateMapperId,
+          "SessionId": "chat"
+        }
+        checkoutData.Products.push(product);
+      }
+    });
+    const checkoutObject = {
+      Token: this.props.user.Token,
+      checkout: checkoutData
+    };
+    console.log('READY');
+    console.log(checkoutObject);
+    this.props.checkoutUpdate(checkoutObject)
+      .then(() => this.setState({ loading: 'false', success: true }))
+      .catch(() => this.setState({ loading: 'false', success: false }));
   }
 
   guestGrid = () => (
@@ -429,7 +482,8 @@ class BillingPage extends Component {
 BillingPage.propTypes = {
   checkoutGuest: PropTypes.func.isRequired,
   checkoutNew: PropTypes.func.isRequired,
-  checkoutExisting: PropTypes.func.isRequired
+  checkoutExisting: PropTypes.func.isRequired,
+  checkoutUpdate: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -439,4 +493,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { checkoutGuest, checkoutNew, checkoutExisting })(BillingPage);
+export default connect(mapStateToProps, { checkoutGuest, checkoutNew, checkoutExisting, checkoutUpdate })(BillingPage);

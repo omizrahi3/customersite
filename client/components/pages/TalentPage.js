@@ -368,6 +368,13 @@ class TalentPage extends Component {
               </Segment>
               <Segment basic><Header as='h2' color='blue'>Products</Header></Segment>
               {this.state.keys.length > 0 && (this.renderProducts2(this.state.keys))}
+              {this.state.keys.length === 0 && (
+                <Segment basic secondary>
+                  <Header as='h3' color='red'>Well this is embarrassing...
+                    <Header.Subheader>{`${FirstName} ${LastName}'s page is under construction. Check back soon.`}</Header.Subheader>
+                  </Header>
+                </Segment>
+              )}
             </Grid.Column>
           </Grid.Row>
         </Grid>

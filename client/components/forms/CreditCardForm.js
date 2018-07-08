@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from "prop-types";
 import axios from 'axios';
-import { Dropdown, Form, Checkbox } from "semantic-ui-react";
+import { Dropdown, Form, Checkbox, Segment } from "semantic-ui-react";
 
 class CreditCardForm extends Component {
   state = {
@@ -55,9 +55,11 @@ class CreditCardForm extends Component {
               onChange={this.onChange}
             />
             <Checkbox
+              style={{'paddingLeft':20}}
               label='Add New Card'
               onChange={this.checkbox}
             />
+            <Segment basic></Segment>
           </div>
         )}
       </Form>

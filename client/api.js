@@ -41,7 +41,7 @@ export default {
     update: data => {
       const instance = axios.create({ timeout: 3000 });
       instance.defaults.headers.common['token'] = data.Token;
-      return axios.post("http://www.qa.getchatwith.com/api/CreateWebTransactionUpdate", data.checkout).then(res => res.data.Response.Response)
+      return axios.post("http://www.qa.getchatwith.com/api/CreateWebTransactionUpdate", data.checkout).then(res => res.data)
     }
   }
 };
