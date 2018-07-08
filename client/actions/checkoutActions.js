@@ -24,6 +24,7 @@ export const checkoutExisting = data => dispatch =>
   .then(res => {
     // console.log('RESPONSE');
     // console.log(res.Response[0].Response);
+    console.log(res);
     const { Error = false, Response = '' } = res.Response[0].Response.CreateProductValue;
     if (Error) return Promise.reject({server: Response})
     else return res;
@@ -38,6 +39,7 @@ export const checkoutNew = data => dispatch =>
   .then(res => {
     // console.log('RESPONSE');
     // console.log(res.Response[0].Response);
+    console.log(res);
     const { Error = false, Response = '' } = res.Response[0].Response.CreateProductValue;
     if (Error) return Promise.reject({server: Response})
     else return res;

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { Grid, Segment, Card, Message, Header, Button, Breadcrumb, Icon } from 'semantic-ui-react';
 import FeedGrid from '../grids/FeedGrid';
 import VideoMessage2Grid from '../grids/VideoMessage2Grid';
+import LiveChatGrid from '../grids/LiveChatGrid';
 import { rfc } from '../../actions/cartActions';
 
 class CartPage extends Component {
@@ -54,20 +55,21 @@ class CartPage extends Component {
         />
       )
     }
+    else if (item.ProductDescription === "Live Chat") {
+      return  (
+        <LiveChatGrid
+          key={item.ProductOptionId}
+          item={item}
+          handleRemoveClick={this.handleRemoveClick}
+        />
+      )
+    }
   })
 
   render() {
     const { cart } = this.props;
     return (
       <div>
-        <Segment basic>
-          <Breadcrumb>
-            <Breadcrumb.Section as={Link} to="/dashboard">Home</Breadcrumb.Section>
-            <Breadcrumb.Divider icon='right chevron' />
-            <Breadcrumb.Section active>Cart</Breadcrumb.Section>
-          </Breadcrumb>
-          <Header color="yellow">BILLING</Header>
-        </Segment>
         {cart.length === 0  && (
           <Message negative icon>
             <Icon name="warning sign" />
@@ -77,12 +79,10 @@ class CartPage extends Component {
             </Message.Content>
           </Message>
         )}
-        <Grid>
-          <Grid.Column width={12}>
-            <Segment inverted color='blue'>{cart.length} Items</Segment>
-          </Grid.Column>
-          <Grid.Column width={4}>
-            <Segment inverted color='teal'>Have Questions? support@getchatwith.com</Segment>
+        <Grid padded>
+          <Grid.Column width={12} color="blue">{cart.length} Items</Grid.Column>
+          <Grid.Column width={4} color="teal">
+          Questions? support@getchatwith.com
           </Grid.Column>
         </Grid>
         <Grid>
@@ -107,7 +107,7 @@ class CartPage extends Component {
                     SUBTOTAL
                   </Grid.Column>
                   <Grid.Column width={8}>
-                    ${this.state.subtotal}
+                    ${this.state.subtotal.toFixed(2)}
                   </Grid.Column>
                 </Grid.Row>
                 <Grid.Row>
@@ -123,7 +123,7 @@ class CartPage extends Component {
                     TOTAL
                   </Grid.Column>
                   <Grid.Column width={8}>
-                    ${this.state.subtotal + this.state.tax}
+                    ${(this.state.subtotal + this.state.tax).toFixed(2)}
                   </Grid.Column>
                 </Grid.Row>
               </Grid>
@@ -139,6 +139,9 @@ class CartPage extends Component {
             </Card>
           </Grid.Column>
         </Grid>
+        <Segment basic></Segment>
+        <Segment basic></Segment>
+        <Segment basic></Segment>
       </div>
     )
   }

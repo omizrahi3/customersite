@@ -50,23 +50,37 @@ class NavigationBar extends Component {
           <Menu.Item>
             {pathname === '/login' && (
               <Breadcrumb>
-                <Breadcrumb.Section as={Link} to="https://getchatwith.com/">Home</Breadcrumb.Section>
+                <Breadcrumb.Section as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
                 <Breadcrumb.Divider icon='right chevron' />
                 <Breadcrumb.Section active>Login</Breadcrumb.Section>
               </Breadcrumb>
             )}
             {pathname === '/signup' && (
               <Breadcrumb>
-                <Breadcrumb.Section as={Link} to="https://getchatwith.com/">Home</Breadcrumb.Section>
+                <Breadcrumb.Section as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
                 <Breadcrumb.Divider icon='right chevron' />
                 <Breadcrumb.Section active>Register</Breadcrumb.Section>
               </Breadcrumb>
             )}
             {pathname === '/talent' && (
               <Breadcrumb>
-                <Breadcrumb.Section as={Link} to="https://getchatwith.com/">Home</Breadcrumb.Section>
+                <Breadcrumb.Section as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
                 <Breadcrumb.Divider icon='right chevron' />
                 <Breadcrumb.Section active>Talent</Breadcrumb.Section>
+              </Breadcrumb>
+            )}
+            {pathname === '/cart' && (
+              <Breadcrumb>
+                <Breadcrumb.Section as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
+                <Breadcrumb.Divider icon='right chevron' />
+                <Breadcrumb.Section active>Cart</Breadcrumb.Section>
+              </Breadcrumb>
+            )}
+            {pathname === '/profile' && (
+              <Breadcrumb>
+                <Breadcrumb.Section as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
+                <Breadcrumb.Divider icon='right chevron' />
+                <Breadcrumb.Section active>Profile</Breadcrumb.Section>
               </Breadcrumb>
             )}
           </Menu.Item>
@@ -104,7 +118,13 @@ class NavigationBar extends Component {
           <Header size='huge' color="yellow">REGISTER</Header>
         )}
         {pathname === '/talent' && (
-          <Header size='huge' color="yellow">SEARCH</Header>
+          <Header as='h1' color="yellow">SEARCH</Header>
+        )}
+        {pathname === '/cart' && (
+          <Header as='h1' color="yellow">CART</Header>
+        )}
+        {pathname === '/profile' && (
+          <Header as='h1' color="yellow">PROFILE</Header>
         )}
       </Segment>
       <Segment basic></Segment>

@@ -134,6 +134,9 @@ class TalentSearch extends React.Component {
           </Grid.Column>
           <Grid.Column width={5}>
             <Pagination
+              basic
+              firstItem={null}
+              lastItem={null}
               offset={this.state.offset}
               limit={this.state.resultsPerPage}
               total={this.state.TotalCount}

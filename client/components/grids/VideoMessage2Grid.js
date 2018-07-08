@@ -13,6 +13,7 @@ class VideoMessage2 extends Component {
   }
 
   handleOpen = () => this.setState({ modalOpen: true })
+  handleClose = () => this.setState({ modalOpen: false })
 
   hanldeSave = (e, data) => {
     this.setState({ modalOpen: false });
@@ -23,28 +24,37 @@ class VideoMessage2 extends Component {
   }
 
   atcVideo = () => (
-    <Modal size="tiny" trigger={<Button onClick={this.handleOpen}>EDIT</Button>}
+    <Modal size="tiny" trigger={<Button color="olive"  onClick={this.handleOpen}>EDIT</Button>}
       open={this.state.modalOpen}
       onClose={this.handleClose}
+      closeIcon={<Icon name="window close" onClick={this.handleClose}></Icon>}
       >
       <Modal.Header>
-        Your Personalized Video Message
+        <Header color="blue" textAlign="center">
+          Your Personalized Video Message Request
+          <Header.Subheader>Please include a message below and let them know what you would like them to say in your Personalized Video Message.</Header.Subheader>
+        </Header>
       </Modal.Header>
       <Modal.Content>
-        <Form>
-          <Form.Field>
-            <TextArea 
-            maxLength="140"
-            placeholder='Enter your request here.'
-            name="VideoMessage" onChange={(e, { value }) => this.setState({
-                ...this.state,
-                data: { ...this.state.data, [e.target.name]: e.target.value }
-              })
-            } />
-          </Form.Field>
-        </Form>
+        <Segment basic secondary>
+          <Form>
+            <Form.Field>
+              <TextArea
+                autoHeight
+                rows={2}
+                maxLength="140"
+                placeholder={this.props.item.VideoMessage}
+                name="VideoMessage" onChange={(e, { value }) => this.setState({
+                  ...this.state,
+                  data: { ...this.state.data, [e.target.name]: e.target.value }
+                })
+              } />
+            </Form.Field>
+          </Form>
+        </Segment>
       </Modal.Content>
       <Modal.Actions>
+        <Segment basic floated='left'>You have {140 - this.state.data.VideoMessage.length}/140 characters remaining.</Segment>
         <Button value={this.props.item.ProductOptionId} color='green' onClick={this.hanldeSave}>
           <Icon name='checkmark' /> SAVE
         </Button>

@@ -23,12 +23,14 @@ class BillingPage extends Component {
     success: false,
     data: {
       guestEmail: ''
-    }
+    },
+    guestEligible: ''
   }
 
   componentDidMount() {
     console.log('CartPage did mount');
     const { user } = this.props;
+    let guestEligible = 'true';
 
     if (Object.keys(user).length === 0 && user.constructor === Object) {
       user.loggedIn = false;
@@ -37,9 +39,17 @@ class BillingPage extends Component {
     }
     let subtotal = 0;
     this.props.cart.map(item => {
+      if (item.ProductDescription === 'Live Chat' || item.ProductDescription === 'Feed') {
+        guestEligible = 'false';
+      }
       subtotal += item.WebPrice;
     })
-    this.setState({subtotal, user});
+    if (guestEligible === 'true') {
+      console.log('guest eligible');
+    } else {
+      console.log('not guest eligible');
+    }
+    this.setState({subtotal, user, guestEligible});
   }
 
   onChange = e =>
@@ -71,15 +81,15 @@ class BillingPage extends Component {
       Products: []
     };
     this.props.cart.map(item => {
-      const product = {
-        "ProductOptionId": item.ProductOptionId,
-        "ProductName": item.ProductDescription,
-        "SessionId":"",
-        "Amount": item.WebPrice,
-        "TalentId": item.TalentId,
-        "DateMapperId": ""
+      if (item.ProductDescription === 'Feed') {
+        const product = {
+          "ProductOptionId": item.ProductOptionId,
+          "Amount": item.WebPrice,
+          "TalentId": item.TalentId,
+          "FeedChatSessionId": item.FeedChatSessionId
+        }
+        checkoutData.Products.push(product);
       }
-      checkoutData.Products.push(product);
     });
     console.log(checkoutData);
     this.props.checkoutGuest(checkoutData)
@@ -101,29 +111,47 @@ class BillingPage extends Component {
     };
 
     this.props.cart.map(item => {
-      const product = {
-        "ProductOptionId": item.ProductOptionId,
-        "ProductName": item.ProductDescription,
-        "SessionId":"",
-        "Amount": item.WebPrice,
-        "TalentId": item.TalentId,
-        "DateMapperId": ""
+      if (item.ProductDescription === 'Feed') {
+        console.log('FEED')
+        const product = {
+          "ProductOptionId": item.ProductOptionId,
+          "Amount": item.WebPrice,
+          "TalentId": item.TalentId,
+          "FeedChatSessionId": item.FeedChatSessionId
+        }
+        checkoutData.Products.push(product);
       }
-      checkoutData.Products.push(product);
+      if (item.ProductDescription === 'Video Message') {
+        console.log('VIDEO MESSAGE')
+        const product = {
+          "ProductOptionId": item.ProductOptionId,
+          "ProductName": item.VideoMessage,
+          "Amount": item.WebPrice,
+          "TalentId": item.TalentId,
+        }
+        checkoutData.Products.push(product);
+      }
+      if (item.ProductDescription === 'Live Chat') {
+        console.log('LIVE CHAT')
+        const product = {
+          "ProductOptionId": item.ProductOptionId,
+          "Amount": item.WebPrice,
+          "TalentId": item.TalentId,
+          "DateMapperId": item.DateMapperId,
+          "SessionId": "chat"
+        }
+        checkoutData.Products.push(product);
+      }
     })
     const checkoutObject = {
       Token: this.props.user.Token,
       checkout: checkoutData
     }
     console.log('READY');
+    console.log(checkoutObject);
     this.props.checkoutNew(checkoutObject)
       .then(() => this.setState({ loading: 'false', success: true }))
       .catch(() => this.setState({ loading: 'false', success: false }));
-  }
-
-  submitUpdate = (data) => {
-    console.log('submitUpdate');
-    console.log(data);
   }
 
   submitExisting = (data) => {
@@ -137,15 +165,37 @@ class BillingPage extends Component {
     };
 
     this.props.cart.map(item => {
-      const product = {
-        "ProductOptionId": item.ProductOptionId,
-        "ProductName": `${item.ProductDescription} plus 3`,
-        "SessionId":"",
-        "Amount": item.WebPrice,
-        "TalentId": item.TalentId,
-        "DateMapperId": ""
+      if (item.ProductDescription === 'Feed') {
+        console.log('FEED')
+        const product = {
+          "ProductOptionId": item.ProductOptionId,
+          "Amount": item.WebPrice,
+          "TalentId": item.TalentId,
+          "FeedChatSessionId": item.FeedChatSessionId
+        }
+        checkoutData.Products.push(product);
+      } 
+      if (item.ProductDescription === 'Video Message') {
+        console.log('VIDEO MESSAGE')
+        const product = {
+          "ProductOptionId": item.ProductOptionId,
+          "ProductName": item.VideoMessage,
+          "Amount": item.WebPrice,
+          "TalentId": item.TalentId,
+        }
+        checkoutData.Products.push(product);
       }
-      checkoutData.Products.push(product);
+      if (item.ProductDescription === 'Live Chat') {
+        console.log('LIVE CHAT')
+        const product = {
+          "ProductOptionId": item.ProductOptionId,
+          "Amount": item.WebPrice,
+          "TalentId": item.TalentId,
+          "DateMapperId": item.DateMapperId,
+          "SessionId": "chat"
+        }
+        checkoutData.Products.push(product);
+      }
     })
     const checkoutObject = {
       Token: this.props.user.Token,
@@ -156,6 +206,11 @@ class BillingPage extends Component {
     this.props.checkoutExisting(checkoutObject)
       .then(() => this.setState({ loading: 'false', success: true }))
       .catch(() => this.setState({ loading: 'false', success: false }));
+  }
+
+  submitUpdate = (data) => {
+    console.log('submitUpdate');
+    console.log(data);
   }
 
   guestGrid = () => (
@@ -249,7 +304,7 @@ class BillingPage extends Component {
 
   render() {
     const { cart } = this.props;
-    const { loading, success } = this.state;
+    const { loading, success, guestEligible } = this.state;
     return (
       <div>
         <Segment basic>
@@ -299,10 +354,34 @@ class BillingPage extends Component {
         </Grid>
         <Grid>
           <Grid.Column width={12}>
-            {!this.state.user.loggedIn && (
+            {!this.state.user.loggedIn && guestEligible === 'true' &&  (
               <div>
                 {this.guestGrid()}
                 {this.guestBillingInfo()}
+              </div>
+            )}
+            {!this.state.user.loggedIn && guestEligible === 'false' &&  (
+              <div>
+                <Message negative icon>
+                  <Icon name="warning sign" />
+                  <Message.Content>
+                    <Message.Header>Cart not eligible for Guest Checkout.</Message.Header>
+                  </Message.Content>
+                </Message>
+                <Segment basic secondary>
+                  <Header as='h3'>
+                    <Header.Content>
+                      SIGN IN OR SIGNUP
+                      <Header.Subheader>
+                        Sign in for a faster check out and to download the ChatWith App.
+                      </Header.Subheader>
+                    </Header.Content>
+                  </Header>
+                  <div>
+                    <Button color='blue' as={Link} to='/login'>SIGN IN</Button>
+                    <Button color='blue' as={Link} to='/signup'>SIGN UP</Button>
+                  </div>
+                </Segment>
               </div>
             )}
             {this.state.user.loggedIn && (
@@ -325,7 +404,7 @@ class BillingPage extends Component {
                     SUBTOTAL
                   </Grid.Column>
                   <Grid.Column width={8}>
-                    ${this.state.subtotal}
+                    ${this.state.subtotal.toFixed(2)}
                   </Grid.Column>
                 </Grid.Row>
                 <Grid.Row>
@@ -341,7 +420,7 @@ class BillingPage extends Component {
                     TOTAL
                   </Grid.Column>
                   <Grid.Column width={8}>
-                    ${this.state.subtotal + this.state.tax}
+                    ${(this.state.subtotal + this.state.tax).toFixed(2)}
                   </Grid.Column>
                 </Grid.Row>
               </Grid>
@@ -349,6 +428,9 @@ class BillingPage extends Component {
             </Card>
           </Grid.Column>
         </Grid>
+        <Segment basic></Segment>
+        <Segment basic></Segment>
+        <Segment basic></Segment>
       </div>
     )
   }

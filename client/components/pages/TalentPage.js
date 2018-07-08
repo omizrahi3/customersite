@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Grid, Segment, Image, Breadcrumb, Header, Modal, Button, Icon, Label, Form, TextArea, Message } from "semantic-ui-react";
+import { Grid, Segment, Image, Card, Breadcrumb, Header, Modal, Button, Icon, Label, Form, TextArea, Message, Rail } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { atc } from '../../actions/cartActions';
 import axios from "axios";
@@ -19,7 +19,11 @@ class TalentPage extends Component {
       VideoMessage: ""
     },
     modalOpen: false,
-    productAdded: false
+    liveModalOpen: false,
+    productAdded: false,
+    dates: [],
+    DateMapperId: '',
+    dateObj: {}
   }
 
   componentDidMount() {
@@ -27,27 +31,36 @@ class TalentPage extends Component {
     const { talentid } = this.props.match.params;
 
     const instance = axios.create({timeout: 3000});
-    // instance.defaults.headers.common['token'] = this.props.user.Token;
     instance.post('http://www.qa.getchatwith.com/home/GetProductOptionByTalent', { TalentId: talentid })
     .then(res => res.data.Response)
     .then(products => {
-      console.log(products);
       const keys = [];
       const productsHash = {};
+      let liveChat = '';
       products.forEach(product => {
+        console.log(product);
+        if (product.ProductDescription === 'Live Chat') {
+          liveChat = product.ProductOptionId;
+        }
         product.TalentId = talentid;
         productsHash[product.ProductOptionId] = product;
         keys.push(product.ProductOptionId);
       });
       window.productsHash = productsHash;
       this.setState({ keys, products: productsHash });
-    });
+      if (!!liveChat) return instance.post('http://www.qa.getchatwith.com/home/GetProductOptionDateSlotByProductOption', { ProductOptionId: liveChat });
+    })
+    .then(dates => {
+      this.setState({ dates: dates.data.Response});
+    })
+    .catch(err => {
+      console.log('whoops');
+    }) 
   }
 
   atcFeedHandleClick = (e, data) => {
     const hashedProduct = this.state.products[data.value];
     hashedProduct.ProfilePictureReference = this.state.ProfilePictureReference;
-    console.log(hashedProduct);
     this.setState({ productAdded: true });
     this.props.atc(hashedProduct);
   }
@@ -57,7 +70,15 @@ class TalentPage extends Component {
     const hashedProduct = this.state.products[data.value];
     hashedProduct.VideoMessage = this.state.data.VideoMessage;
     hashedProduct.ProfilePictureReference = this.state.ProfilePictureReference;
-    console.log(hashedProduct);
+    this.props.atc(hashedProduct);
+  }
+
+  atcLiveHandleClick = (e, data) => {
+    this.setState({ liveModalOpen: false, productAdded: true });
+    const hashedProduct = this.state.products[data.value];
+    hashedProduct.DateMapperId = this.state.DateMapperId;
+    hashedProduct.dateObj = this.state.dateObj;
+    hashedProduct.dates = this.state.dates;
     this.props.atc(hashedProduct);
   }
 
@@ -70,74 +91,166 @@ class TalentPage extends Component {
   }
 
   handleOpen = () => this.setState({ modalOpen: true })
+  handleClose = () => this.setState({ modalOpen: false })
+
+  dateSelect = (e, data) => {
+    console.log(e);
+    console.log(data);
+    const dateObj = {
+      date: data.date,
+      duration: data.duration
+    }
+    this.setState({ DateMapperId: data.value, dateObj })
+  }
+
+  handleOpenLive = () => this.setState({ liveModalOpen: true })
+  handleCloseLive = () => this.setState({ liveModalOpen: false })
+
+  renderDates = dates => dates.map(date => {
+    const dateObj = new Date(date.DateSlot);
+    return (
+      <Card date={dateObj} duration={date.Duration} value={date.DateMapperId} key={date.DateMapperId} onClick={this.dateSelect}>
+          <Card.Content>
+            {this.state.DateMapperId === date.DateMapperId && (
+              <Card.Header textAlign="center">Selected</Card.Header>
+              )}
+            <Card.Description textAlign="center">{dateObj.toDateString()}</Card.Description>
+            <Card.Description textAlign="center">{dateObj.toLocaleTimeString()}</Card.Description>
+            <Card.Description textAlign="center">{`(${date.Duration}) Minute Call`}</Card.Description>
+          </Card.Content>
+        </Card>
+    )
+  })
 
   atcFeed = (key, price) => (
-    <Button value={key} onClick={this.atcFeedHandleClick}>
+    <Button color="olive" value={key} onClick={this.atcFeedHandleClick}>
       <Button.Content>ADD TO CART</Button.Content>
     </Button>
   )
 
-  atcVideo = (key, price) => (
-    <Modal size="tiny" trigger={<Button onClick={this.handleOpen}>Show Modal</Button>}
-      open={this.state.modalOpen}
-      onClose={this.handleClose}
-      >
+  atcLive = (key) => (
+    <Modal 
+      key={key}
+      trigger={<Button color="olive" onClick={this.handleOpenLive}>ADD TO CART</Button>}
+      open={this.state.liveModalOpen}
+      closeIcon={<Icon name="window close" onClick={this.handleCloseLive}></Icon>}
+    >
       <Modal.Header>
-        Notify When Available
+        <Header textAlign="center">
+          Available Call Times For Live One-On-One Chat
+          <Header.Subheader>These are the times below</Header.Subheader>
+        </Header>
       </Modal.Header>
-      <Modal.Content>
-        <Form>
-          <Form.Field>
-            <TextArea 
-            maxLength="140"
-            placeholder='First name'
-            name="VideoMessage" onChange={(e, { value }) => this.setState({
-                ...this.state,
-                data: { ...this.state.data, [e.target.name]: e.target.value }
-              })
-            } />
-          </Form.Field>
-        </Form>
+      <Modal.Content scrolling>
+        <Segment basic secondary>
+          {this.state.dates.length > 0 && (
+            <Card.Group itemsPerRow={3}>
+              {this.renderDates(this.state.dates)}
+            </Card.Group>
+          )}
+        </Segment>
       </Modal.Content>
       <Modal.Actions>
-        <Button value={key} color='green' onClick={this.atcVideoMessageHandleClick}>
-          <Icon name='checkmark' /> Yes
+        <Button value={key} color="green" fluid onClick={this.atcLiveHandleClick}>
+          CHECKOUT AND SCHEDULE SESSION
+        </Button>
+      </Modal.Actions>
+    </Modal>
+  )
+
+  atcVideo = (key, price) => (
+    <Modal key={key} size="tiny" trigger={<Button color="olive" onClick={this.handleOpen}>ADD TO CART</Button>}
+      open={this.state.modalOpen}
+      onClose={this.handleClose}
+      closeIcon={<Icon name="window close" onClick={this.handleClose}></Icon>}
+    >
+      <Modal.Header>
+        <Header color="blue" textAlign="center">
+          Your Personalized Video Message Request
+          <Header.Subheader>Please include a message below and let them know what you would like them to say in your Personalized Video Message.</Header.Subheader>
+        </Header>
+      </Modal.Header>
+      <Modal.Content>
+        <Segment basic secondary>
+          <Form>
+            <Form.Field>
+              <TextArea 
+                autoHeight
+                rows={2}
+                maxLength="140"
+                placeholder="Enter your request here."
+                name="VideoMessage" onChange={(e, { value }) => this.setState({
+                  ...this.state,
+                  data: { ...this.state.data, [e.target.name]: e.target.value }
+                })
+              } />
+            </Form.Field>
+          </Form>
+        </Segment>
+      </Modal.Content>
+      <Modal.Actions>
+        <Segment basic floated='left'>You have {140 - this.state.data.VideoMessage.length}/140 chars remaining.</Segment>
+        <Button value={key} color='olive' onClick={this.atcVideoMessageHandleClick}>
+          <Icon name='checkmark' /> CHECKOUT AND SUBMIT
         </Button>
       </Modal.Actions>
     </Modal>
   )
 
   notify = () => (
-    <Modal size="tiny" trigger={<Button>Notify Me When Available</Button>}>
+    <Modal key='notify' size="tiny" trigger={<Button>Notify Me When Available</Button>}>
       <Modal.Header>
         Notify When Available
       </Modal.Header>
     </Modal>
   )
 
-  renderProducts = keys => keys.map(key => {
+  renderProducts2 = keys => keys.map(key => {
     const hashedProduct = this.state.products[key];
-    console.log('///////////////////////////////');
-    console.log(hashedProduct);
     let product;
+    let message;
+    if (hashedProduct.ProductDescription === 'Feed') {
+      message = `Receive exclusive video updates from ${hashedProduct.TalentFirstName} ${hashedProduct.TalentLastName}.`;
+    } else if (hashedProduct.ProductDescription === 'Video Message') {
+      message = `Purchase a personalized video message from ${hashedProduct.TalentFirstName} ${hashedProduct.TalentLastName}.`;
+    } else if (hashedProduct.ProductDescription === 'Live Chat') {
+      message = `Talk one-on-one with ${hashedProduct.TalentFirstName} ${hashedProduct.TalentLastName} in a private chat.`;
+    }
     if (hashedProduct.CurrentUnfulfilled === 0) {
       product = (this.notify());
     } else if (hashedProduct.ProductDescription === 'Feed') {
       product = (this.atcFeed(key, hashedProduct.WebPrice));
     } else if (hashedProduct.ProductDescription === 'Video Message') {
       product = (this.atcVideo(key, hashedProduct.WebPrice));
+    } else if (hashedProduct.ProductDescription === 'Live Chat') {
+      product = (this.atcLive(key));
     }
     return  (
-      <Segment.Group horizontal key={key}>
-        <Segment>${hashedProduct.WebPrice}</Segment>
-        <Segment>{hashedProduct.ProductDescription}</Segment>
-        {product}
-      </Segment.Group>
+      <Grid key={key}>
+        <Grid.Row stretched>
+          <Grid.Column width={3}>
+            <Segment secondary basic>
+            <Header>${hashedProduct.WebPrice}</Header>
+            </Segment>
+          </Grid.Column>
+          <Grid.Column width={10}>
+            <Segment secondary basic>
+            <Header>
+              {hashedProduct.ProductDescription}
+              <Header.Subheader>{message}</Header.Subheader>
+            </Header>
+            </Segment>
+          </Grid.Column>
+          <Grid.Column width={3}>
+          {product}
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     )
   })
 
   render() {
-    const { previousPage, FirstName, LastName, ProfilePictureReference, KnownFor, productAdded } = this.state;
+    const { FirstName, LastName, ProfilePictureReference, KnownFor, productAdded } = this.state;
     return (
       <div>
         {productAdded && (
@@ -149,32 +262,28 @@ class TalentPage extends Component {
             </Message.Content>
           </Message>
         )}
-        <Grid centered columns={3}>
-          <Grid.Column>
-            <Segment basic><Image src={ProfilePictureReference} /></Segment>
-          </Grid.Column>
-          <Grid.Column>
-            <Segment basic>
-            <Breadcrumb>
-              <Breadcrumb.Section as={Link} to="/dashboard">Home</Breadcrumb.Section>
-              <Breadcrumb.Divider icon='right chevron' />
-              <Breadcrumb.Section as={Link} to="/talent">Talent</Breadcrumb.Section>
-              <Breadcrumb.Divider icon='right chevron' />
-              <Breadcrumb.Section as={Link} to={previousPage}>Category</Breadcrumb.Section>
-              <Breadcrumb.Divider icon='right chevron' />
-              <Breadcrumb.Section active>{`${FirstName} ${LastName}`}</Breadcrumb.Section>
-            </Breadcrumb>
-            </Segment>
-            <Segment basic><Header as='h1' color='blue'>{`${FirstName} ${LastName}`}</Header></Segment>
-            <Segment basic><Header as='h3' color='grey'>{KnownFor}</Header></Segment>
-            <Segment basic><Header as='h2' color='blue'>Products</Header></Segment>
-            <Label as='a' color='blue' size='big'>
-              <Label.Detail>Friend</Label.Detail>
-              <Label.Detail>Friend</Label.Detail>
-              Purchase Now
-            </Label>
-            {this.state.keys.length > 0 && (this.renderProducts(this.state.keys))}
-          </Grid.Column>
+        <Grid>
+          <Grid.Row>
+            <Grid.Column width={5}>
+              <Segment basic><Image src={ProfilePictureReference} /></Segment>
+            </Grid.Column>
+            <Grid.Column width={11}>
+              <Segment basic>
+                <Breadcrumb>
+                  <Breadcrumb.Section as={Link} to="/dashboard">Home</Breadcrumb.Section>
+                  <Breadcrumb.Divider icon='right chevron' />
+                  <Breadcrumb.Section as={Link} to="/talent">Talent</Breadcrumb.Section>
+                  <Breadcrumb.Divider icon='right chevron' />
+                  <Breadcrumb.Section active>{`${FirstName} ${LastName}`}</Breadcrumb.Section>
+                </Breadcrumb>
+                <Header as='h1' color='blue'>{`${FirstName} ${LastName}`}
+                  <Header.Subheader>{KnownFor}</Header.Subheader>
+                </Header>
+              </Segment>
+              <Segment basic><Header as='h2' color='blue'>Products</Header></Segment>
+              {this.state.keys.length > 0 && (this.renderProducts2(this.state.keys))}
+            </Grid.Column>
+          </Grid.Row>
         </Grid>
         <Segment basic></Segment>
         <Segment basic></Segment>

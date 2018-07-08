@@ -1,4 +1,4 @@
-import { PRODUCT_ADDED, REMOVE_PRODUCT, LOAD_CART } from "./types";
+import { PRODUCT_ADDED, REMOVE_PRODUCT, LOAD_CART, REPLACE_CART } from "./types";
 
 export const loadCart = cart => ({
   type: LOAD_CART,

@@ -10,12 +10,10 @@ const FeedGrid = ({ item, handleRemoveClick }) => (
     <Grid.Column width={12}>
       <Segment basic vertical>
         <Header as='h3'>
-          {item.TalentFirstName} {item.TalentLastName}
-        </Header>
-      </Segment>
-      <Segment basic vertical>
-        <Header as='h4'>
-          {item.ProductDescription}
+          <Header.Content>
+            {item.TalentFirstName} {item.TalentLastName}
+            <Header.Subheader>{item.ProductDescription}</Header.Subheader>
+          </Header.Content>
         </Header>
       </Segment>
       <Segment basic vertical textAlign='right'>
@@ -25,7 +23,6 @@ const FeedGrid = ({ item, handleRemoveClick }) => (
       </Segment>
       <div>
         <Button value={item.ProductOptionId} onClick={handleRemoveClick}>REMOVE</Button>
-        <Button>IS THIS A GIFT?</Button>
       </div>
     </Grid.Column>
   </Grid.Row>

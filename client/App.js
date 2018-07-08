@@ -10,6 +10,7 @@ import ProfilePage from './components/pages/ProfilePage';
 import TalentLandingPage from './components/pages/TalentLandingPage';
 import MusicSearchPage from './components/pages/MusicSearchPage';
 import SportsSearchPage from './components/pages/SportsSearchPage';
+import BrandSearchPage from './components/pages/BrandSearchPage';
 import TalentPage from './components/pages/TalentPage';
 import CartPage from './components/pages/CartPage';
 import BillingPage from './components/pages/BillingPage';
@@ -18,7 +19,6 @@ import CheckoutPage from './components/pages/CheckoutPage';
 import ForgotPasswordPage from './components/pages/ForgotPasswordPage';
 import GuestRoute from './components/routes/GuestRoute';
 import UserRoute from './components/routes/UserRoute';
-import TopNavigation from './components/navigation/TopNavigation';
 import NavigationBar from './components/navigation/NavigationBar';
 
 const App = ({ location, isAuthenticated }) => (
@@ -71,6 +71,12 @@ const App = ({ location, isAuthenticated }) => (
       path='/categories/music'
       exact
       component={MusicSearchPage}
+    />
+    <Route
+      location={location}
+      path='/categories/brand'
+      exact
+      component={BrandSearchPage}
     />
     <Route
       location={location}
