@@ -83,6 +83,42 @@ class NavigationBar extends Component {
                 <Breadcrumb.Section active>Profile</Breadcrumb.Section>
               </Breadcrumb>
             )}
+            {pathname === '/categories/music' && (
+              <Breadcrumb>
+                <Breadcrumb.Section as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
+                <Breadcrumb.Divider icon='right chevron' />
+                <Breadcrumb.Section as={Link} to="/talent">Talent</Breadcrumb.Section>
+                <Breadcrumb.Divider icon='right chevron' />
+                <Breadcrumb.Section active>Music</Breadcrumb.Section>
+              </Breadcrumb>
+            )}
+            {pathname === '/categories/sports' && (
+              <Breadcrumb>
+                <Breadcrumb.Section as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
+                <Breadcrumb.Divider icon='right chevron' />
+                <Breadcrumb.Section as={Link} to="/talent">Talent</Breadcrumb.Section>
+                <Breadcrumb.Divider icon='right chevron' />
+                <Breadcrumb.Section active>Sports</Breadcrumb.Section>
+              </Breadcrumb>
+            )}
+            {pathname === '/categories/film-tv' && (
+              <Breadcrumb>
+                <Breadcrumb.Section as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
+                <Breadcrumb.Divider icon='right chevron' />
+                <Breadcrumb.Section as={Link} to="/talent">Talent</Breadcrumb.Section>
+                <Breadcrumb.Divider icon='right chevron' />
+                <Breadcrumb.Section active>Film & TV</Breadcrumb.Section>
+              </Breadcrumb>
+            )}
+            {pathname === '/categories/brand' && (
+              <Breadcrumb>
+                <Breadcrumb.Section as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
+                <Breadcrumb.Divider icon='right chevron' />
+                <Breadcrumb.Section as={Link} to="/talent">Talent</Breadcrumb.Section>
+                <Breadcrumb.Divider icon='right chevron' />
+                <Breadcrumb.Section active>Brands</Breadcrumb.Section>
+              </Breadcrumb>
+            )}
           </Menu.Item>
         </Menu.Menu>
 
@@ -125,6 +161,18 @@ class NavigationBar extends Component {
         )}
         {pathname === '/profile' && (
           <Header as='h1' color="yellow">PROFILE</Header>
+        )}
+        {pathname === '/categories/music' && (
+          <Header as='h1' color="blue">MUSIC</Header>
+        )}
+        {pathname === '/categories/sports' && (
+          <Header as='h1' color="green">SPORTS</Header>
+        )}
+        {pathname === '/categories/film-tv' && (
+          <Header as='h1' color="red">FILM & TV</Header>
+        )}
+        {pathname === '/categories/brand' && (
+          <Header as='h1' color="purple">BRANDS</Header>
         )}
       </Segment>
       <Segment basic></Segment>

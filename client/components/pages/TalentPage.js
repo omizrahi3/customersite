@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Grid, Segment, Image, Card, Breadcrumb, Header, Modal, Button, Icon, Label, Form, TextArea, Message, Rail } from "semantic-ui-react";
+import { Grid, Segment, Image, Card, Breadcrumb, Header, Modal, Button, Icon, Input, Form, TextArea, Message, Rail } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { atc } from '../../actions/cartActions';
+import isEmail from "validator/lib/isEmail";
 import axios from "axios";
 
 class TalentPage extends Component {
   state = {
+    errors: {},
     previousPage: this.props.location.state.previousPage,
     FirstName: this.props.location.state.FirstName,
     LastName: this.props.location.state.LastName,
@@ -16,11 +18,14 @@ class TalentPage extends Component {
     keys: [],
     products: {},
     data: {
-      VideoMessage: ""
+      VideoMessage: "",
+      notifyEmail: ""
     },
     modalOpen: false,
     liveModalOpen: false,
+    notifyModalOpen: false,
     productAdded: false,
+    notificationSuccess: '',
     dates: [],
     DateMapperId: '',
     dateObj: {}
@@ -46,15 +51,15 @@ class TalentPage extends Component {
         productsHash[product.ProductOptionId] = product;
         keys.push(product.ProductOptionId);
       });
-      window.productsHash = productsHash;
       this.setState({ keys, products: productsHash });
       if (!!liveChat) return instance.post('http://www.qa.getchatwith.com/home/GetProductOptionDateSlotByProductOption', { ProductOptionId: liveChat });
+      else throw 'no live chat';
     })
     .then(dates => {
       this.setState({ dates: dates.data.Response});
     })
     .catch(err => {
-      console.log('whoops');
+      console.log(err);
     }) 
   }
 
@@ -64,6 +69,33 @@ class TalentPage extends Component {
     this.setState({ productAdded: true });
     this.props.atc(hashedProduct);
   }
+
+  notifyHandleClick = (e, data) => {
+    console.log(data);
+    console.log(this.state.data);
+
+    const { notifyEmail } = this.state.data;
+    this.setState({ notifyModalOpen: false });
+
+    if (!isEmail(notifyEmail)) {
+      const errors = { email: 'Please Enter Valid Email' }
+      this.setState({ errors });
+    } else {
+      console.log('email is clean');
+      this.setState({loading: 'true'});
+      const notifyData = {
+        EmailAddress: notifyEmail,
+        ProductOptionId: data.value,
+      };
+      console.log(notifyData);
+      const instance = axios.create({timeout: 3000});
+      instance.post('http://www.qa.getchatwith.com/home/CreateNotificationGuest', notifyData)
+        .then(() => this.setState({ notificationSuccess: 'true' }))
+        .catch((err) => this.setState({ notificationSuccess: 'false' }));
+    }
+  }
+
+
 
   atcVideoMessageHandleClick = (e, data) => {
     this.setState({ modalOpen: false, productAdded: true });
@@ -83,7 +115,6 @@ class TalentPage extends Component {
   }
 
   onChange = e => {
-    console.log(e);
     this.setState({
       ...this.state,
       data: { ...this.state.data, [e.target.name]: e.target.value }
@@ -92,6 +123,9 @@ class TalentPage extends Component {
 
   handleOpen = () => this.setState({ modalOpen: true })
   handleClose = () => this.setState({ modalOpen: false })
+
+  handleNotifyOpen = () => this.setState({ notifyModalOpen: true })
+  handleNotifyClose = () => this.setState({ notifyModalOpen: false })
 
   dateSelect = (e, data) => {
     console.log(e);
@@ -179,7 +213,8 @@ class TalentPage extends Component {
                 rows={2}
                 maxLength="140"
                 placeholder="Enter your request here."
-                name="VideoMessage" onChange={(e, { value }) => this.setState({
+                name="VideoMessage"
+                onChange={(e, { value }) => this.setState({
                   ...this.state,
                   data: { ...this.state.data, [e.target.name]: e.target.value }
                 })
@@ -197,13 +232,48 @@ class TalentPage extends Component {
     </Modal>
   )
 
-  notify = () => (
-    <Modal key='notify' size="tiny" trigger={<Button>Notify Me When Available</Button>}>
-      <Modal.Header>
-        Notify When Available
-      </Modal.Header>
-    </Modal>
-  )
+  notify = (key) => {
+    const { errors } = this.state;
+    console.log('hello')
+    console.log(key);
+    return (
+      <Modal 
+        key={key}
+        trigger={<Button color="grey" onClick={this.handleNotifyOpen}>NOTIFY ME WHEN AVILABLE</Button>}
+        open={this.state.notifyModalOpen}
+        closeIcon={<Icon name="window close" onClick={this.handleNotifyClose}></Icon>}
+      >
+        <Modal.Header>
+          <Header color="blue" textAlign="center">
+            Get Notified
+            <Header.Subheader>Please enter a valid email address and we'll contact you when product is available.</Header.Subheader>
+          </Header>
+        </Modal.Header>
+        <Modal.Content>
+        <Segment basic secondary>
+            <Form>
+              <Form.Field
+                error={!!errors.email}
+                type="email"
+                id='email'
+                control={Input}
+                label={`${errors.email !== undefined ? errors.email:'Email *'}`}
+                placeholder=''
+                name="notifyEmail"
+                value={this.state.data.notifyEmail}
+                onChange={this.onChange}
+              />
+            </Form>
+          </Segment>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button value={key} color="green" fluid onClick={this.notifyHandleClick}>
+            SUBMIT AND GET NOTIFICATION
+          </Button>
+        </Modal.Actions>
+      </Modal>
+    )
+  }
 
   renderProducts2 = keys => keys.map(key => {
     const hashedProduct = this.state.products[key];
@@ -217,7 +287,7 @@ class TalentPage extends Component {
       message = `Talk one-on-one with ${hashedProduct.TalentFirstName} ${hashedProduct.TalentLastName} in a private chat.`;
     }
     if (hashedProduct.CurrentUnfulfilled === 0) {
-      product = (this.notify());
+      product = (this.notify(key));
     } else if (hashedProduct.ProductDescription === 'Feed') {
       product = (this.atcFeed(key, hashedProduct.WebPrice));
     } else if (hashedProduct.ProductDescription === 'Video Message') {
@@ -250,7 +320,7 @@ class TalentPage extends Component {
   })
 
   render() {
-    const { FirstName, LastName, ProfilePictureReference, KnownFor, productAdded } = this.state;
+    const { FirstName, LastName, ProfilePictureReference, KnownFor, productAdded, notificationSuccess } = this.state;
     return (
       <div>
         {productAdded && (
@@ -259,6 +329,22 @@ class TalentPage extends Component {
             <Message.Content>
               <Message.Header>Product Added. Please </Message.Header>
               <Link to="/cart">Go To Cart.</Link>
+            </Message.Content>
+          </Message>
+        )}
+        {notificationSuccess === 'true' && (
+          <Message success icon>
+            <Icon name="checkmark" />
+            <Message.Content>
+              <Message.Header>Notification Success. Check Email For Confirmation.</Message.Header>
+            </Message.Content>
+          </Message>
+        )}
+        {notificationSuccess === 'false' && (
+          <Message negative icon>
+            <Icon name="warning sign" />
+            <Message.Content>
+              <Message.Header>Notification Failed. Check Email And Try Again.</Message.Header>
             </Message.Content>
           </Message>
         )}

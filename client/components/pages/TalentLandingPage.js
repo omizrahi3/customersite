@@ -18,16 +18,16 @@ class TalentLandingPage extends Component {
           <Menu.Menu position="left">
           </Menu.Menu>
           <Menu.Menu position="right">
-            <Menu.Item as={Link} to ='/categories/music'>
+            <Menu.Item as={Link} to ='/categories/film-tv'>
               <Header size='huge' color="red">FILM & TV</Header>
             </Menu.Item>
             <Menu.Item as={Link} to ='/categories/music'>
               <Header size='huge' color="blue">MUSIC</Header>
             </Menu.Item>
-            <Menu.Item as={Link} to ='/categories/music'>
+            <Menu.Item as={Link} to ='/categories/sports'>
               <Header size='huge' color="green">SPORTS</Header>
             </Menu.Item>
-            <Menu.Item as={Link} to ='/categories/music'>
+            <Menu.Item as={Link} to ='/categories/brand'>
               <Header size='huge' color="purple">BRANDS</Header>
             </Menu.Item>
           </Menu.Menu>

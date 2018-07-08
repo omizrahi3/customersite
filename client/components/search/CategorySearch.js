@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Message, Icon, Segment, Pagination, Input, Grid, Button, Header, Card, Image } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
-class KnownForSearch extends Component {
+class CategorySearch extends Component {
   state = {
     loading: '',
     searchQuery: '',
     resultsPerPage: 15,
     ResultNumberBegin: 0,
-    ResultNumberEnd: 15,
     keys: [],
     talents: {},
     totalCount: 0,
@@ -18,6 +18,29 @@ class KnownForSearch extends Component {
     activePage: 1,
     totalPages: 0
   };
+
+  componentDidMount() {
+    console.log('CategorySearch did mount');
+    this.setState({ loading: 'true' });
+    const instance = axios.create({timeout: 3000});
+    const requestBody = {
+      CategoryId: this.props.CategoryId,
+      ResultNumberBegin: 0,
+      ResultNumberEnd: 15
+    }
+    instance.post('http://www.qa.getchatwith.com/home/GetAppTalentByCategoryWeb', requestBody)
+    .then(res => res.data.Response)
+    .then(results => {
+      const keys = [];
+      const talentsHash = {};
+      results.LandingData.forEach(talent => {
+        talentsHash[talent.TalentId] = talent;
+        keys.push(talent.TalentId);
+      });
+      const totalPages = Math.ceil(results.TotalCount / this.state.resultsPerPage);
+      this.setState({ keys, talents: talentsHash, totalPages, activePage: 1, loading: 'false' });
+    });
+  }
 
   onChange = (e, data) => {
     this.setState({searchQuery: data.value})
@@ -28,71 +51,98 @@ class KnownForSearch extends Component {
   }
 
   onSubmit = (e, data) => {
-    console.log('button click');
+    console.log('onSubmit');
     this.setState({ loading: 'true' });
+
+    let apiUrl;
+    let requestBody;
+
+    if (!!this.state.searchQuery) {
+      // has query - GetAppTalentBySearch
+      const name = this.state.searchQuery.split(' ');
+      apiUrl = 'http://www.qa.getchatwith.com/home/GetAppTalentBySearch';
+      requestBody = {
+        CategoryId: this.props.CategoryId,
+        FirstName: name[0],
+        LastName: name[1],
+        ResultNumberBegin: 0,
+        ResultNumberEnd: this.state.resultsPerPage
+      }
+    } else {
+      // has no query - GetAppTalentByCategoryWeb
+    }
+    
     const instance = axios.create({timeout: 3000});
-    const dataObj =
-    {
-      "KnownFor": this.state.searchQuery,
-      "ResultNumberBegin": 0,
-      "ResultNumberEnd": 15
-    };
-    // const testObj = {
-    //   "FirstName":"",
-    //   "LastName":"A",
-    //   "ResultNumberBegin": 0,
-    //   "ResultNumberEnd": 15
-    // }
-    instance.post('http://www.qa.getchatwith.com/home/GetAppTalentBySearch', dataObj)
+    instance.post(apiUrl, requestBody)
     .then(res => res.data.Response)
     .then(results => {
-      console.log(results.TotalCount);
-      window.talentsHash = results.LandingData;
-      const searchResults = {
-        query: this.state.searchQuery,
-        totalCount: results.TotalCount
-      }
+      console.log(results);
       const keys = [];
       const talentsHash = {};
       results.LandingData.forEach(talent => {
         talentsHash[talent.TalentId] = talent;
         keys.push(talent.TalentId);
       });
-      const totalPages = searchResults.totalCount / this.state.resultsPerPage;
-      this.setState({ searchResults, keys, talents: talentsHash, totalPages, activePage: 1, loading: 'false' });
+      if (!!this.state.searchQuery) {
+        // has query - GetAppTalentBySearch
+        const searchResults = {
+          query: this.state.searchQuery,
+          totalCount: results.TotalCount
+        }
+        const totalPages = Math.ceil(results.TotalCount / this.state.resultsPerPage);
+        this.setState({ searchResults, keys, talents: talentsHash, totalPages, activePage: 1, loading: 'false' });
+      } else {
+        // has no query - GetAppTalentByCategoryWeb
+      }
     });
   }
 
   handlePaginationChange = (e, { activePage }) => {
-    const resultNumberBegin = this.calcResultNumberBegin(this.state.resultsPerPage, activePage);
     this.setState({ loading: 'true', activePage })
-    console.log(resultNumberBegin);
+    let apiUrl;
+    let requestBody;
+    const resultNumberBegin = this.calcResultNumberBegin(this.state.resultsPerPage, activePage);
+    if (!!this.state.searchQuery) {
+      // has query - GetAppTalentBySearch
+      const name = this.state.searchQuery.split(' ');
+      apiUrl = 'http://www.qa.getchatwith.com/home/GetAppTalentBySearch';
+      requestBody = {
+        CategoryId: this.props.CategoryId,
+        FirstName: name[0],
+        LastName: name[1],
+        ResultNumberBegin: resultNumberBegin,
+        ResultNumberEnd: this.state.resultsPerPage
+      }
+    } else {
+      // has no query - GetAppTalentByCategoryWeb
+      apiUrl = 'http://www.qa.getchatwith.com/home/GetAppTalentByCategoryWeb';
+      requestBody = {
+        CategoryId: this.props.CategoryId,
+        ResultNumberBegin: resultNumberBegin,
+        ResultNumberEnd: this.state.resultsPerPage
+      }
+    }
+
+    console.log(apiUrl);
+    console.log(requestBody);
     const instance = axios.create({timeout: 3000});
-    const dataObj =
-    {
-      "KnownFor": this.state.searchResults.query,
-      "ResultNumberBegin": resultNumberBegin,
-      "ResultNumberEnd": 15
-    };
-    // const testObj = {
-    //   "FirstName":"",
-    //   "LastName":"A",
-    //   "ResultNumberBegin": resultNumberBegin,
-    //   "ResultNumberEnd": 15
-    // }
-    instance.post('http://www.qa.getchatwith.com/home/GetAppTalentBySearch', dataObj)
+    instance.post(apiUrl, requestBody)
     .then(res => res.data.Response)
     .then(results => {
-      console.log(results.TotalCount);
-      window.talentsHash = results.LandingData;
       const keys = [];
       const talentsHash = {};
       results.LandingData.forEach(talent => {
-        talent.ProfilePictureReference = "https://chatwith-dev-talent-profile-pictures.s3.amazonaws.com/055A41E9710840BCBA5E2931D4F8AD1F/ProfilePicture?AWSAccessKeyId=AKIAIBVDUTSBPSGIOLQQ&Expires=1530857230&Signature=QM%2F97s5UmcTCiF9iEk9%2Bh3zU9wA%3D";
         talentsHash[talent.TalentId] = talent;
         keys.push(talent.TalentId);
       });
-      this.setState({ keys, talents: talentsHash, loading: 'false' });
+
+      if (!!this.state.searchQuery) {
+        // has query - GetAppTalentBySearch
+        this.setState({ keys, talents: talentsHash, activePage, loading: 'false' });
+      } else {
+        // has no query - GetAppTalentByCategoryWeb
+        this.setState({ keys, talents: talentsHash, activePage, loading: 'false' });
+      }
     });
   }
 
@@ -129,7 +179,7 @@ class KnownForSearch extends Component {
   })
 
   render() {
-    const { loading, keys, searchResults, totalPages, activePage } = this.state;
+    const { loading, keys, searchResults, totalPages, activePage, searchQuery } = this.state;
     return (
       <div>
         {loading === 'true' && (
@@ -141,7 +191,7 @@ class KnownForSearch extends Component {
         <Segment basic secondary>
         <Grid columns='equal'>
           <Grid.Column width={2}>
-            Search by Known For
+            Search By Name
           </Grid.Column>
           <Grid.Column width={7}>
           <Input
@@ -166,6 +216,7 @@ class KnownForSearch extends Component {
           </Grid.Column>
         </Grid>
         </Segment>
+        {!!searchQuery && (
         <Segment basic>
           <Header size='huge' color="grey">
             RESULTS
@@ -180,6 +231,7 @@ class KnownForSearch extends Component {
             </Header>
           )}
         </Segment>
+        )}
         {keys.length > 0 && (
           <Card.Group itemsPerRow={5}>
             {this.renderTalents(keys)}
@@ -190,4 +242,8 @@ class KnownForSearch extends Component {
   }
 }
 
-export default KnownForSearch
+CategorySearch.propTypes = {
+  CategoryId: PropTypes.string.isRequired,
+};
+
+export default CategorySearch

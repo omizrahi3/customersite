@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
-import { Segment, Breadcrumb, Header, Button, Label } from 'semantic-ui-react';
+import { Segment, Menu, Header } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
-import TalentSearch from '../search/TalentSearch';
+import CategorySearch from '../search/CategorySearch';
 
 class MusicSearchPage extends Component {
   state = {
-    endpoint: 'http://www.qa.getchatwith.com/home/GetAppTalentByCategoryWeb',
-    CategoryId: '021D71E9EE9E4C849111A438C1322DBD',
-    talent: null
+    CategoryId: '021D71E9EE9E4C849111A438C1322DBD'
   }
 
   componentDidMount = () => this.onInit(this.props);
@@ -22,31 +20,28 @@ class MusicSearchPage extends Component {
   addTalent = () => console.log('testing');
 
   render() {
-    const { endpoint, CategoryId } = this.state;
+    const { CategoryId } = this.state;
     return (
       <div>
-        <Segment basic>
-          <Breadcrumb>
-            <Breadcrumb.Section as={Link} to="/dashboard">Home</Breadcrumb.Section>
-            <Breadcrumb.Divider icon='right chevron' />
-            <Breadcrumb.Section as={Link} to="/talent">Talent</Breadcrumb.Section>
-            <Breadcrumb.Divider icon='right chevron' />
-            <Breadcrumb.Section active>Music</Breadcrumb.Section>
-          </Breadcrumb>
-          <Header color="red">MUSIC</Header>
-        </Segment>
-        <Segment basic>
-          <Header as='h5' color="grey">Additional Categories</Header>
-          <Label basic color='green' size='big' as={Link} to="/categories/sports">
-            SPORTS
-          </Label>
-          <Label basic color='purple' size='big' as={Link} to="/dashboard">
-            BRANDS
-          </Label>
-        </Segment>
-        <Segment basic>
-          <TalentSearch currentPage={this.props.location.pathname} onTalentSelect={this.onTalentSelect} endpoint={endpoint} CategoryId={CategoryId}/>
-        </Segment>
+        <Menu secondary>
+          <Menu.Menu position="left">
+          </Menu.Menu>
+          <Menu.Menu position="right">
+            <Menu.Item as={Link} to ='/categories/film-tv'>
+              <Header size='huge' color="red">FILM & TV</Header>
+            </Menu.Item>
+            <Menu.Item as={Link} to ='/categories/sports'>
+              <Header size='huge' color="green">SPORTS</Header>
+            </Menu.Item>
+            <Menu.Item as={Link} to ='/categories/brand'>
+              <Header size='huge' color="purple">BRANDS</Header>
+            </Menu.Item>
+          </Menu.Menu>
+        </Menu>
+        <CategorySearch CategoryId={CategoryId}/>
+        <Segment basic></Segment>
+        <Segment basic></Segment>
+        <Segment basic></Segment>
       </div>
     )
   }
