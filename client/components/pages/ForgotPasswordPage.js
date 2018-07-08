@@ -1,11 +1,8 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Link } from 'react-router-dom';
-import { connect } from "react-redux";
 import axios from 'axios';
 import { Grid, Segment, Header, Message, Icon } from "semantic-ui-react";
 import ForgotPasswordForm from "../forms/ForgotPasswordForm";
-import { resetPasswordRequest } from "../../actions/authActions";
 
 class ForgotPasswordPage extends React.Component {
   state = {
@@ -93,8 +90,4 @@ class ForgotPasswordPage extends React.Component {
   }
 }
 
-ForgotPasswordPage.propTypes = {
-  resetPasswordRequest: PropTypes.func.isRequired
-};
-
-export default connect(null, { resetPasswordRequest })(ForgotPasswordPage);
+export default ForgotPasswordPage;

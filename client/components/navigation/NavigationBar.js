@@ -69,6 +69,13 @@ class NavigationBar extends Component {
                 <Breadcrumb.Section active>Forgot Password</Breadcrumb.Section>
               </Breadcrumb>
             )}
+            {pathname === '/reset_password' && (
+              <Breadcrumb>
+                <Breadcrumb.Section as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
+                <Breadcrumb.Divider icon='right chevron' />
+                <Breadcrumb.Section active>Reset Password</Breadcrumb.Section>
+              </Breadcrumb>
+            )}
             {pathname === '/talent' && (
               <Breadcrumb>
                 <Breadcrumb.Section as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
@@ -81,6 +88,15 @@ class NavigationBar extends Component {
                 <Breadcrumb.Section as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
                 <Breadcrumb.Divider icon='right chevron' />
                 <Breadcrumb.Section active>Cart</Breadcrumb.Section>
+              </Breadcrumb>
+            )}
+            {pathname === '/billing' && (
+              <Breadcrumb>
+                <Breadcrumb.Section as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
+                <Breadcrumb.Divider icon='right chevron' />
+                <Breadcrumb.Section as="a" href="/cart">Cart</Breadcrumb.Section>
+                <Breadcrumb.Divider icon='right chevron' />
+                <Breadcrumb.Section active>Billing</Breadcrumb.Section>
               </Breadcrumb>
             )}
             {pathname === '/profile' && (
@@ -161,6 +177,9 @@ class NavigationBar extends Component {
           <Header size='huge' color="yellow">REGISTER</Header>
         )}
         {pathname === '/forgot_password' && (
+          <Header size='huge' color="yellow">FORGOT PASSWORD</Header>
+        )}
+        {pathname === '/reset_password' && (
           <Header size='huge' color="yellow">RESET PASSWORD</Header>
         )}
         {pathname === '/talent' && (
@@ -168,6 +187,9 @@ class NavigationBar extends Component {
         )}
         {pathname === '/cart' && (
           <Header as='h1' color="yellow">CART</Header>
+        )}
+        {pathname === '/billing' && (
+          <Header as='h1' color="yellow">BILLING</Header>
         )}
         {pathname === '/profile' && (
           <Header as='h1' color="yellow">PROFILE</Header>

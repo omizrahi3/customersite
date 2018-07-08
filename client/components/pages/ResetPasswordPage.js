@@ -1,33 +1,39 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Link } from 'react-router-dom';
-import { connect } from "react-redux";
+import qs from 'query-string';
 import axios from 'axios';
 import { Grid, Segment, Header, Message, Icon } from "semantic-ui-react";
-import ForgotPasswordForm from "../forms/ForgotPasswordForm";
+import ResetPasswordForm from "../forms/ResetPasswordForm";
 
 class ResetPasswordPage extends React.Component {
   state = {
     loading: '',
     success: false,
-    serverError: ''
+    serverError: '',
+    Token: '',
+    UserId: ''
   };
 
   componentDidMount() {
     console.log('ResetPasswordPage did mount');
     console.log(this.props);
+    const queryString = qs.parse(this.props.location.search)
+    console.log(queryString);
+    this.setState({ Token: queryString.Token, UserId: queryString.UserId })
   }
 
   submit = (data) => {
     console.log('ForgotPassword Page: submit');
-
+    const { UserId, Token } = this.state;
     this.setState({loading: 'true'});
-    const forgotData = {
-      EmailAddress: data.EmailAddress,
+    const resetData = {
+      AppUserId: UserId,
+      LinkToken: Token,
+      Password: data.Password
     };
-    console.log(forgotData);
+    console.log(resetData);
     const instance = axios.create({timeout: 3000});
-    instance.post('http://www.qa.getchatwith.com/password/CreateUserResetPasswordEmail', forgotData)
+    instance.post('http://www.qa.getchatwith.com/password/AuthenticateResetPasswordLink', resetData)
     .then(res => {
       const { Error = false } = res.data;
       if (Error) return Promise.reject({server: res.data.Response})
@@ -78,12 +84,13 @@ class ResetPasswordPage extends React.Component {
           <Link to="/signup">Not a member? Register</Link>
           <Header as='h3' color='grey'>
             <Header.Content>
-              RESET PASSWORD REQUEST
+              RESET PASSWORD SUBMIT
               <Header.Subheader>
                 Required Field *
               </Header.Subheader>
             </Header.Content>
           </Header>
+          <ResetPasswordForm submit={this.submit} />
         </Segment>
         <Segment basic></Segment>
         <Segment basic></Segment>

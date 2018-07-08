@@ -307,16 +307,6 @@ class BillingPage extends Component {
     const { loading, success, guestEligible } = this.state;
     return (
       <div>
-        <Segment basic>
-          <Breadcrumb>
-            <Breadcrumb.Section as={Link} to="/dashboard">Home</Breadcrumb.Section>
-            <Breadcrumb.Divider icon='right chevron' />
-            <Breadcrumb.Section as={Link} to="/cart">Cart</Breadcrumb.Section>
-            <Breadcrumb.Divider icon='right chevron' />
-            <Breadcrumb.Section active>Billing</Breadcrumb.Section>
-          </Breadcrumb>
-          <Header color="yellow">BILLING</Header>
-        </Segment>
         {loading === 'true' && (
           <Message icon>
             <Icon name="circle notched" loading />
