@@ -62,6 +62,13 @@ class NavigationBar extends Component {
                 <Breadcrumb.Section active>Register</Breadcrumb.Section>
               </Breadcrumb>
             )}
+            {pathname === '/forgot_password' && (
+              <Breadcrumb>
+                <Breadcrumb.Section as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
+                <Breadcrumb.Divider icon='right chevron' />
+                <Breadcrumb.Section active>Forgot Password</Breadcrumb.Section>
+              </Breadcrumb>
+            )}
             {pathname === '/talent' && (
               <Breadcrumb>
                 <Breadcrumb.Section as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
@@ -152,6 +159,9 @@ class NavigationBar extends Component {
         )}
         {pathname === '/signup' && (
           <Header size='huge' color="yellow">REGISTER</Header>
+        )}
+        {pathname === '/forgot_password' && (
+          <Header size='huge' color="yellow">RESET PASSWORD</Header>
         )}
         {pathname === '/talent' && (
           <Header as='h1' color="yellow">SEARCH</Header>

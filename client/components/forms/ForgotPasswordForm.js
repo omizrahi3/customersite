@@ -1,15 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Form, Button, Message } from "semantic-ui-react";
+import { Form, Button, Input } from "semantic-ui-react";
 import isEmail from "validator/lib/isEmail";
 import InlineError from "../messages/InlineError";
 
 class ForgotPasswordForm extends React.Component {
   state = {
     data: {
-      email: ""
+      EmailAddress: ""
     },
-    loading: false,
     errors: {}
   };
 
@@ -24,39 +23,34 @@ class ForgotPasswordForm extends React.Component {
     const errors = this.validate(this.state.data);
     this.setState({ errors });
     if (Object.keys(errors).length === 0) {
-      this.setState({ loading: true });
       this.props.submit(this.state.data)
-        .catch(err =>
-          this.setState({ errors: err.response.data.errors, loading: false })
-        );
     }
   };
 
   validate = data => {
     const errors = {};
-    if (!isEmail(data.email)) errors.email = "Invalid email";
+    if (!isEmail(data.EmailAddress)) errors.email = "Please Enter Valid Email";
     return errors;
   };
 
   render() {
-    const { errors, data, loading } = this.state;
+    const { errors, data } = this.state;
 
     return (
-      <Form onSubmit={this.onSubmit} loading={loading}>
-        {!!errors.global && <Message negative>{errors.global}</Message>}
-        <Form.Field error={!!errors.email}>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="email"
-            value={data.email}
-            onChange={this.onChange}
-          />
-          {errors.email && <InlineError text={errors.email} />}
-        </Form.Field>
-        <Button primary>ForgotPasswordForm</Button>
+      <Form onSubmit={this.onSubmit}>
+        <Form.Field
+          error={!!errors.email}
+          width={6}
+          type="email"
+          id='email'
+          control={Input}
+          label={`${errors.email !== undefined ? errors.email:'Email *'}`}
+          placeholder=''
+          name="EmailAddress"
+          value={data.EmailAddress}
+          onChange={this.onChange}
+        />
+        <Button primary>Submit Request</Button>
       </Form>
     );
   }

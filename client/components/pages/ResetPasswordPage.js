@@ -1,13 +1,12 @@
-import React from 'react'
+import React from "react";
 import PropTypes from "prop-types";
 import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
-import { Segment, Message, Grid, Header, Icon } from "semantic-ui-react";
-import LoginForm from '../forms/LoginForm';
-import LoginFacebook from '../facebook/LoginFacebook';
-import { login, loginFB } from '../../actions/authActions';
+import axios from 'axios';
+import { Grid, Segment, Header, Message, Icon } from "semantic-ui-react";
+import ForgotPasswordForm from "../forms/ForgotPasswordForm";
 
-class LoginPage extends React.Component {
+class ResetPasswordPage extends React.Component {
   state = {
     loading: '',
     success: false,
@@ -15,32 +14,29 @@ class LoginPage extends React.Component {
   };
 
   componentDidMount() {
-    console.log('LoginPage did mount');
-    // const { user } = this.props;
-    // if (Object.keys(user).length === 0 && user.constructor === Object) {
-    // } else {
-    //   this.setState({ loading: 'false', success: true });
-    // }
+    console.log('ResetPasswordPage did mount');
+    console.log(this.props);
   }
-
-  submit2 = data =>
-    this.props.login(data).then(() => this.props.history.push('/dashboard'));
 
   submit = (data) => {
-    console.log('Login Page: submit');
+    console.log('ForgotPassword Page: submit');
+
     this.setState({loading: 'true'});
-    const loginData = {
+    const forgotData = {
       EmailAddress: data.EmailAddress,
-      Password: data.Password,
     };
-    console.log(loginData);
-    this.props.login(loginData)
-      .then(() => console.log('logged in'))
-      .catch((err) => this.setState({ loading: 'false', success: false, serverError: err.server }));
+    console.log(forgotData);
+    const instance = axios.create({timeout: 3000});
+    instance.post('http://www.qa.getchatwith.com/password/CreateUserResetPasswordEmail', forgotData)
+    .then(res => {
+      const { Error = false } = res.data;
+      if (Error) return Promise.reject({server: res.data.Response})
+      else return this.setState({ loading: 'false', success: true });
+    })
+    .catch(err => {
+      this.setState({ loading: 'false', success: false, serverError: err.server })
+    })
   }
-  
-  submitFB = data =>
-    this.props.loginFB(data).then(() => this.props.history.push('/dashboard'));
 
   render() {
     const { loading, success, serverError } = this.state;
@@ -49,7 +45,7 @@ class LoginPage extends React.Component {
         {loading === 'true' && (
           <Message icon>
             <Icon name="circle notched" loading />
-            <Message.Header>Login In Progress</Message.Header>
+            <Message.Header>Request In Progress</Message.Header>
           </Message>
         )}
         {loading === 'false' &&
@@ -58,9 +54,8 @@ class LoginPage extends React.Component {
             <Icon name="checkmark" />
             <Message.Content>
               <Message.Header>
-                Login Complete. Start Searching Talent.
+                Request Success. Check Email For Reset Link.
               </Message.Header>
-              <Link to="/talent">Talent Page</Link>
             </Message.Content>
           </Message>
         )}
@@ -69,7 +64,7 @@ class LoginPage extends React.Component {
           <Message negative icon>
             <Icon name="warning sign" />
             <Message.Content>
-              <Message.Header>Login Failed. {serverError}</Message.Header>
+              <Message.Header>Request Failed. {serverError}</Message.Header>
             </Message.Content>
           </Message>
         )}
@@ -83,13 +78,12 @@ class LoginPage extends React.Component {
           <Link to="/signup">Not a member? Register</Link>
           <Header as='h3' color='grey'>
             <Header.Content>
-              LOGIN TO CHATWITH
+              RESET PASSWORD REQUEST
               <Header.Subheader>
                 Required Field *
               </Header.Subheader>
             </Header.Content>
           </Header>
-          <LoginForm loggedIn={success} submit={this.submit} />
         </Segment>
         <Segment basic></Segment>
         <Segment basic></Segment>
@@ -99,18 +93,4 @@ class LoginPage extends React.Component {
   }
 }
 
-LoginPage.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired
-  }).isRequired,
-  login: PropTypes.func.isRequired,
-  loginFB: PropTypes.func.isRequired
-};
-
-function mapStateToProps(state) {
-  return {
-    user: state.user
-  };
-}
-
-export default connect(mapStateToProps, { login, loginFB })(LoginPage);
+export default ResetPasswordPage;

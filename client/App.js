@@ -17,6 +17,7 @@ import BillingPage from './components/pages/BillingPage';
 import SubscriptionPage from './components/pages/SubscriptionPage';
 import CheckoutPage from './components/pages/CheckoutPage';
 import ForgotPasswordPage from './components/pages/ForgotPasswordPage';
+import ResetPasswordPage from './components/pages/ResetPasswordPage';
 import GuestRoute from './components/routes/GuestRoute';
 import UserRoute from './components/routes/UserRoute';
 import NavigationBar from './components/navigation/NavigationBar';
@@ -30,7 +31,7 @@ const App = ({ location, isAuthenticated }) => (
       exact
       component={HomePage}
     />
-    <Route
+    <GuestRoute
       location={location}
       path='/login'
       exact
@@ -47,6 +48,12 @@ const App = ({ location, isAuthenticated }) => (
       path='/forgot_password'
       exact
       component={ForgotPasswordPage}
+    />
+    <GuestRoute
+      location={location}
+      path='/reset_password'
+      exact
+      component={ResetPasswordPage}
     />
     <UserRoute
       location={location}
