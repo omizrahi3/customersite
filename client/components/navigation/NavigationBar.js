@@ -6,6 +6,15 @@ import { Link } from "react-router-dom";
 import * as actions from "../../actions/authActions";
 import { Menu, Segment, Breadcrumb, Label, Header, Icon } from "semantic-ui-react";
 
+const headerStyle = {
+  marginTop: '-1.0em',
+  fontSize: '2.5em'
+};
+
+const linkStyle = {
+  color: 'grey',
+};
+
 class NavigationBar extends Component {
   state = {
     page: ''
@@ -50,96 +59,103 @@ class NavigationBar extends Component {
           <Menu.Item>
             {pathname === '/login' && (
               <Breadcrumb>
-                <Breadcrumb.Section as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle} as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
                 <Breadcrumb.Divider icon='right chevron' />
-                <Breadcrumb.Section active>Login</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle} active>Login</Breadcrumb.Section>
               </Breadcrumb>
             )}
             {pathname === '/signup' && (
               <Breadcrumb>
-                <Breadcrumb.Section as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle} as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
                 <Breadcrumb.Divider icon='right chevron' />
-                <Breadcrumb.Section active>Register</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle} active>Register</Breadcrumb.Section>
               </Breadcrumb>
             )}
             {pathname === '/forgot_password' && (
               <Breadcrumb>
-                <Breadcrumb.Section as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle} as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
                 <Breadcrumb.Divider icon='right chevron' />
-                <Breadcrumb.Section active>Forgot Password</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle} active>Forgot Password</Breadcrumb.Section>
               </Breadcrumb>
             )}
             {pathname === '/reset_password' && (
               <Breadcrumb>
-                <Breadcrumb.Section as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle} as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
                 <Breadcrumb.Divider icon='right chevron' />
-                <Breadcrumb.Section active>Reset Password</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle} active>Reset Password</Breadcrumb.Section>
               </Breadcrumb>
             )}
             {pathname === '/talent' && (
               <Breadcrumb>
-                <Breadcrumb.Section as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle} as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
                 <Breadcrumb.Divider icon='right chevron' />
-                <Breadcrumb.Section active>Talent</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle} active>Talent</Breadcrumb.Section>
               </Breadcrumb>
             )}
             {pathname === '/cart' && (
               <Breadcrumb>
-                <Breadcrumb.Section as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle} as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
                 <Breadcrumb.Divider icon='right chevron' />
-                <Breadcrumb.Section active>Cart</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle} active>Cart</Breadcrumb.Section>
               </Breadcrumb>
             )}
             {pathname === '/billing' && (
               <Breadcrumb>
-                <Breadcrumb.Section as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle} as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
                 <Breadcrumb.Divider icon='right chevron' />
-                <Breadcrumb.Section as="a" href="/cart">Cart</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle} as="a" href="/cart">Cart</Breadcrumb.Section>
                 <Breadcrumb.Divider icon='right chevron' />
-                <Breadcrumb.Section active>Billing</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle} active>Billing</Breadcrumb.Section>
               </Breadcrumb>
             )}
             {pathname === '/profile' && (
               <Breadcrumb>
-                <Breadcrumb.Section as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle} as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
                 <Breadcrumb.Divider icon='right chevron' />
-                <Breadcrumb.Section active>Profile</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle} active>Profile</Breadcrumb.Section>
+              </Breadcrumb>
+            )}
+            {pathname === '/myaccount' && (
+              <Breadcrumb>
+                <Breadcrumb.Section style={linkStyle} as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
+                <Breadcrumb.Divider icon='right chevron' />
+                <Breadcrumb.Section style={linkStyle} active>My Account</Breadcrumb.Section>
               </Breadcrumb>
             )}
             {pathname === '/categories/music' && (
               <Breadcrumb>
-                <Breadcrumb.Section as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle} as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
                 <Breadcrumb.Divider icon='right chevron' />
-                <Breadcrumb.Section as={Link} to="/talent">Talent</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle} as={Link} to="/talent">Talent</Breadcrumb.Section>
                 <Breadcrumb.Divider icon='right chevron' />
-                <Breadcrumb.Section active>Music</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle} active>Music</Breadcrumb.Section>
               </Breadcrumb>
             )}
             {pathname === '/categories/sports' && (
               <Breadcrumb>
-                <Breadcrumb.Section as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle} as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
                 <Breadcrumb.Divider icon='right chevron' />
-                <Breadcrumb.Section as={Link} to="/talent">Talent</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle} as={Link} to="/talent">Talent</Breadcrumb.Section>
                 <Breadcrumb.Divider icon='right chevron' />
-                <Breadcrumb.Section active>Sports</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle} active>Sports</Breadcrumb.Section>
               </Breadcrumb>
             )}
             {pathname === '/categories/film-tv' && (
               <Breadcrumb>
-                <Breadcrumb.Section as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle} as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
                 <Breadcrumb.Divider icon='right chevron' />
-                <Breadcrumb.Section as={Link} to="/talent">Talent</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle} as={Link} to="/talent">Talent</Breadcrumb.Section>
                 <Breadcrumb.Divider icon='right chevron' />
-                <Breadcrumb.Section active>Film & TV</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle} active>Film & TV</Breadcrumb.Section>
               </Breadcrumb>
             )}
             {pathname === '/categories/brand' && (
               <Breadcrumb>
-                <Breadcrumb.Section as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle} as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
                 <Breadcrumb.Divider icon='right chevron' />
-                <Breadcrumb.Section as={Link} to="/talent">Talent</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle} as={Link} to="/talent">Talent</Breadcrumb.Section>
                 <Breadcrumb.Divider icon='right chevron' />
-                <Breadcrumb.Section active>Brands</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle} active>Brands</Breadcrumb.Section>
               </Breadcrumb>
             )}
           </Menu.Item>
@@ -170,44 +186,49 @@ class NavigationBar extends Component {
         </Menu.Menu>
       </Menu>
       <Segment basic compact>
-        {pathname === '/login' && (
-          <Header size='huge' color="yellow">LOGIN</Header>
-        )}
-        {pathname === '/signup' && (
-          <Header size='huge' color="yellow">REGISTER</Header>
-        )}
-        {pathname === '/forgot_password' && (
-          <Header size='huge' color="yellow">FORGOT PASSWORD</Header>
-        )}
-        {pathname === '/reset_password' && (
-          <Header size='huge' color="yellow">RESET PASSWORD</Header>
-        )}
-        {pathname === '/talent' && (
-          <Header as='h1' color="yellow">SEARCH</Header>
-        )}
-        {pathname === '/cart' && (
-          <Header as='h1' color="yellow">CART</Header>
-        )}
-        {pathname === '/billing' && (
-          <Header as='h1' color="yellow">BILLING</Header>
-        )}
-        {pathname === '/profile' && (
-          <Header as='h1' color="yellow">PROFILE</Header>
-        )}
-        {pathname === '/categories/music' && (
-          <Header as='h1' color="blue">MUSIC</Header>
-        )}
-        {pathname === '/categories/sports' && (
-          <Header as='h1' color="green">SPORTS</Header>
-        )}
-        {pathname === '/categories/film-tv' && (
-          <Header as='h1' color="red">FILM & TV</Header>
-        )}
-        {pathname === '/categories/brand' && (
-          <Header as='h1' color="purple">BRANDS</Header>
-        )}
+        <Header style={headerStyle} color="yellow">
+          {pathname === '/login' && (
+            'LOGIN'
+          )}
+          {pathname === '/signup' && (
+            'REGISTER'
+          )}
+          {pathname === '/forgot_password' && (
+            'FORGOT PASSWORD'
+          )}
+          {pathname === '/reset_password' && (
+            'RESET PASSWORD'
+          )}
+          {pathname === '/talent' && (
+            'SEARCH'
+          )}
+          {pathname === '/cart' && (
+            'CART'
+          )}
+          {pathname === '/billing' && (
+            'BILLING'
+          )}
+          {pathname === '/myaccount' && (
+            'MY ACCOUNT'
+          )}
+          {pathname === '/profile' && (
+            'PROFILE'
+          )}
+          {pathname === '/categories/music' && (
+            'MUSIC'
+          )}
+          {pathname === '/categories/sports' && (
+            'SPORTS'
+          )}
+          {pathname === '/categories/film-tv' && (
+            'FILM & TV'
+          )}
+          {pathname === '/categories/brand' && (
+            'BRANDS'
+          )}
+        </Header>
+       
       </Segment>
-      <Segment basic></Segment>
       </div>
     )
   }

@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import LoginPage from './components/pages/LoginPage';
 import SignupPage from './components/pages/SignupPage';
 import ProfilePage from './components/pages/ProfilePage';
+import MyAccountPage from './components/pages/MyAccountPage';
 import TalentLandingPage from './components/pages/TalentLandingPage';
 import MusicSearchPage from './components/pages/MusicSearchPage';
 import SportsSearchPage from './components/pages/SportsSearchPage';
@@ -45,6 +46,12 @@ const App = ({ location, isAuthenticated }) => (
       path='/reset_password'
       exact
       component={ResetPasswordPage}
+    />
+    <UserRoute
+      location={location}
+      path='/myaccount'
+      exact
+      component={MyAccountPage}
     />
     <UserRoute
       location={location}

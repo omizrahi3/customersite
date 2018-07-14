@@ -73,23 +73,26 @@ class BillingPage extends Component {
       CreditCard: {
         cardholderName: `${data.firstName} ${data.lastName}`,
         cvv: data.cvv,
-        expirationDate: `${data.expMonth}/${data.expYear}`,
+        expirationDate: `${data.Month}/${data.Year}`,
         number: data.cardNumber
       },
       Products: []
     };
     this.props.cart.map(item => {
-      if (item.ProductDescription === 'Feed') {
+      if (item.ProductDescription === 'Video Message') {
+        console.log('VIDEO MESSAGE')
         const product = {
           "ProductOptionId": item.ProductOptionId,
+          "ProductName": item.VideoMessage,
           "Amount": item.WebPrice,
           "TalentId": item.TalentId,
-          "FeedChatSessionId": item.FeedChatSessionId
+          "ProductTypeId": "60E282C60E484A38A84BB2C24E590A0A"
         }
         checkoutData.Products.push(product);
       }
     });
     console.log(checkoutData);
+    window.checkoutData = checkoutData;
     this.props.checkoutGuest(checkoutData)
       .then(() => this.setState({ loading: 'false', success: true }))
       .catch(() => this.setState({ loading: 'false', success: false }));
