@@ -122,6 +122,42 @@ class NavigationBar extends Component {
                 <Breadcrumb.Section style={linkStyle} active>My Account</Breadcrumb.Section>
               </Breadcrumb>
             )}
+            {pathname === '/password' && (
+              <Breadcrumb>
+                <Breadcrumb.Section style={linkStyle} as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
+                <Breadcrumb.Divider icon='right chevron' />
+                <Breadcrumb.Section style={linkStyle} as="a" href="/myaccount">My Account</Breadcrumb.Section>
+                <Breadcrumb.Divider icon='right chevron' />
+                <Breadcrumb.Section style={linkStyle} active>Reset Password</Breadcrumb.Section>
+              </Breadcrumb>
+            )}
+            {pathname === '/subscriptions' && (
+              <Breadcrumb>
+                <Breadcrumb.Section style={linkStyle} as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
+                <Breadcrumb.Divider icon='right chevron' />
+                <Breadcrumb.Section style={linkStyle} as="a" href="/myaccount">My Account</Breadcrumb.Section>
+                <Breadcrumb.Divider icon='right chevron' />
+                <Breadcrumb.Section style={linkStyle} active>Subscriptions</Breadcrumb.Section>
+              </Breadcrumb>
+            )}
+            {pathname === '/orders' && (
+              <Breadcrumb>
+                <Breadcrumb.Section style={linkStyle} as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
+                <Breadcrumb.Divider icon='right chevron' />
+                <Breadcrumb.Section style={linkStyle} as="a" href="/myaccount">My Account</Breadcrumb.Section>
+                <Breadcrumb.Divider icon='right chevron' />
+                <Breadcrumb.Section style={linkStyle} active>Order History</Breadcrumb.Section>
+              </Breadcrumb>
+            )}
+            {pathname === '/payments' && (
+              <Breadcrumb>
+                <Breadcrumb.Section style={linkStyle} as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
+                <Breadcrumb.Divider icon='right chevron' />
+                <Breadcrumb.Section style={linkStyle} as="a" href="/myaccount">My Account</Breadcrumb.Section>
+                <Breadcrumb.Divider icon='right chevron' />
+                <Breadcrumb.Section style={linkStyle} active>Payment Method</Breadcrumb.Section>
+              </Breadcrumb>
+            )}
             {pathname === '/categories/music' && (
               <Breadcrumb>
                 <Breadcrumb.Section style={linkStyle} as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
@@ -213,6 +249,18 @@ class NavigationBar extends Component {
           )}
           {pathname === '/profile' && (
             'PROFILE'
+          )}
+          {pathname === '/subscriptions' && (
+            'SUBSCRIPTIONS'
+          )}
+          {pathname === '/orders' && (
+            'ORDER HISTORY'
+          )}
+          {pathname === '/payments' && (
+            'PAYMENT HISTORY'
+          )}
+          {pathname === '/password' && (
+            'RESET PASSWORD'
           )}
           {pathname === '/categories/music' && (
             'MUSIC'

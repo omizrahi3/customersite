@@ -19,6 +19,10 @@ import ResetPasswordPage from './components/pages/ResetPasswordPage';
 import GuestRoute from './components/routes/GuestRoute';
 import UserRoute from './components/routes/UserRoute';
 import NavigationBar from './components/navigation/NavigationBar';
+import ChangePasswordPage from './components/pages/ChangePasswordPage';
+import SubscriptionsPage from './components/pages/SubscriptionsPage';
+import OrderHistoryPage from './components/pages/OrderHistoryPage';
+import PaymentMethodPage from './components/pages/PaymentMethodPage';
 
 const App = ({ location, isAuthenticated }) => (
   <div className="ui container">
@@ -49,6 +53,12 @@ const App = ({ location, isAuthenticated }) => (
     />
     <UserRoute
       location={location}
+      path='/password'
+      exact
+      component={ChangePasswordPage}
+    />
+    <UserRoute
+      location={location}
       path='/myaccount'
       exact
       component={MyAccountPage}
@@ -58,6 +68,24 @@ const App = ({ location, isAuthenticated }) => (
       path='/profile'
       exact
       component={ProfilePage}
+    />
+    <UserRoute
+      location={location}
+      path='/subscriptions'
+      exact
+      component={SubscriptionsPage}
+    />
+    <UserRoute
+      location={location}
+      path='/orders'
+      exact
+      component={OrderHistoryPage}
+    />
+    <UserRoute
+      location={location}
+      path='/payments'
+      exact
+      component={PaymentMethodPage}
     />
     <Route
       location={location}

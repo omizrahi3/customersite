@@ -34,14 +34,14 @@ const tableColumnStyle = {
   color: 'grey'
 };
 
-class OrderHistoryGrid extends Component {
+class OrderHistoryFullGrid extends Component {
   state = {
     ordersFetched: true,
     orders: []
   }
 
   componentDidMount() {
-    console.log('OrderHistoryGrid did mount');
+    console.log('OrderHistoryFullGrid did mount');
     const credentials = {
       Token: this.props.user.Token,
       data: {
@@ -50,10 +50,11 @@ class OrderHistoryGrid extends Component {
         "Year":0
       }
     }
+    console.log(credentials);
     api.orderHistory.fetchOrders(credentials)
     .then(res => {
-      // console.log('api.orderHistory.fetchOrders');
-      // console.log(res);
+      console.log('api.orderHistory.fetchOrders');
+      console.log(res);
       const { FeedTotal, LiveChatTotal, VideoMessageTotal } = res;
       const orders = FeedTotal.concat(LiveChatTotal).concat(VideoMessageTotal);
       orders.sort(function(a,b){
@@ -65,7 +66,28 @@ class OrderHistoryGrid extends Component {
     })
   }
 
-  renderOrders = orders => orders.slice(0, 4).map(order => {
+  cancelSub = (e, data) => {
+    console.log(data);
+    const credentials = {
+      Token: this.props.user.Token,
+      data: {
+        "ProductId": data.value
+      }
+    }
+    api.orderHistory.deleteSub(credentials)
+    .then(res => {
+      console.log(res);
+      const { orders } = this.state;
+      const newOrders = orders.filter(order => order.ProductId !== data.value);
+      this.setState({ orders: newOrders});
+    })
+    .catch(err => {
+      console.log('whoops');
+    })
+  }
+
+  renderOrders = orders => orders.map(order => {
+    console.log(order);
     const dateObj = new Date(order.RequestedDate);
     return (
       <Table.Row key={order.ProductId}>
@@ -73,6 +95,16 @@ class OrderHistoryGrid extends Component {
         <Table.Cell style={greyColor}>Active</Table.Cell>
         <Table.Cell style={greyColor}>{order.ProductId.slice(-4)}</Table.Cell>
         <Table.Cell style={greyColor}>{`${order.TalentFirstName} ${order.TalentLastName} ${order.Description}`}</Table.Cell>
+        <Table.Cell style={greyColor}>
+        {order.Description === "Feed" && (
+          <List>
+            <List.Item value={order.ProductId} style={{ color: "red", textDecoration: 'underline' }} as='a' onClick={this.cancelSub}>CANCEL</List.Item>
+          </List>
+        )}
+        {order.Description !== "Feed" && (
+          <div>N/A</div>
+        )}
+        </Table.Cell>
       </Table.Row>
     )
   })
@@ -85,11 +117,6 @@ class OrderHistoryGrid extends Component {
           <Menu.Menu style={marginFix} position="left">
             <Header color='grey'>ORDER HISTORY</Header>
           </Menu.Menu>
-          <Menu.Menu style={marginFix} position="right">
-          <List>
-            <List.Item style={linkStyle} as={Link} to="/orders">View Full Order History</List.Item>
-          </List>
-          </Menu.Menu>
         </Menu>
         <Divider style={marginFix} />
         {this.state.ordersFetched && (
@@ -100,6 +127,7 @@ class OrderHistoryGrid extends Component {
                   <Table.HeaderCell style={tableColumnStyle}>Status</Table.HeaderCell>
                   <Table.HeaderCell style={tableColumnStyle}>Order #</Table.HeaderCell>
                   <Table.HeaderCell style={tableColumnStyle}>Items Ordered</Table.HeaderCell>
+                  <Table.HeaderCell style={tableColumnStyle}>Action</Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
               {orders.length > 0 && (
@@ -109,14 +137,14 @@ class OrderHistoryGrid extends Component {
               )}             
             </Table>
         )}
-        <p style={italicized}>Need to make a change to an order? You can do so by viewing the <Link to="/orders">Full Order History</Link></p>
+        <p style={italicized}>Have a question about an order? Reach out to our support team at <List.Item style={{"textDecoration": "underline"}} as='a' href="mailto:support@chatwith.com">support@chatwith.com</List.Item></p>
       </div>
     )
   }
 }
 
-OrderHistoryGrid.propTypes = {
+OrderHistoryFullGrid.propTypes = {
   user: PropTypes.object.isRequired
 };
 
-export default OrderHistoryGrid
+export default OrderHistoryFullGrid

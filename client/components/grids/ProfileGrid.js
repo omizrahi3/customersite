@@ -25,7 +25,6 @@ class ProfileGrid extends Component {
 
   componentDidMount() {
     console.log('ProfileGrid did mount');
-    console.log(this.props);
     const credentials = {
       Token: this.props.user.Token,
       data: {
@@ -34,9 +33,10 @@ class ProfileGrid extends Component {
     }
     api.user.fetchUser(credentials)
     .then(user => {
-      console.log('over here');
-      console.log(user);
       this.setState({ userFetched: true, name: `${user[0].Firstname} ${user[0].Lastname}`, email: user[0].EmailAddress })
+    })
+    .catch(err => {
+      console.log('whoops');
     })
   }
 
@@ -49,7 +49,7 @@ class ProfileGrid extends Component {
           </Menu.Menu>
           <Menu.Menu style={marginFix} position="right">
           <List>
-            <List.Item style={linkStyle} as='a'>Edit</List.Item>
+            <List.Item style={linkStyle} as={Link} to='/profile'>Edit</List.Item>
           </List>
           </Menu.Menu>
         </Menu>

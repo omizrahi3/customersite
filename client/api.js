@@ -19,12 +19,15 @@ export default {
       instance.defaults.headers.common['token'] = credentials.Token;
       return axios.post("http://www.qa.getchatwith.com/api/GetAppUserById", credentials.data).then(res => res.data.Response)
     },
-    updateProfile: data => {
-      console.log('api updateProfile');
-      console.log(data);
+    updateProfile: credentials => {
       const instance = axios.create({ timeout: 3000 });
-      instance.defaults.headers.common['token'] = data.Token;
-      return axios.post("http://www.qa.getchatwith.com/api/UpdateAppUserAttribute", data.profile).then(res => res.data)
+      instance.defaults.headers.common['token'] = credentials.Token;
+      return axios.post("http://www.qa.getchatwith.com/api/UpdateAppUserAttribute", credentials.data).then(res => res.data)
+    },
+    updatePassword: credentials => {
+      const instance = axios.create({ timeout: 3000 });
+      instance.defaults.headers.common['token'] = credentials.Token;
+      return axios.post("http://www.qa.getchatwith.com/api/UpdateAppUserPassword", credentials.data).then(res => res.data)
     },
     resetPasswordRequest: email =>
       axios.post("http://www.qa.getchatwith.com/auth/reset_password_request", { email })
@@ -34,6 +37,11 @@ export default {
       const instance = axios.create({ timeout: 3000 });
       instance.defaults.headers.common['token'] = credentials.Token;
       return axios.post("http://www.qa.getchatwith.com/api/GetAppUserCreditCards", credentials.data).then(res => res.data.Response)
+    },
+    update: credentials => {
+      const instance = axios.create({ timeout: 3000 });
+      instance.defaults.headers.common['token'] = credentials.Token;
+      return axios.post("http://www.qa.getchatwith.com/api/UpdateAppUserPaymentMethod", credentials.data).then(res => res.data)
     }
   },
   orderHistory: {

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
-import { Link } from 'react-router-dom';
-import { Menu, Header, Divider, Card, Image, Segment, List, Icon } from "semantic-ui-react";
+import { Menu, Header, Divider, Card, Image, Segment, List, Message, Icon } from "semantic-ui-react";
 import api from "../../api";
 
 const marginFix = {
@@ -21,8 +20,11 @@ const contentStyles = {
   paddingLeft: '0'
 }
 
-class ActiveSubsGrid extends Component {
+class ActiveSubsFullGrid extends Component {
   state = {
+    loading: '',
+    success: false,
+    serverError: '',
     keys: [],
     subscriptions: {},
     finished: false
@@ -72,7 +74,12 @@ class ActiveSubsGrid extends Component {
   }
 
   cancelSub = (e, data) => {
-    console.log(data);
+    console.log('cancelSub')
+    // console.log(data);
+    this.setState({ loading: 'true'});
+    // this.setState({ loading: 'false', success: true });
+    // this.setState({ loading: 'false', success: false });
+
     const credentials = {
       Token: this.props.user.Token,
       data: {
@@ -81,27 +88,17 @@ class ActiveSubsGrid extends Component {
     }
     api.orderHistory.deleteSub(credentials)
     .then(res => {
-      console.log(res);
+      console.log('api.orderHistory.deleteSub');
+      // console.log(res);
       const { keys, subscriptions } = this.state;
       const newKeys = keys.filter(key => key !== data.value);
       delete subscriptions[data.value];
-      this.setState({ keys: newKeys, subscriptions});
+      this.setState({ keys: newKeys, subscriptions, loading: 'false', success: true });
     })
-    .catch(err => {
-      console.log('whoops');
-    })
-
-    // const { keys, subscriptions } = this.state;
-    // console.log(keys);
-    // const newKeys = keys.filter(key => key !== data.value);
-    
-    // console.log(subscriptions);
-    // delete subscriptions[data.value];
-    // console.log(subscriptions);
-    // this.setState({ keys: newKeys, subscriptions});
+    .catch(() => this.setState({ loading: 'false', success: false }));
   }
-  
-  renderSubscriptions = keys => keys.slice(0, 6).map(key => {
+
+  renderSubscriptions = keys => keys.map(key => {
     const hashedSub = this.state.subscriptions[key];
     if (hashedSub.Description === 'Feed') {
       const dateObj = new Date(hashedSub.RequestedDate);
@@ -123,7 +120,7 @@ class ActiveSubsGrid extends Component {
   })
 
   render() {
-    const { keys, finished } = this.state;
+    const { keys, finished, loading, success, serverError } = this.state;
     return (
       <div>
         <Menu style={marginFix} secondary>
@@ -132,15 +129,36 @@ class ActiveSubsGrid extends Component {
           </Menu.Menu>
         </Menu>
         <Divider style={marginFix} />
+        {loading === 'true' && (
+          <Message icon>
+            <Icon name="circle notched" loading />
+            <Message.Header>Update In Progress</Message.Header>
+          </Message>
+        )}
+        {loading === 'false' &&
+          success && (
+            <Message success icon>
+              <Icon name="checkmark" />
+              <Message.Content>
+                <Message.Header>
+                  Update Complete.
+                </Message.Header>
+              </Message.Content>
+            </Message>
+          )}
+        {loading === 'false' &&
+          !success && (
+            <Message negative icon>
+              <Icon name="warning sign" />
+              <Message.Content>
+                <Message.Header>Update Failed. {serverError}</Message.Header>
+              </Message.Content>
+            </Message>
+          )}
         <Segment basic></Segment>
         {finished && (keys.length > 0 ? (
             <Card.Group itemsPerRow={6}>
               {this.renderSubscriptions(keys)}
-              {keys.length > 0 && (
-                <List.Item as={Link} to="/subscriptions">
-                  <Icon style={{"paddingTop": "50px"}} color="blue" size="massive" name="caret right"/>
-                </List.Item>
-              )}
             </Card.Group>
           ) : <Header as='h3' textAlign='center'>You Have No Subscriptions</Header>
         )}
@@ -149,8 +167,8 @@ class ActiveSubsGrid extends Component {
   }
 }
 
-ActiveSubsGrid.propTypes = {
+ActiveSubsFullGrid.propTypes = {
   user: PropTypes.object.isRequired
 };
 
-export default ActiveSubsGrid
+export default ActiveSubsFullGrid

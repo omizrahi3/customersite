@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
+import { Link } from 'react-router-dom';
 import { Menu, Header, List, Divider, Image } from "semantic-ui-react";
 import api from "../../api";
 
@@ -20,7 +21,7 @@ class PaymentGrid extends Component {
     cardFetched: false,
     last4: '',
     expDate: '',
-    cardImg: 'https://assets.braintreegateway.com/payment_method_logo/discover.png?environment=sandbox'
+    cardImg: ''
   }
 
   componentDidMount() {
@@ -37,6 +38,9 @@ class PaymentGrid extends Component {
       console.log(res.CreditCards[0]);
       this.setState({ cardFetched: true, expDate: `${res.CreditCards[0].expirationMonth}/${res.CreditCards[0].expirationYear}`, last4: res.CreditCards[0].last4, cardImg: res.CreditCards[0].imageUrl})
     })
+    .catch(err => {
+      console.log('whoops');
+    })
   }
 
   render() {
@@ -48,7 +52,7 @@ class PaymentGrid extends Component {
           </Menu.Menu>
           <Menu.Menu style={marginFix} position="right">
           <List>
-            <List.Item style={linkStyle} as='a'>Edit</List.Item>
+            <List.Item style={linkStyle} as={Link} to="/payments">Edit</List.Item>
           </List>
           </Menu.Menu>
         </Menu>
