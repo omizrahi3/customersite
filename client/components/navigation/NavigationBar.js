@@ -207,18 +207,6 @@ class NavigationBar extends Component {
             )}
             CART
           </Menu.Item>
-          {Object.keys(user).length !== 0 && user.constructor === Object && (
-            <Menu.Item as={Link} to="/profile" name='cart arrow down'>
-              <Icon name='user' />
-              PROFILE
-            </Menu.Item>
-          )}
-          {Object.keys(user).length !== 0 && user.constructor === Object && (
-            <Menu.Item name='logout' onClick={() => logout()}>
-              <Icon name='sign out' />
-              LOG OUT
-            </Menu.Item>
-          )}
         </Menu.Menu>
       </Menu>
       <Segment basic compact>

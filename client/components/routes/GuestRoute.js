@@ -3,17 +3,21 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
 
-const UserRoute = ({ isAuthenticated, component: Component, ...rest }) => (
-  <Route
+const UserRoute = ({ isAuthenticated, component: Component, ...rest }) => {
+  if (!isAuthenticated) {
+    document.getElementById("accountswitch").innerHTML = "LOGIN / REGISTER";
+    document.getElementById("accountswitch").href = "/login"
+  }
+  return (<Route
     {...rest}
     render={props =>
       !isAuthenticated ? (
         <Component {...props} />
       ) : (
-        <Redirect to="/profile" />
+        <Redirect to="/talent" />
       )}
-  />
-);
+  />)
+};
 
 UserRoute.propTypes = {
   component: PropTypes.func.isRequired,
