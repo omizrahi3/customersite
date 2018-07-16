@@ -52,11 +52,10 @@ class NavigationBar extends Component {
     const { user, cart, logout, location } = this.props;
     const { pathname } = location;
     return (
-      <div>
-      <Segment basic></Segment>
+      <div style={{paddingTop: "20px"}}>
       <Menu icon='labeled' secondary>
         <Menu.Menu position="left">
-          <Menu.Item>
+          <Menu.Item style={{padding: "0px"}}>
             {pathname === '/login' && (
               <Breadcrumb>
                 <Breadcrumb.Section style={linkStyle} as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
@@ -112,7 +111,9 @@ class NavigationBar extends Component {
               <Breadcrumb>
                 <Breadcrumb.Section style={linkStyle} as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
                 <Breadcrumb.Divider icon='right chevron' />
-                <Breadcrumb.Section style={linkStyle} active>Profile</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle} as="a" href="/myaccount">My Account</Breadcrumb.Section>
+                <Breadcrumb.Divider icon='right chevron' />
+                <Breadcrumb.Section style={linkStyle} active>Edit Profile</Breadcrumb.Section>
               </Breadcrumb>
             )}
             {pathname === '/myaccount' && (
@@ -196,20 +197,8 @@ class NavigationBar extends Component {
             )}
           </Menu.Item>
         </Menu.Menu>
-
-        <Menu.Menu position="right">
-          <Menu.Item as={Link} to="/cart" name='cart arrow down'>
-            {cart.length === 0 && (
-              <Icon name='cart arrow down' />
-            )}
-            {cart.length > 0 && (
-              <Icon color='green' name='cart arrow down' />
-            )}
-            CART
-          </Menu.Item>
-        </Menu.Menu>
       </Menu>
-      <Segment basic compact>
+      <Segment style={{paddingLeft: "0px"}} basic compact>
         <Header style={headerStyle} color="yellow">
           {pathname === '/login' && (
             'LOGIN'

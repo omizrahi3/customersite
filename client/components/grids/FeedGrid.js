@@ -3,29 +3,28 @@ import PropTypes from "prop-types";
 import { Grid, Segment, Card, Image, Header, Button, List } from "semantic-ui-react";
 
 const FeedGrid = ({ item, handleRemoveClick }) => (
-  <Grid.Row key={item.ProductOptionId} stretched>
-    <Grid.Column width={4}>
-      <Image src={item.ProfilePictureReference} />
+  <Grid key={item.ProductOptionId}>
+    <Grid.Column width={3}>
+      <Image style={{maxWidth: "132px", maxHeight: "175px"}} src={item.ProfilePictureReference} />
     </Grid.Column>
-    <Grid.Column width={12}>
-      <Segment basic vertical>
-        <Header as='h3'>
-          <Header.Content>
-            {item.TalentFirstName} {item.TalentLastName}
-            <Header.Subheader>{item.ProductDescription}</Header.Subheader>
-          </Header.Content>
-        </Header>
-      </Segment>
-      <Segment basic vertical textAlign='right'>
-        <Header as='h4' color='green'>
-          ${item.WebPrice}
-        </Header>
-      </Segment>
+    <Grid.Column width={9}>
+      <Header style={{ color: 'grey' }} as='h3' textAlign='left'>{item.TalentFirstName} {item.TalentLastName}
+        <Header.Subheader style={{"fontStyle": 'italic'}}>{item.ProductDescription}</Header.Subheader>
+      </Header>
+      <Segment basic></Segment>
+      <Segment basic></Segment>
       <div>
         <Button value={item.ProductOptionId} onClick={handleRemoveClick}>REMOVE</Button>
       </div>
     </Grid.Column>
-  </Grid.Row>
+    <Grid.Column width={4}>
+      <Segment basic></Segment>
+      <Segment basic>
+        <Header as='h4' style={{color: "#b5cc18"}}>${item.WebPrice}/mo</Header>
+      </Segment>
+      <Segment basic></Segment>
+    </Grid.Column>
+  </Grid>
 );
 
 FeedGrid.propTypes = {

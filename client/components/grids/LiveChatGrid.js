@@ -94,37 +94,30 @@ class LiveChatGrid extends Component {
     const date = new Date(item.dateObj.date);
     const duration = item.dateObj.duration;
     return (
-      <Grid.Row key={item.ProductOptionId} stretched>
-        <Grid.Column width={4}>
-          <Image src={item.ProfilePictureReference} />
+      <Grid key={item.ProductOptionId}>
+        <Grid.Column width={3}>
+          <Image style={{maxWidth: "132px", maxHeight: "175px"}} src={item.ProfilePictureReference} />
         </Grid.Column>
-        <Grid.Column width={12}>
-          <Segment basic vertical>
-            <Header as='h3'>
-              <Header.Content>
-                {item.TalentFirstName} {item.TalentLastName}
-                <Header.Subheader>{item.ProductDescription}</Header.Subheader>
-              </Header.Content>
-            </Header>
-          </Segment>
-          <Card>
-            <Card.Content>
-              <Card.Description textAlign="center">{date.toDateString()}</Card.Description>
-              <Card.Description textAlign="center">{date.toLocaleTimeString()}</Card.Description>
-              <Card.Description textAlign="center">{`(${duration}) Minute Call`}</Card.Description>
-            </Card.Content>
-          </Card>
-          <Segment basic vertical textAlign='right'>
-            <Header as='h4' color='green'>
-              ${item.WebPrice}
-            </Header>
-          </Segment>
+        <Grid.Column width={9}>
+          <Header style={{ color: 'grey' }} as='h3' textAlign='left'>{item.TalentFirstName} {item.TalentLastName}
+            <Header.Subheader style={{"fontStyle": 'italic'}}>{item.ProductDescription}</Header.Subheader>
+          </Header>
+          <div style={{color:"grey"}}>{date.toDateString()}</div>
+          <div style={{color:"grey"}}>{date.toLocaleTimeString()}</div>
+          <div style={{color:"grey"}}>{`(${duration}) Minute Call`}</div>
           <div>
             <Button value={item.ProductOptionId} onClick={handleRemoveClick}>REMOVE</Button>
             {this.atcLive()}
           </div>
         </Grid.Column>
-      </Grid.Row>
+        <Grid.Column width={4}>
+          <Segment basic></Segment>
+          <Segment basic>
+            <Header as='h4' style={{ color: "#b5cc18" }}>${item.WebPrice}</Header>
+          </Segment>
+          <Segment basic></Segment>
+        </Grid.Column>
+      </Grid>
     )
   }
 }

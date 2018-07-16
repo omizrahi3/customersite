@@ -2,16 +2,31 @@ import React, { Component } from 'react'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { Grid, Segment, Card, Message, Header, Button, Breadcrumb, Icon } from 'semantic-ui-react';
+import { Grid, Segment, Divider, Message, Header, Button, Icon, Menu, Input } from 'semantic-ui-react';
+import TopGrid from '../grids/TopGrid';
 import FeedGrid from '../grids/FeedGrid';
-import VideoMessage2Grid from '../grids/VideoMessage2Grid';
+import VideoMessageGrid from '../grids/VideoMessageGrid';
 import LiveChatGrid from '../grids/LiveChatGrid';
 import { rfc } from '../../actions/cartActions';
+
+const marginFix = {
+  paddingTop: "10px"
+};
+
 
 class CartPage extends Component {
   state = {
     subtotal: 0,
-    tax: 0
+    tax: 0,
+    promocode: ''
+  }
+
+  onChange = (e, data) => {
+    this.setState({promocode: data.value})
+  }
+
+  onSubmit = (e, data) => {
+    console.log(this.state.promocode)
   }
 
   componentDidMount() {
@@ -40,28 +55,37 @@ class CartPage extends Component {
   renderCartItems = cart => cart.map(item => {
     if (item.ProductDescription === "Feed") {
       return  (
-        <FeedGrid
-          key={item.ProductOptionId}
-          item={item}
-          handleRemoveClick={this.handleRemoveClick}
-        />
+        <div key={item.ProductOptionId}>
+          <FeedGrid
+            key={item.ProductOptionId}
+            item={item}
+            handleRemoveClick={this.handleRemoveClick}
+          />
+          <Divider style={marginFix} />
+        </div>
       )
     } else if (item.ProductDescription === "Video Message") {
       return  (
-        <VideoMessage2Grid
-          key={item.ProductOptionId}
-          item={item}
-          handleRemoveClick={this.handleRemoveClick}
-        />
+        <div key={item.ProductOptionId}>
+          <VideoMessageGrid
+            key={item.ProductOptionId}
+            item={item}
+            handleRemoveClick={this.handleRemoveClick}
+          />
+          <Divider style={marginFix} />
+        </div>
       )
     }
     else if (item.ProductDescription === "Live Chat") {
       return  (
-        <LiveChatGrid
-          key={item.ProductOptionId}
-          item={item}
-          handleRemoveClick={this.handleRemoveClick}
-        />
+        <div key={item.ProductOptionId}>
+          <LiveChatGrid
+            key={item.ProductOptionId}
+            item={item}
+            handleRemoveClick={this.handleRemoveClick}
+          />
+          <Divider style={marginFix} />
+        </div>
       )
     }
   })
@@ -70,73 +94,70 @@ class CartPage extends Component {
     const { cart } = this.props;
     return (
       <div>
-        {cart.length === 0  && (
-          <Message negative icon>
-            <Icon name="warning sign" />
-            <Message.Content>
-              <Message.Header>Cart Is Empty. Please </Message.Header>
-              <Link to="/talent">Go Back to Talent Search</Link>
-            </Message.Content>
-          </Message>
-        )}
-        <Grid padded>
-          <Grid.Column width={12} color="blue">{cart.length} Items</Grid.Column>
-          <Grid.Column width={4} color="teal">
-          Questions? support@getchatwith.com
-          </Grid.Column>
-        </Grid>
+        <TopGrid />
         <Grid>
           <Grid.Column width={12}>
-            {cart.length > 0 && (
-              <Grid divided='vertically'>
-                {this.renderCartItems(cart)}
-              </Grid>
-            )}
+          {cart.length === 0  && (
+            <Message negative icon>
+              <Icon name="warning sign" />
+              <Message.Content>
+                <Message.Header>Cart Is Empty. Please </Message.Header>
+                <Link to="/talent">Go Back to Talent Search</Link>
+              </Message.Content>
+            </Message>
+          )}
+          {cart.length > 0 && (
+            this.renderCartItems(cart)
+          )}
           </Grid.Column>
-          <Grid.Column width={4}>
-            <Card>
-              <Card.Content>
-                <Header as='h2' color='grey'>
-                  ORDER SUMMARY
-                </Header>
-              </Card.Content>
-              <Card.Content>
-              <Grid color='grey'>
-                <Grid.Row>
-                  <Grid.Column width={8}>
-                    SUBTOTAL
-                  </Grid.Column>
-                  <Grid.Column width={8}>
-                    ${this.state.subtotal.toFixed(2)}
-                  </Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
-                  <Grid.Column width={8}>
-                    ESTIMATED TAX
-                  </Grid.Column>
-                  <Grid.Column width={8}>
-                    ${this.state.tax}
-                  </Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
-                  <Grid.Column width={8}>
-                    TOTAL
-                  </Grid.Column>
-                  <Grid.Column width={8}>
-                    ${(this.state.subtotal + this.state.tax).toFixed(2)}
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
-              </Card.Content>
-              <Card.Content>
-                {cart.length > 0 && (
-                  <Button as={Link} to='/billing'>CHECKOUT</Button>
-                )}
-                {this.props.cart.length === 0 && (
-                  <Button disabled as={Link} to='/billing'>CHECKOUT</Button>
-                )}
-              </Card.Content>
-            </Card>
+          <Grid.Column style={{paddingLeft: "0"}} width={4}>
+            <Header as='h2' style={{color: "#C0C0C0"}}>
+              ORDER SUMMARY
+            </Header>
+            <Segment basic secondary>
+              <div style={{padding: "10px"}}> 
+                <Menu secondary>
+                  <Menu.Menu position="left">
+                    <Header color="grey" as="h4">SUBTOTAL</Header>
+                  </Menu.Menu>
+                  <Menu.Menu position="right">
+                    <Header color="grey" as="h4">${this.state.subtotal.toFixed(2)}</Header>
+                  </Menu.Menu>
+                </Menu>
+                <Menu secondary>
+                  <Menu.Menu position="left">
+                  <Header color="grey"  as="h4">ESTIMATED TAX</Header>
+                  </Menu.Menu>
+                  <Menu.Menu position="right">
+                    <Header color="grey" as="h4">${this.state.tax}</Header>
+                  </Menu.Menu>
+                </Menu>
+                <Menu secondary>
+                  <Menu.Menu position="left">
+                  <Header color="grey"  as="h4">TOTAL</Header>
+                  </Menu.Menu>
+                  <Menu.Menu position="right">
+                    <Header color="grey" as="h4">${(this.state.subtotal + this.state.tax).toFixed(2)}</Header>
+                  </Menu.Menu>
+                </Menu>
+              </div>
+              {cart.length > 0 && (
+                <Button style={{ background: "#b5cc18", height: "40px", width: "250px"}} as={Link} to='/billing'>CHECKOUT</Button>
+              )}
+              {this.props.cart.length === 0 && (
+                <Button style={{ background: "#b5cc18", height: "40px", width: "250px"}} disabled as={Link} to='/billing'>CHECKOUT</Button>
+              )}
+            </Segment>
+            <Header as='h2' style={{color: "#C0C0C0"}}>
+              PROMO CODE
+            </Header>
+            <Segment basic secondary>
+              <p style={{textAlign: "center", fontSize: "10px", color: "grey"}}>Note: All pricing on GetChatWith.com reflects a 30% discount compared to in-app pricing.</p>
+              <Input
+                action={<Button color="grey" onClick={this.onSubmit}>Apply</Button>}
+                onChange={this.onChange}
+              />
+            </Segment>
           </Grid.Column>
         </Grid>
         <Segment basic></Segment>

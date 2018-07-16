@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Form, Button, Select, Segment, Image, Message, Input } from "semantic-ui-react";
+import { Form, Button, Select, Label, Image, Message, Input } from "semantic-ui-react";
 import InlineError from "../messages/InlineError";
 
 const monthOptions = [
@@ -83,56 +83,60 @@ class NewCheckoutForm extends React.Component {
     const { data, errors } = this.state;
 
     return (
-      <Segment basic secondary>
+      <div>
+        <div style={{paddingTop: "1em", paddingBottom: "1em"}}>
+          <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>Required Field</Label>
+          <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
+        </div>
         <Form onSubmit={this.onSubmit}>
-          {errors.server && (
-            <Message negative>
-              <Message.Header>Something went wrong</Message.Header>
-              <p>{errors.server}</p>
-            </Message>
-          )}
-          <Form.Group>
-            <Form.Field
-              error={!!errors.firstName}
-              width={6}
-              id='firstName'
-              control={Input}
-              label='FIRST NAME*'
-              placeholder={errors.firstName}
-              name="firstName"
-              value={data.firstName}
-              onChange={this.onChange}
-            />
-            <Form.Field
-              error={!!errors.lastName}
-              width={6}
-              id='lastName'
-              control={Input}
-              label='LAST NAME*'
-              placeholder={errors.lastName}
-              name="lastName"
-              value={data.lastName}
-              onChange={this.onChange}
-            />
-          </Form.Group>
+          <div style={{paddingTop: "0.5em", paddingBottom: "0.5em"}}>
+            <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>First Name</Label>
+            <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
+          </div>
+          <Form.Field
+            error={!!errors.firstName}
+            width={6}
+            id='firstName'
+            control={Input}
+            name="firstName"
+            value={data.firstName}
+            onChange={this.onChange}
+          />
+          <div style={{paddingTop: "0.5em", paddingBottom: "0.5em"}}>
+            <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>Last Name</Label>
+            <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
+          </div>
+          <Form.Field
+            error={!!errors.lastName}
+            width={6}
+            id='lastName'
+            control={Input}
+            name="lastName"
+            value={data.lastName}
+            onChange={this.onChange}
+          />
+          <div style={{paddingTop: "0.5em", paddingBottom: "0.5em"}}>
+            <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>Card Number</Label>
+            <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
+          </div>
           <Form.Field
             error={!!errors.cardNumber}
-            width={12}
+            width={6}
             id='cardNumber'
             control={Input}
-            label='CARD NUMBER*'
-            placeholder={errors.cardNumber}
             name="cardNumber"
             value={data.cardNumber}
             onChange={this.onChange}
           />
+          <div style={{paddingTop: "0.5em", paddingBottom: "0.5em"}}>
+            <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>Expiration Date</Label>
+            <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
+          </div>
           <Form.Group>
             <Form.Field
               error={!!errors.exp}
               control={Select}
-              width={4}
               selectOnBlur={false}
-              label='Exp Date *'
               options={monthOptions}
               name="Month"
               onChange={this.onChange2}
@@ -140,28 +144,28 @@ class NewCheckoutForm extends React.Component {
             <Form.Field
               error={!!errors.exp}
               control={Select}
-              width={4}
               selectOnBlur={false}
-              label='Year'
               options={this.state.yearOptions}
               name="Year"
               onChange={this.onChange2}
             />
-            <Form.Field
-              error={!!errors.cvv}
-              width={4}
-              id='cvv'
-              control={Input}
-              label='CVV*'
-              placeholder={errors.cvv}
-              name="cvv"
-              value={data.cvv}
-              onChange={this.onChange}
-            />
           </Form.Group>
-          <Button primary>PLACE ORDER</Button>
+          <div style={{paddingTop: "0.5em", paddingBottom: "0.5em"}}>
+            <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>CVV</Label>
+            <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
+          </div>
+          <Form.Field
+            error={!!errors.cvv}
+            width={6}
+            id='cvv'
+            control={Input}
+            name="cvv"
+            value={data.cvv}
+            onChange={this.onChange}
+          />
+          <Button style={{ background: "#12457b", height: "50px", width: "200px"}} primary>CONTINUE</Button>
         </Form>
-      </Segment>
+        </div>
     );
   }
 }

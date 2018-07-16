@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Form, Button, Grid, Segment, Image, Message, Input } from "semantic-ui-react";
+import { Form, Button, Label, Segment, Message, Input } from "semantic-ui-react";
 
 class ExistingCheckoutForm extends React.Component {
   state = {
@@ -11,8 +11,7 @@ class ExistingCheckoutForm extends React.Component {
       maskedNumber: this.props.card.maskedNumber,
       expirationDate: this.props.card.expirationDate,
       PaymentToken: this.props.card.token
-    },
-    errors: {}
+    }
   };
 
   componentWillReceiveProps(props) {
@@ -34,38 +33,42 @@ class ExistingCheckoutForm extends React.Component {
   };
 
   render() {
-    const { data, errors } = this.state;
+    const { data } = this.state;
 
     return (
-      <Segment basic secondary>
+      <div>
+        <div style={{paddingTop: "1em", paddingBottom: "1em"}}>
+          <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>Required Field</Label>
+          <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
+        </div>
         <Form onSubmit={this.onSubmit}>
-          {errors.server && (
-            <Message negative>
-              <Message.Header>Something went wrong</Message.Header>
-              <p>{errors.server}</p>
-            </Message>
-          )}
+        <div style={{paddingTop: "0.5em", paddingBottom: "0.5em"}}>
+            <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>Full Name</Label>
+            <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
+          </div>
             <Form.Field
               disabled
               width={12}
               id='cardholderName'
               control={Input}
-              label='CARD HOLDER NAME*'
               name="cardholderName"
               value={data.cardholderName}
             />
+            <div style={{paddingTop: "0.5em", paddingBottom: "0.5em"}}>
+              <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>Card Number</Label>
+              <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
+            </div>
             <Form.Field
               disabled
               width={12}
               id='maskedNumber'
               control={Input}
-              label='CARD NUMBER*'
               name="maskedNumber"
               value={data.maskedNumber}
             />
-            <Button primary>PLACE ORDER</Button>
+            <Button style={{ background: "#12457b", height: "50px", width: "200px"}} primary>CONTINUE</Button>
         </Form>
-      </Segment>
+        </div>
     );
   }
 }

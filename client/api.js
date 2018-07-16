@@ -61,6 +61,11 @@ export default {
       return axios.post("http://www.qa.getchatwith.com/api/DeleteProduct", credentials.data).then(res => res.data.Response)
     }
   },
+  search: {
+    knownfor: data => {
+      return axios.post("http://www.qa.getchatwith.com/home/GetAppTalentBySearch", data).then(res => res.data.Response)
+    }
+  },
   checkout: {
     guest: data => {
       return axios.post("http://www.qa.getchatwith.com/home/CreateWebTransactionGuest", data).then(res => res.data)

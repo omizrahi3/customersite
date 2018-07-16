@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Form, Button, Message, Input, Select, Segment } from "semantic-ui-react";
+import { Link } from 'react-router-dom';
+import { Form, Button, Label, Input, Select } from "semantic-ui-react";
 import isEmail from "validator/lib/isEmail";
 import InlineError from "../messages/InlineError";
 
@@ -108,140 +109,146 @@ class SignupForm extends React.Component {
     const { signupSuccess } = this.props;
 
     return (
-      <Form size='large' onSubmit={this.onSubmit}>
-        {errors.server && (
-          <Message negative>
-            <Message.Header>Something went wrong</Message.Header>
-            <p>{errors.server}</p>
-          </Message>
-        )}
-        <Form.Field
-          error={!!errors.firstname}
-          disabled={signupSuccess}
-          width={6}
-          id='firstname'
-          control={Input}
-          label='First Name *'
-          placeholder=''
-          name="Firstname"
-          value={data.Firstname}
-          onChange={this.onChange}
-        />
-        {errors.firstname && (
-          <InlineError text={errors.firstname} />
-        )}
-        <Form.Field
-          error={!!errors.lastname}
-          disabled={signupSuccess}
-          width={6}
-          id='lastname'
-          control={Input}
-          label='Last Name *'
-          placeholder=''
-          name="Lastname"
-          value={data.Lastname}
-          onChange={this.onChange}
-        />
-        {errors.lastname && (
-          <InlineError text={errors.lastname} />
-        )}
-        <Form.Field
-          error={!!errors.email}
-          disabled={signupSuccess}
-          width={6}
-          id='email'
-          control={Input}
-          label='Email *'
-          placeholder={errors.email}
-          name="EmailAddress"
-          value={data.EmailAddress}
-          onChange={this.onChange}
-        />
-        {errors.email && (
-          <InlineError text={errors.email} />
-        )}
-        <Form.Field
-          error={!!errors.password}
-          disabled={signupSuccess}
-          width={6}
-          type="password"
-          id='password'
-          control={Input}
-          label='Password *'
-          placeholder={errors.password}
-          name="Password"
-          value={data.Password}
-          onChange={this.onChange}
-        />
-        {errors.password && (
-          <InlineError text={errors.password} />
-        )}
-        <Form.Field
-          error={!!errors.passwordconfirm}
-          disabled={signupSuccess}
-          width={6}
-          type="password"
-          id='passwordConfirm'
-          control={Input}
-          label='Password Confirm *'
-          placeholder={errors.passwordconfirm}
-          name="PasswordConfirm"
-          value={data.PasswordConfirm}
-          onChange={this.onChange}
-        />
-        {errors.passwordconfirm && (
-          <InlineError text={errors.passwordconfirm} />
-        )}
-        <Form.Group>
+      <div>
+        <div style={{paddingTop: "1em", paddingBottom: "1em"}}>
+          <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>Required Field</Label>
+          <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
+        </div>
+        <div style={{paddingTop: "1em", paddingBottom: "1em"}}>
+          <Link to="/login">Already a member? Login</Link>
+        </div>
+        <Form onSubmit={this.onSubmit}>
+          <div style={{paddingTop: "0.5em", paddingBottom: "0.5em"}}>
+            <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>Firstname</Label>
+            <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
+          </div>
           <Form.Field
-            error={!!errors.birthdate}
+            error={!!errors.firstname}
+            disabled={signupSuccess}
+            id='firstname'
+            control={Input}
+            name="Firstname"
+            value={data.Firstname}
+            onChange={this.onChange}
+          />
+          {errors.firstname && (
+            <InlineError text={errors.firstname} />
+          )}
+          <div style={{paddingTop: "0.5em", paddingBottom: "0.5em"}}>
+            <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>Lastname</Label>
+            <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
+          </div>
+          <Form.Field
+            error={!!errors.lastname}
+            disabled={signupSuccess}
+            id='lastname'
+            control={Input}
+            name="Lastname"
+            value={data.Lastname}
+            onChange={this.onChange}
+          />
+          {errors.lastname && (
+            <InlineError text={errors.lastname} />
+          )}
+          <div style={{paddingTop: "0.5em", paddingBottom: "0.5em"}}>
+            <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>Email Address</Label>
+            <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
+          </div>
+          <Form.Field
+            error={!!errors.email}
+            disabled={signupSuccess}
+            id='email'
+            control={Input}
+            name="EmailAddress"
+            value={data.EmailAddress}
+            onChange={this.onChange}
+          />
+          {errors.email && (
+            <InlineError text={errors.email} />
+          )}
+          <div style={{paddingTop: "0.5em", paddingBottom: "0.5em"}}>
+            <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>Password</Label>
+            <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
+          </div>
+          <Form.Field
+            error={!!errors.password}
+            disabled={signupSuccess}
+            type="password"
+            id='password'
+            control={Input}
+            name="Password"
+            value={data.Password}
+            onChange={this.onChange}
+          />
+          {errors.password && (
+            <InlineError text={errors.password} />
+          )}
+          <div style={{paddingTop: "0.5em", paddingBottom: "0.5em"}}>
+            <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>Confirm Password</Label>
+            <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
+          </div>
+          <Form.Field
+            error={!!errors.passwordconfirm}
+            disabled={signupSuccess}
+            type="password"
+            id='passwordConfirm'
+            control={Input}
+            name="PasswordConfirm"
+            value={data.PasswordConfirm}
+            onChange={this.onChange}
+          />
+          {errors.passwordconfirm && (
+            <InlineError text={errors.passwordconfirm} />
+          )}
+          <div style={{paddingTop: "0", paddingBottom: "0.5em"}}>
+            <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>Birthdate</Label>
+            <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
+          </div>
+          <Form.Group>
+            <Form.Field
+              error={!!errors.birthdate}
+              disabled={signupSuccess}
+              control={Select}
+              selectOnBlur={false}
+              options={monthOptions}
+              name="Month"
+              onChange={this.onChange2}
+            />
+            <Form.Field
+              error={!!errors.birthdate}
+              disabled={signupSuccess}
+              control={Select}
+              selectOnBlur={false}
+              options={this.state.dateOptions}
+              name="Date"
+              onChange={this.onChange2}
+            />
+            <Form.Field
+              error={!!errors.birthdate}
+              disabled={signupSuccess}
+              control={Select}
+              selectOnBlur={false}
+              options={this.state.yearOptions}
+              name="Year"
+              onChange={this.onChange2}
+            />
+          </Form.Group>
+          {errors.birthdate && (
+            <InlineError text={errors.birthdate} />
+          )}
+          <Form.Field
             disabled={signupSuccess}
             control={Select}
-            width={4}
+            width={6}
             selectOnBlur={false}
-            label='Birthdate *'
-            options={monthOptions}
-            name="Month"
+            label='Gender'
+            options={options}
+            name="Gender"
             onChange={this.onChange2}
           />
-          <Form.Field
-            error={!!errors.birthdate}
-            disabled={signupSuccess}
-            control={Select}
-            width={4}
-            selectOnBlur={false}
-            label='Date'
-            options={this.state.dateOptions}
-            name="Date"
-            onChange={this.onChange2}
-          />
-          <Form.Field
-            error={!!errors.birthdate}
-            disabled={signupSuccess}
-            control={Select}
-            width={4}
-            selectOnBlur={false}
-            label='Year'
-            options={this.state.yearOptions}
-            name="Year"
-            onChange={this.onChange2}
-          />
-        </Form.Group>
-        {errors.birthdate && (
-          <InlineError text={errors.birthdate} />
-        )}
-        <Form.Field
-          disabled={signupSuccess}
-          control={Select}
-          width={6}
-          selectOnBlur={false}
-          label='Gender'
-          options={options}
-          name="Gender"
-          onChange={this.onChange2}
-        />
-        <Button size='large' primary>Sign Up</Button>
-      </Form>
+          <Button style={{ background: "#12457b", height: "50px", width: "200px"}} primary>REGISTER</Button>
+        </Form>
+      </div>
     );
   }
 }

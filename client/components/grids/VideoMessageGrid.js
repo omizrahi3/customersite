@@ -1,53 +1,99 @@
-import React from "react";
+import React, { Component } from 'react';
 import PropTypes from "prop-types";
-import { Grid, Segment, Image, Header, Button, Modal } from "semantic-ui-react";
+import { connect } from "react-redux";
+import { editCart } from '../../actions/cartActions';
+import { Grid, Segment, Image, Header, Modal, Button, Icon, Form, TextArea } from "semantic-ui-react";
 
-const VideoMessageGrid = ({ item, handleRemoveClick }) => (
-  <Grid.Row key={item.ProductOptionId} stretched>
-    <Grid.Column width={4}>
-      <Image src={item.ProfilePictureReference} />
-    </Grid.Column>
-    <Grid.Column width={12}>
-      <Segment basic vertical>
-        <Header as='h3'>
-          <Header.Content>
-            {item.TalentFirstName} {item.TalentLastName}
-            <Header.Subheader>{item.ProductDescription}</Header.Subheader>
-          </Header.Content>
-        </Header>
-      </Segment>
-      <Segment basic vertical>
-        <Header as='h4'>
-          {item.VideoMessage}
-        </Header>
-      </Segment>
-      <Segment basic vertical textAlign='right'>
-        <Header as='h4' color='green'>
-          ${item.WebPrice}
-        </Header>
-      </Segment>
-      <div>
-        <Button value={item.ProductOptionId} onClick={handleRemoveClick}>REMOVE</Button>
-        <Modal trigger={<Button>EDIT</Button>} closeIcon>
-          <Modal.Content>
-            <p>
-              Your inbox is getting full, would you like us to enable automatic archiving of old messages?
-            </p>
-          </Modal.Content>
-          <Modal.Actions>
-            <Button color='green'>Yes
-            </Button>
-          </Modal.Actions>
-        </Modal>
-        <Button>IS THIS A GIFT?</Button>
-      </div>
-    </Grid.Column>
-  </Grid.Row>
-);
+class VideoMessage extends Component {
+  state = {
+    data: {
+      VideoMessage: ""
+    },
+    modalOpen: false
+  }
 
-VideoMessageGrid.propTypes = {
+  handleOpen = () => this.setState({ modalOpen: true })
+  handleClose = () => this.setState({ modalOpen: false })
+
+  hanldeSave = (e, data) => {
+    this.setState({ modalOpen: false });
+    const { item } = this.props;
+    item.VideoMessage = this.state.data.VideoMessage;
+    this.props.editCart(item);
+  }
+
+  atcVideo = () => (
+    <Modal size="tiny" trigger={<Button color="olive"  onClick={this.handleOpen}>EDIT</Button>}
+      open={this.state.modalOpen}
+      onClose={this.handleClose}
+      closeIcon={<Icon name="window close" onClick={this.handleClose}></Icon>}
+      >
+      <Modal.Header>
+        <Header color="blue" textAlign="center">
+          Your Personalized Video Message Request
+          <Header.Subheader>Please include a message below and let them know what you would like them to say in your Personalized Video Message.</Header.Subheader>
+        </Header>
+      </Modal.Header>
+      <Modal.Content>
+        <Segment basic secondary>
+          <Form>
+            <Form.Field>
+              <TextArea
+                autoHeight
+                rows={2}
+                maxLength="140"
+                placeholder={this.props.item.VideoMessage}
+                name="VideoMessage" onChange={(e, { value }) => this.setState({
+                  ...this.state,
+                  data: { ...this.state.data, [e.target.name]: e.target.value }
+                })
+              } />
+            </Form.Field>
+          </Form>
+        </Segment>
+      </Modal.Content>
+      <Modal.Actions>
+        <Segment basic floated='left'>You have {140 - this.state.data.VideoMessage.length}/140 characters remaining.</Segment>
+        <Button value={this.props.item.ProductOptionId} color='green' onClick={this.hanldeSave}>
+          <Icon name='checkmark' /> SAVE
+        </Button>
+      </Modal.Actions>
+    </Modal>
+  )
+
+  render() {
+    const { item, handleRemoveClick } = this.props;
+    return (
+      <Grid key={item.ProductOptionId} stretched>
+        <Grid.Column width={3}>
+          <Image style={{maxWidth: "132px", maxHeight: "175px"}} src={item.ProfilePictureReference} />
+        </Grid.Column>
+        <Grid.Column width={9}>
+          <Header style={{ color: 'grey' }} as='h3' textAlign='left'>{item.TalentFirstName} {item.TalentLastName}
+            <Header.Subheader style={{"fontStyle": 'italic'}}>{item.ProductDescription}</Header.Subheader>
+          </Header>
+          <p style={{color:"grey"}}>{item.VideoMessage}</p>
+          <div>
+            <Button value={item.ProductOptionId} onClick={handleRemoveClick}>REMOVE</Button>
+            {this.atcVideo()}
+          </div>
+        </Grid.Column>
+        <Grid.Column width={4}>
+          <Segment basic></Segment>
+          <Segment basic>
+            <Header as='h4' style={{ color: "#b5cc18" }}>${item.WebPrice}</Header>
+          </Segment>
+          <Segment basic></Segment>
+        </Grid.Column>
+      </Grid>
+    )
+  }
+}
+
+VideoMessage.propTypes = {
   item: PropTypes.object.isRequired,
-  handleRemoveClick: PropTypes.func.isRequired
+  handleRemoveClick: PropTypes.func.isRequired,
+  editCart: PropTypes.func.isRequired
 };
 
-export default VideoMessageGrid;
+export default connect(null, { editCart })(VideoMessage);

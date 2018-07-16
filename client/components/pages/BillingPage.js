@@ -2,11 +2,16 @@ import React, { Component } from 'react'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { Grid, Segment, Card, Header, Button, Form, Message, Icon } from 'semantic-ui-react';
+import { Grid, Segment, Header, Button, Form, Message, Icon, Menu, Divider, Label, Checkbox } from 'semantic-ui-react';
+import TopGrid from '../grids/TopGrid';
 import NewCheckoutForm from '../forms/NewCheckoutForm';
 import ExistingCheckoutForm from '../forms/ExistingCheckoutForm';
 import CreditCardForm from '../forms/CreditCardForm';
 import { checkoutExisting, checkoutNew, checkoutUpdate, checkoutGuest } from '../../actions/checkoutActions';
+
+const marginFix = {
+  margin: "0"
+};
 
 class BillingPage extends Component {
   state = {
@@ -45,6 +50,7 @@ class BillingPage extends Component {
     if (guestEligible === 'true') {
       console.log('guest eligible');
     } else {
+      guestEligible === 'false'
       console.log('not guest eligible');
     }
     this.setState({subtotal, user, guestEligible});
@@ -269,47 +275,54 @@ class BillingPage extends Component {
       .catch(() => this.setState({ loading: 'false', success: false }));
   }
 
+  checkout = () => {
+    console.log('checkout');
+    console.log(this.state.card);
+  }
+
   guestGrid = () => (
     <Grid columns={2} divided>
       <Grid.Row>
         <Grid.Column>
-          <Segment basic secondary>
-            <Header as='h3'>
-              <Header.Content>
+          <Segment style={{height: "260px"}} basic secondary>
+            <Header color="grey" as='h3'>
                 CHECK OUT AS GUEST
                 <Header.Subheader>
                   Check out as a guest and we will email you your receipt to the email address below.
                 </Header.Subheader>
-              </Header.Content>
             </Header>
             <Form>
+              <div style={{paddingTop: "0", paddingBottom: "0.5em"}}>
+                <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>Email Address</Label>
+                <Label style={{padding: "0", color: "grey", background: "none", fontSize:"1.25em"}}>*</Label>
+              </div>
               <Form.Field>
-                  <label htmlFor="email">Email Address*</label>
-                  <input
-                    type="text"
-                    id="guestEmail"
-                    name="guestEmail"
-                    placeholder=""
-                    onChange={this.onChange}
-                  />
+                <input
+                  type="text"
+                  id="guestEmail"
+                  name="guestEmail"
+                  placeholder=""
+                  onChange={this.onChange}
+                />
               </Form.Field>
             </Form>
+            <Checkbox style={{paddingTop: "10px"}} label={<label style={{color:"grey"}}>Sign me up to receive ChatWith offers, promos, and other commercial messages. My request confirms my acceptance of ChatWith Privacy Policy. I can unsubscribe at any time.</label>} />
           </Segment>
         </Grid.Column>
         <Grid.Column>
-          <Segment basic secondary>
-            <Header as='h3'>
-              <Header.Content>
+          <Segment style={{height: "260px"}} basic secondary>
+            <Header style={{color:"grey"}} as='h3'>
                 SIGN IN OR SIGNUP
                 <Header.Subheader>
                   Sign in for a faster check out and to download the ChatWith App.
                 </Header.Subheader>
-              </Header.Content>
             </Header>
-            <div>
-              <Button color='blue' as={Link} to='/login'>SIGN IN</Button>
-              <Button color='blue' as={Link} to='/signup'>SIGN UP</Button>
-            </div>
+            <Button style={{width: "100%", background: "#12457b"}} as={Link} to='/login' primary>SIGN IN</Button>
+            <div style={{paddingTop: "10px", textAlign:"center", textDecoration: "underline"}}>
+              <a href="/signup">Sign Up</a>​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
+            </div>​
+            <Segment basic secondary></Segment>
+            <Segment basic secondary></Segment>
           </Segment>
         </Grid.Column>
       </Grid.Row>
@@ -317,16 +330,39 @@ class BillingPage extends Component {
   )
 
   guestBillingInfo = () => (
-    <Grid>
-      <Grid.Row>
-        <Header>BILLING INFORMATION</Header>
-      </Grid.Row>
-      <Grid.Row>
-        <Grid.Column width={16}>
-          <NewCheckoutForm submit={this.submitNewGuest} />
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
+    <div>
+      <Menu style={marginFix} secondary>
+        <Menu.Menu style={marginFix} position="left">
+          <Header color='grey'>BILLING INFORMATION</Header>
+        </Menu.Menu>
+      </Menu>
+      <Divider style={marginFix} />
+      <Segment style={{margin: "0"}} basic secondary>
+        <NewCheckoutForm submit={this.submitNewGuest} />
+      </Segment>
+    </div>
+  )
+
+  userBillingGrid = () => (
+    <div>
+      <Menu style={marginFix} secondary>
+        <Menu.Menu style={marginFix} position="left">
+          <Header color='grey'>BILLING INFORMATION</Header>
+        </Menu.Menu>
+      </Menu>
+      <Divider style={marginFix} />
+      <CreditCardForm noCardAvailable={this.noCardAvailable} checkboxSelection={this.checkboxSelection} onCardSelect={this.onCardSelect} AppUserId={this.state.user.AppUserId} Token={this.state.user.Token}/>
+      {this.state.card && !this.state.updateCard && (
+        <Segment style={{margin: "0"}} basic secondary>
+          <ExistingCheckoutForm submit={this.submitExisting} card={this.state.card} />
+        </Segment>
+      )}
+      {!this.state.card && this.state.noCard && (
+        <Segment style={{margin: "0"}} basic secondary>
+          <NewCheckoutForm submit={this.submitNew} />
+        </Segment>
+      )}
+    </div>
   )
 
   userBillingInfo = () => (
@@ -336,7 +372,7 @@ class BillingPage extends Component {
       </Grid.Row>
       <Grid.Row>
         <Grid.Column width={16}>
-          <CreditCardForm noCardAvailable={this.noCardAvailable} checkboxSelection={this.checkboxSelection} onCardSelect={this.onCardSelect} AppUserId={this.state.user.AppUserId} Token={this.state.user.Token}/>
+          <CreditCardForm noCardAvailable={this.noCardAvailable} onCardSelect={this.onCardSelect} AppUserId={this.state.user.AppUserId} Token={this.state.user.Token}/>
           {this.state.card && !this.state.updateCard && (
             <div>
               <ExistingCheckoutForm submit={this.submitExisting} card={this.state.card} />
@@ -349,7 +385,6 @@ class BillingPage extends Component {
           )}
           {!this.state.card && this.state.noCard && (
             <div>
-              <h1>Add Card</h1>
               <NewCheckoutForm submit={this.submitNew} />
             </div>
           )}
@@ -363,116 +398,119 @@ class BillingPage extends Component {
     const { loading, success, guestEligible } = this.state;
     return (
       <div>
-        {loading === 'true' && (
-          <Message icon>
-            <Icon name="circle notched" loading />
-            <Message.Header>Checkout In Progress</Message.Header>
-          </Message>
-        )}
-        {loading === 'false' &&
-        success && (
-          <Message success icon>
-            <Icon name="checkmark" />
-            <Message.Content>
-              <Message.Header>
-                Purchase Complete. Confirmation Email Sent.
-              </Message.Header>
-              <Link to="/talent">Browse More Talents</Link>
-            </Message.Content>
-          </Message>
-        )}
-        {loading === 'false' &&
-        !success && (
-          <Message negative icon>
-            <Icon name="warning sign" />
-            <Message.Content>
-              <Message.Header>Purchase Failed. Check Card And Try Again</Message.Header>
-            </Message.Content>
-          </Message>
-        )}
+        <TopGrid />
         <Grid>
           <Grid.Column width={12}>
-            <Segment inverted color='blue'>{cart.length} Items</Segment>
-          </Grid.Column>
-          <Grid.Column width={4}>
-            <Segment inverted color='teal'>Have Questions? support@getchatwith.com</Segment>
-          </Grid.Column>
-        </Grid>
-        <Grid>
-          <Grid.Column width={12}>
-            {!this.state.user.loggedIn && guestEligible === 'true' &&  (
-              <div>
-                {this.guestGrid()}
-                {this.guestBillingInfo()}
-              </div>
-            )}
-            {!this.state.user.loggedIn && guestEligible === 'false' &&  (
-              <div>
+          {!this.state.user.loggedIn && guestEligible === 'true' &&  (
+            <div>
+              {this.guestGrid()}
+              <Segment basic></Segment>
+              {loading === 'true' && (
+                <Message icon>
+                  <Icon name="circle notched" loading />
+                  <Message.Header>Checkout In Progress</Message.Header>
+                </Message>
+              )}
+              {loading === 'false' &&
+                success && (
+                  <Message success icon>
+                    <Icon name="checkmark" />
+                    <Message.Content>
+                      <Message.Header>
+                        Purchase Complete. Confirmation Email Sent.
+                      </Message.Header>
+                      <Link to="/talent">Browse More Talents</Link>
+                    </Message.Content>
+                  </Message>
+              )}
+              {loading === 'false' &&
+                !success && (
+                  <Message negative icon>
+                    <Icon name="warning sign" />
+                    <Message.Content>
+                      <Message.Header>Purchase Failed. Check Card And Try Again</Message.Header>
+                    </Message.Content>
+                  </Message>
+                )}
+              {this.guestBillingInfo()}
+            </div>
+          )}
+          {!this.state.user.loggedIn && guestEligible === 'false' &&  (
+            <div>
+              <Message negative icon>
+                <Icon name="warning sign" />
+                <Message.Content>
+                  <Message.Header>Cart not eligible for Guest Checkout. Please Login or remove Video Message/Live Chat from cart.</Message.Header>
+                </Message.Content>
+              </Message>
+            </div>
+          )}
+          {this.state.user.loggedIn && (
+            <div>
+              {loading === 'true' && (
+                <Message icon>
+                  <Icon name="circle notched" loading />
+                  <Message.Header>Checkout In Progress</Message.Header>
+                </Message>
+              )}
+              {loading === 'false' &&
+              success && (
+                <Message success icon>
+                  <Icon name="checkmark" />
+                  <Message.Content>
+                    <Message.Header>
+                      Purchase Complete. Confirmation Email Sent.
+                    </Message.Header>
+                    <Link to="/talent">Browse More Talents</Link>
+                  </Message.Content>
+                </Message>
+              )}
+              {loading === 'false' &&
+              !success && (
                 <Message negative icon>
                   <Icon name="warning sign" />
                   <Message.Content>
-                    <Message.Header>Cart not eligible for Guest Checkout.</Message.Header>
+                    <Message.Header>Purchase Failed. Check Card And Try Again</Message.Header>
                   </Message.Content>
                 </Message>
-                <Segment basic secondary>
-                  <Header as='h3'>
-                    <Header.Content>
-                      SIGN IN OR SIGNUP
-                      <Header.Subheader>
-                        Sign in for a faster check out and to download the ChatWith App.
-                      </Header.Subheader>
-                    </Header.Content>
-                  </Header>
-                  <div>
-                    <Button color='blue' as={Link} to='/login'>SIGN IN</Button>
-                    <Button color='blue' as={Link} to='/signup'>SIGN UP</Button>
-                  </div>
-                </Segment>
-              </div>
-            )}
-            {this.state.user.loggedIn && (
-              <div>
-                {this.userBillingInfo()}
-              </div>
-            )}
-          </Grid.Column>
-          <Grid.Column width={4}>
-            <Card>
-              <Card.Content>
-                <Header as='h2' color='grey'>
-                  ORDER SUMMARY
-                </Header>
-              </Card.Content>
-              <Card.Content>
-              <Grid color='grey'>
-                <Grid.Row>
-                  <Grid.Column width={8}>
-                    SUBTOTAL
-                  </Grid.Column>
-                  <Grid.Column width={8}>
-                    ${this.state.subtotal.toFixed(2)}
-                  </Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
-                  <Grid.Column width={8}>
-                    ESTIMATED TAX
-                  </Grid.Column>
-                  <Grid.Column width={8}>
-                    ${this.state.tax}
-                  </Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
-                  <Grid.Column width={8}>
-                    TOTAL
-                  </Grid.Column>
-                  <Grid.Column width={8}>
-                    ${(this.state.subtotal + this.state.tax).toFixed(2)}
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
-              </Card.Content>
-            </Card>
-          </Grid.Column>
+              )}
+              {this.userBillingGrid()}
+            </div>
+          )}
+        </Grid.Column>
+        <Grid.Column style={{paddingLeft: "0"}} width={4}>
+          <Header as='h2' style={{color: "#C0C0C0"}}>
+            ORDER SUMMARY
+          </Header>
+          <Segment basic secondary>
+          <div style={{padding: "10px"}}> 
+          <Menu secondary>
+            <Menu.Menu position="left">
+              <Header color="grey" as="h4">SUBTOTAL</Header>
+            </Menu.Menu>
+            <Menu.Menu position="right">
+              <Header color="grey" as="h4">${this.state.subtotal.toFixed(2)}</Header>
+            </Menu.Menu>
+          </Menu>
+          <Menu secondary>
+            <Menu.Menu position="left">
+            <Header color="grey"  as="h4">ESTIMATED TAX</Header>
+            </Menu.Menu>
+            <Menu.Menu position="right">
+              <Header color="grey" as="h4">${this.state.tax}</Header>
+            </Menu.Menu>
+          </Menu>
+          <Menu secondary>
+            <Menu.Menu position="left">
+            <Header color="grey"  as="h4">TOTAL</Header>
+            </Menu.Menu>
+            <Menu.Menu position="right">
+              <Header color="grey" as="h4">${(this.state.subtotal + this.state.tax).toFixed(2)}</Header>
+            </Menu.Menu>
+          </Menu>
+          </div>
+          </Segment>
+        </Grid.Column>
         </Grid>
         <Segment basic></Segment>
         <Segment basic></Segment>

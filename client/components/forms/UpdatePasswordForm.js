@@ -56,11 +56,6 @@ class UpdateProfileForm extends React.Component {
           <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>Required Field</Label>
           <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
         </div>
-
-        <div style={{paddingTop: "0.5em", paddingBottom: "0.5em"}}>
-          <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>First Name</Label>
-          <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
-        </div>
         <Form size='large' onSubmit={this.onSubmit}>
 
           <div style={{paddingTop: "0.5em", paddingBottom: "0.5em"}}>

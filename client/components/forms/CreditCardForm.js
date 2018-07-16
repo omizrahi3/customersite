@@ -15,22 +15,11 @@ class CreditCardForm extends Component {
     instance.post('http://www.qa.getchatwith.com/api/GetAppUserCreditCards', { AppUserId: this.props.AppUserId })
     .then(res => res.data.Response.CreditCards)
     .then(cards => {
-      const options = [];
-      const cardsHash = {};
       if (cards === undefined) {
         this.props.noCardAvailable();
       } else {
-        cards.forEach(card => {
-          cardsHash[card.uniqueNumberIdentifier] = card;
-          options.push({
-            key: card.createdAt,
-            value: card.uniqueNumberIdentifier,
-            text: `${card.cardType}-${card.last4}`
-          })
-        });
+        this.props.onCardSelect(cards[0]);
       }
-      window.cardsHash = cardsHash;
-      this.setState({ cardsOptions: options, cards: cardsHash });
     });
   }
 
@@ -38,32 +27,8 @@ class CreditCardForm extends Component {
     this.props.onCardSelect(this.state.cards[data.value]);
   }
 
-  checkbox = (e, data) => {
-    this.props.checkboxSelection(data.checked);
-  };
-
   render() {
-    const { cardsOptions } = this.state;
-    return (
-      <Form>
-        {this.state.cardsOptions.length > 0 && (
-          <div>
-            <Dropdown
-              placeholder='Select Credit Card'
-              selection
-              options={cardsOptions}
-              onChange={this.onChange}
-            />
-            <Checkbox
-              style={{'paddingLeft':20}}
-              label='Add New Card'
-              onChange={this.checkbox}
-            />
-            <Segment basic></Segment>
-          </div>
-        )}
-      </Form>
-    )
+    return (null)
   }
 }
 
@@ -71,7 +36,6 @@ CreditCardForm.propTypes = {
   AppUserId: PropTypes.string.isRequired,
   Token: PropTypes.string.isRequired,
   onCardSelect: PropTypes.func.isRequired,
-  checkboxSelection: PropTypes.func.isRequired,
   noCardAvailable: PropTypes.func.isRequired
 };
 

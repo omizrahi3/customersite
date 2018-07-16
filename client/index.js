@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
-import decode from "jwt-decode";
 import { BrowserRouter, Route } from 'react-router-dom';
 import App from './App';
 import { userLoggedIn } from "./actions/authActions";

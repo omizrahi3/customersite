@@ -2,7 +2,20 @@ import React, { Component } from 'react'
 import { connect } from "react-redux";
 import { Message, Icon, Segment, Pagination, Input, Grid, Button, Header, Card, Image } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
-import axios from 'axios';
+import api from "../../api";
+
+const cardStyles = {
+  boxShadow: "none"
+}
+
+const imgStyles = {
+  boxShadow: "none"
+}
+
+const contentStyles = {
+  paddingRight: '0',
+  paddingLeft: '0'
+}
 
 class KnownForSearch extends Component {
   state = {
@@ -28,25 +41,17 @@ class KnownForSearch extends Component {
   }
 
   onSubmit = (e, data) => {
-    console.log('button click');
     this.setState({ loading: 'true' });
-    const instance = axios.create({timeout: 3000});
     const dataObj =
     {
       "KnownFor": this.state.searchQuery,
       "ResultNumberBegin": 0,
       "ResultNumberEnd": 15
     };
-    // const testObj = {
-    //   "FirstName":"",
-    //   "LastName":"A",
-    //   "ResultNumberBegin": 0,
-    //   "ResultNumberEnd": 15
-    // }
-    instance.post('http://www.qa.getchatwith.com/home/GetAppTalentBySearch', dataObj)
-    .then(res => res.data.Response)
+
+    api.search.knownfor(dataObj)
     .then(results => {
-      console.log(results.TotalCount);
+      console.log('api.search.knownfor')
       window.talentsHash = results.LandingData;
       const searchResults = {
         query: this.state.searchQuery,
@@ -60,40 +65,56 @@ class KnownForSearch extends Component {
       });
       const totalPages = searchResults.totalCount / this.state.resultsPerPage;
       this.setState({ searchResults, keys, talents: talentsHash, totalPages, activePage: 1, loading: 'false' });
-    });
+    })
+    .catch(err => {
+      console.log('whoops');
+    })
+    
+    // instance.post('http://www.qa.getchatwith.com/home/GetAppTalentBySearch', dataObj)
+    // .then(res => res.data.Response)
+    // .then(results => {
+    //   console.log(results.TotalCount);
+    //   window.talentsHash = results.LandingData;
+    //   const searchResults = {
+    //     query: this.state.searchQuery,
+    //     totalCount: results.TotalCount
+    //   }
+    //   const keys = [];
+    //   const talentsHash = {};
+    //   results.LandingData.forEach(talent => {
+    //     console.log(talent);
+    //     talentsHash[talent.TalentId] = talent;
+    //     keys.push(talent.TalentId);
+    //   });
+    //   const totalPages = searchResults.totalCount / this.state.resultsPerPage;
+    //   this.setState({ searchResults, keys, talents: talentsHash, totalPages, activePage: 1, loading: 'false' });
+    // });
   }
 
   handlePaginationChange = (e, { activePage }) => {
     const resultNumberBegin = this.calcResultNumberBegin(this.state.resultsPerPage, activePage);
     this.setState({ loading: 'true', activePage })
-    console.log(resultNumberBegin);
-    const instance = axios.create({timeout: 3000});
     const dataObj =
     {
       "KnownFor": this.state.searchResults.query,
       "ResultNumberBegin": resultNumberBegin,
       "ResultNumberEnd": 15
     };
-    // const testObj = {
-    //   "FirstName":"",
-    //   "LastName":"A",
-    //   "ResultNumberBegin": resultNumberBegin,
-    //   "ResultNumberEnd": 15
-    // }
-    instance.post('http://www.qa.getchatwith.com/home/GetAppTalentBySearch', dataObj)
-    .then(res => res.data.Response)
+    api.search.knownfor(dataObj)
     .then(results => {
-      console.log(results.TotalCount);
+      console.log('api.search.knownfor');
       window.talentsHash = results.LandingData;
       const keys = [];
       const talentsHash = {};
       results.LandingData.forEach(talent => {
-        talent.ProfilePictureReference = "https://chatwith-dev-talent-profile-pictures.s3.amazonaws.com/055A41E9710840BCBA5E2931D4F8AD1F/ProfilePicture?AWSAccessKeyId=AKIAIBVDUTSBPSGIOLQQ&Expires=1530857230&Signature=QM%2F97s5UmcTCiF9iEk9%2Bh3zU9wA%3D";
         talentsHash[talent.TalentId] = talent;
         keys.push(talent.TalentId);
       });
       this.setState({ keys, talents: talentsHash, loading: 'false' });
-    });
+    })
+    .catch(err => {
+      console.log('whoops');
+    })
   }
 
   renderTalents = keys => keys.map(key => {
@@ -106,7 +127,7 @@ class KnownForSearch extends Component {
     const KnownFor = hashedTalent.KnownFor;
     const ProfilePictureReference = hashedTalent.ProfilePictureReference;
     return (
-      <Card key={hashedTalent.TalentId} as={Link} to={{
+      <Card style={cardStyles} key={hashedTalent.TalentId} as={Link} to={{
         pathname: `/talent/${hashedTalent.TalentId}`,
         state: {
           FirstName,
@@ -115,14 +136,11 @@ class KnownForSearch extends Component {
           ProfilePictureReference
         }
       }}>
-        <Image src={hashedTalent.ProfilePictureReference} />
-        <Card.Content>
-          <Card.Header textAlign="center">
-            {hashedTalent.FirstName} {hashedTalent.LastName}
-          </Card.Header>
-          <Card.Meta textAlign="center">
-            {hashedTalent.KnownFor}
-          </Card.Meta>
+        <Image style={imgStyles} src={hashedTalent.ProfilePictureReference} />
+        <Card.Content style={contentStyles}>
+          <Header style={{ color: 'grey' }} as='h4' textAlign='center'>{hashedTalent.FirstName} {hashedTalent.LastName}
+            <Header.Subheader>{hashedTalent.KnownFor}</Header.Subheader>
+          </Header>
         </Card.Content>
       </Card>
     )

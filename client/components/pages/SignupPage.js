@@ -2,9 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
-import { Segment, Message, Grid, Header, Icon } from "semantic-ui-react";
+import { Segment, Message, Grid, Header, Icon, Menu, Divider } from "semantic-ui-react";
+import TopGrid from '../grids/TopGrid';
 import SignupForm from "../forms/SignupForm";
 import { signup, signupFB } from "../../actions/userActions";
+
+const marginFix = {
+  margin: "0"
+};
 
 class SignupPage extends React.Component {
   state = {
@@ -41,53 +46,45 @@ class SignupPage extends React.Component {
     const { loading, success, serverError } = this.state;
     return (
       <div>
-        {loading === 'true' && (
-          <Message icon>
-            <Icon name="circle notched" loading />
-            <Message.Header>Registration In Progress</Message.Header>
-          </Message>
-        )}
-        {loading === 'false' &&
-        success && (
-          <Message success icon>
-            <Icon name="checkmark" />
-            <Message.Content>
-              <Message.Header>
-                Registration Complete. Confirmation Email Sent.
-              </Message.Header>
-              <Link to="/login">Login Now</Link>
-            </Message.Content>
-          </Message>
-        )}
-        {loading === 'false' &&
-        !success && (
-          <Message negative icon>
-            <Icon name="warning sign" />
-            <Message.Content>
-              <Message.Header>Registration Failed. {serverError}</Message.Header>
-            </Message.Content>
-          </Message>
-        )}
-        <Grid padded>
-          <Grid.Column width={10} color="blue">
-
-          </Grid.Column>
-          <Grid.Column width={6} color="teal">
-            <Segment inverted color="teal">Have Questions? support@getchatwith.com</Segment>
+        <TopGrid />
+        <Grid>
+        <Grid.Column width={6}>
+          <Menu style={marginFix} secondary>
+            <Menu.Menu style={marginFix} position="left">
+              <Header color='grey'>REGISTER WITH CHATWITH</Header>
+            </Menu.Menu>
+          </Menu>
+          <Divider style={marginFix} />
+          {loading === 'true' && (
+            <Message icon>
+              <Icon name="circle notched" loading />
+              <Message.Header>Registration In Progress</Message.Header>
+            </Message>
+          )}
+          {loading === 'false' &&
+            success && (
+              <Message success icon>
+                <Icon name="checkmark" />
+                <Message.Content>
+                  <Message.Header>
+                    Registration Complete. Confirmation Email Sent.
+                  </Message.Header>
+                  <Link to="/login">Login Now</Link>
+                </Message.Content>
+              </Message>
+            )}
+          {loading === 'false' &&
+            !success && (
+              <Message negative icon>
+                <Icon name="warning sign" />
+                <Message.Content>
+                  <Message.Header>Registration Failed. {serverError}</Message.Header>
+                </Message.Content>
+              </Message>
+            )}
+            <SignupForm signupSuccess={success} submit={this.submit} />
           </Grid.Column>
         </Grid>
-        <Segment basic secondary>
-          <Link to="/login">Already a member? Login</Link>
-          <Header as='h3' color='grey'>
-            <Header.Content>
-              REGISTER FOR CHATWITH
-              <Header.Subheader>
-                Required Field *
-              </Header.Subheader>
-            </Header.Content>
-          </Header>
-          <SignupForm signupSuccess={success} submit={this.submit} />
-        </Segment>
         <Segment basic></Segment>
         <Segment basic></Segment>
         <Segment basic></Segment>
