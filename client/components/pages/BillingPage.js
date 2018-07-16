@@ -440,7 +440,7 @@ class BillingPage extends Component {
               <Message negative icon>
                 <Icon name="warning sign" />
                 <Message.Content>
-                  <Message.Header>Cart not eligible for Guest Checkout. Please Login or remove Video Message/Live Chat from cart.</Message.Header>
+                  <Message.Header>Cart items not eligible for Guest Checkout. Please Login to continue.</Message.Header>
                 </Message.Content>
               </Message>
             </div>

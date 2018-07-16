@@ -71,26 +71,6 @@ class KnownForSearch extends Component {
     .catch(err => {
       console.log('whoops');
     })
-    
-    // instance.post('http://www.qa.getchatwith.com/home/GetAppTalentBySearch', dataObj)
-    // .then(res => res.data.Response)
-    // .then(results => {
-    //   console.log(results.TotalCount);
-    //   window.talentsHash = results.LandingData;
-    //   const searchResults = {
-    //     query: this.state.searchQuery,
-    //     totalCount: results.TotalCount
-    //   }
-    //   const keys = [];
-    //   const talentsHash = {};
-    //   results.LandingData.forEach(talent => {
-    //     console.log(talent);
-    //     talentsHash[talent.TalentId] = talent;
-    //     keys.push(talent.TalentId);
-    //   });
-    //   const totalPages = searchResults.totalCount / this.state.resultsPerPage;
-    //   this.setState({ searchResults, keys, talents: talentsHash, totalPages, activePage: 1, loading: 'false' });
-    // });
   }
 
   handlePaginationChange = (e, { activePage }) => {

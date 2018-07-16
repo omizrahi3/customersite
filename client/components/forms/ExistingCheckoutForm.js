@@ -66,7 +66,7 @@ class ExistingCheckoutForm extends React.Component {
               name="maskedNumber"
               value={data.maskedNumber}
             />
-            <Button style={{ background: "#12457b", height: "50px", width: "200px"}} primary>CONTINUE</Button>
+            <Button style={{ background: "#12457b", height: "50px", width: "200px"}} primary>CHECKOUT</Button>
         </Form>
         </div>
     );

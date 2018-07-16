@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Grid, Segment, Image, Card, Breadcrumb, Header, Modal, Button, Icon, Input, Form, TextArea, Message, Rail } from "semantic-ui-react";
+import { Grid, Segment, Image, Card, Breadcrumb, Header, Modal, Button, Icon, Input, Form, TextArea, Message } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { atc } from '../../actions/cartActions';
 import isEmail from "validator/lib/isEmail";

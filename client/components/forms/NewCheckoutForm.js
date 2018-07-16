@@ -163,7 +163,7 @@ class NewCheckoutForm extends React.Component {
             value={data.cvv}
             onChange={this.onChange}
           />
-          <Button style={{ background: "#12457b", height: "50px", width: "200px"}} primary>CONTINUE</Button>
+          <Button style={{ background: "#12457b", height: "50px", width: "200px"}} primary>CHECKOUT</Button>
         </Form>
         </div>
     );
