@@ -9,7 +9,9 @@ const cardStyles = {
 }
 
 const imgStyles = {
-  boxShadow: "none"
+  boxShadow: "none",
+  maxWidth: "200px",
+  maxHeight: "265px"
 }
 
 const contentStyles = {

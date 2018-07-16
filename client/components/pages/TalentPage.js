@@ -350,8 +350,11 @@ class TalentPage extends Component {
         )}
         <Grid>
           <Grid.Row>
-            <Grid.Column width={5}>
-              <Segment basic><Image src={ProfilePictureReference} /></Segment>
+          <Grid.Column width={1}>
+              <Segment basic></Segment>
+            </Grid.Column>
+            <Grid.Column width={4}>
+              <Segment basic><Image style={{maxWidth: "220px", maxHeight: "285px"}} src={ProfilePictureReference} /></Segment>
             </Grid.Column>
             <Grid.Column width={11}>
               <Segment basic>

@@ -5,6 +5,21 @@ import { Message, Icon, Segment, Pagination, Input, Grid, Button, Header, Card, 
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
+const cardStyles = {
+  boxShadow: "none"
+}
+
+const imgStyles = {
+  boxShadow: "none",
+  maxWidth: "200px",
+  maxHeight: "265px"
+}
+
+const contentStyles = {
+  paddingRight: '0',
+  paddingLeft: '0'
+}
+
 class CategorySearch extends Component {
   state = {
     loading: '',
@@ -156,7 +171,7 @@ class CategorySearch extends Component {
     const KnownFor = hashedTalent.KnownFor;
     const ProfilePictureReference = hashedTalent.ProfilePictureReference;
     return (
-      <Card key={hashedTalent.TalentId} as={Link} to={{
+      <Card style={cardStyles} key={hashedTalent.TalentId} as={Link} to={{
         pathname: `/talent/${hashedTalent.TalentId}`,
         state: {
           FirstName,
@@ -165,14 +180,11 @@ class CategorySearch extends Component {
           ProfilePictureReference
         }
       }}>
-        <Image src={hashedTalent.ProfilePictureReference} />
-        <Card.Content>
-          <Card.Header textAlign="center">
-            {hashedTalent.FirstName} {hashedTalent.LastName}
-          </Card.Header>
-          <Card.Meta textAlign="center">
-            {hashedTalent.KnownFor}
-          </Card.Meta>
+        <Image style={imgStyles} src={hashedTalent.ProfilePictureReference} />
+        <Card.Content style={contentStyles}>
+          <Header style={{ color: 'grey' }} as='h4' textAlign='center'>{hashedTalent.FirstName} {hashedTalent.LastName}
+            <Header.Subheader>{hashedTalent.KnownFor}</Header.Subheader>
+          </Header>
         </Card.Content>
       </Card>
     )
