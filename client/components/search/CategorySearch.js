@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Message, Icon, Segment, Pagination, Input, Grid, Button, Header, Card, Image } from 'semantic-ui-react';
+import { Message, Icon, Segment, Pagination, Input, Grid, Button, Header, Card, Image, Menu } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
+
+const marginFix = {
+  margin: "0"
+};
 
 const cardStyles = {
   boxShadow: "none"
@@ -16,6 +20,7 @@ const imgStyles = {
 }
 
 const contentStyles = {
+  borderTop: 'none',
   paddingRight: '0',
   paddingLeft: '0'
 }
@@ -170,6 +175,8 @@ class CategorySearch extends Component {
     const LastName = hashedTalent.LastName;
     const KnownFor = hashedTalent.KnownFor;
     const ProfilePictureReference = hashedTalent.ProfilePictureReference;
+    const firstUpper = FirstName.toUpperCase();
+    const lastUpper = LastName.toUpperCase();
     return (
       <Card style={cardStyles} key={hashedTalent.TalentId} as={Link} to={{
         pathname: `/talent/${hashedTalent.TalentId}`,
@@ -180,10 +187,12 @@ class CategorySearch extends Component {
           ProfilePictureReference
         }
       }}>
-        <Image style={imgStyles} src={hashedTalent.ProfilePictureReference} />
+        <div style={{height:"265px",width:"200px"}}>
+          <Image verticalAlign='middle' style={imgStyles} src={hashedTalent.ProfilePictureReference} />
+        </div>
         <Card.Content style={contentStyles}>
-          <Header style={{ color: 'grey' }} as='h4' textAlign='center'>{hashedTalent.FirstName} {hashedTalent.LastName}
-            <Header.Subheader>{hashedTalent.KnownFor}</Header.Subheader>
+          <Header style={{ color: 'grey', margin: "0" }} textAlign='center'>{firstUpper} {lastUpper}
+            <Header.Subheader style={{ fontSize: '1.1rem', color: "grey" }}>{hashedTalent.KnownFor}</Header.Subheader>
           </Header>
         </Card.Content>
       </Card>

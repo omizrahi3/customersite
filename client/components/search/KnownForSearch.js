@@ -15,6 +15,7 @@ const imgStyles = {
 }
 
 const contentStyles = {
+  borderTop: 'none',
   paddingRight: '0',
   paddingLeft: '0'
 }
@@ -108,6 +109,8 @@ class KnownForSearch extends Component {
     const LastName = hashedTalent.LastName;
     const KnownFor = hashedTalent.KnownFor;
     const ProfilePictureReference = hashedTalent.ProfilePictureReference;
+    const firstUpper = FirstName.toUpperCase();
+    const lastUpper = LastName.toUpperCase();
     return (
       <Card style={cardStyles} key={hashedTalent.TalentId} as={Link} to={{
         pathname: `/talent/${hashedTalent.TalentId}`,
@@ -118,10 +121,12 @@ class KnownForSearch extends Component {
           ProfilePictureReference
         }
       }}>
-        <Image style={imgStyles} src={hashedTalent.ProfilePictureReference} />
+        <div style={{height:"265px",width:"200px"}}>
+          <Image verticalAlign='middle' style={imgStyles} src={hashedTalent.ProfilePictureReference} />
+        </div>
         <Card.Content style={contentStyles}>
-          <Header style={{ color: 'grey' }} as='h4' textAlign='center'>{hashedTalent.FirstName} {hashedTalent.LastName}
-            <Header.Subheader>{hashedTalent.KnownFor}</Header.Subheader>
+          <Header style={{ color: 'grey', margin: "0" }} textAlign='center'>{firstUpper} {lastUpper}
+            <Header.Subheader style={{ fontSize: '1.1rem', color: "grey" }}>{hashedTalent.KnownFor}</Header.Subheader>
           </Header>
         </Card.Content>
       </Card>
