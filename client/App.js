@@ -6,7 +6,7 @@ import LoginPage from './components/pages/LoginPage';
 import SignupPage from './components/pages/SignupPage';
 import ProfilePage from './components/pages/ProfilePage';
 import MyAccountPage from './components/pages/MyAccountPage';
-import TalentLandingPage from './components/pages/TalentLandingPage';
+import SearchPage from './components/pages/SearchPage';
 import MusicSearchPage from './components/pages/MusicSearchPage';
 import SportsSearchPage from './components/pages/SportsSearchPage';
 import BrandSearchPage from './components/pages/BrandSearchPage';
@@ -91,7 +91,7 @@ const App = ({ location, isAuthenticated }) => (
       location={location}
       path='/talent'
       exact
-      component={TalentLandingPage}
+      component={SearchPage}
     />
     <Route
       location={location}

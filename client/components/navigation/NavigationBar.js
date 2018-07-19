@@ -60,35 +60,35 @@ class NavigationBar extends Component {
               <Breadcrumb>
                 <Breadcrumb.Section style={linkStyle} as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
                 <Breadcrumb.Divider icon='right chevron' />
-                <Breadcrumb.Section style={linkStyle} active>Login</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle}>Login</Breadcrumb.Section>
               </Breadcrumb>
             )}
             {pathname === '/signup' && (
               <Breadcrumb>
                 <Breadcrumb.Section style={linkStyle} as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
                 <Breadcrumb.Divider icon='right chevron' />
-                <Breadcrumb.Section style={linkStyle} active>Register</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle}>Register</Breadcrumb.Section>
               </Breadcrumb>
             )}
             {pathname === '/forgot_password' && (
               <Breadcrumb>
                 <Breadcrumb.Section style={linkStyle} as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
                 <Breadcrumb.Divider icon='right chevron' />
-                <Breadcrumb.Section style={linkStyle} active>Forgot Password</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle}>Forgot Password</Breadcrumb.Section>
               </Breadcrumb>
             )}
             {pathname === '/reset_password' && (
               <Breadcrumb>
                 <Breadcrumb.Section style={linkStyle} as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
                 <Breadcrumb.Divider icon='right chevron' />
-                <Breadcrumb.Section style={linkStyle} active>Reset Password</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle}>Reset Password</Breadcrumb.Section>
               </Breadcrumb>
             )}
             {pathname === '/talent' && (
               <Breadcrumb>
                 <Breadcrumb.Section style={linkStyle} as="a" href="https://getchatwith.com/">Home</Breadcrumb.Section>
                 <Breadcrumb.Divider icon='right chevron' />
-                <Breadcrumb.Section style={linkStyle} active>Talent</Breadcrumb.Section>
+                <Breadcrumb.Section style={linkStyle}>Search</Breadcrumb.Section>
               </Breadcrumb>
             )}
             {pathname === '/cart' && (

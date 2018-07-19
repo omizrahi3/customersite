@@ -145,14 +145,16 @@ class KnownForSearch extends Component {
         )}
         <Segment basic secondary>
         <Grid columns='equal'>
-          <Grid.Column width={2}>
-            Search by Known For
+          <Grid.Column style={{display: "flex", paddingRight: "0"}} width={2}>
+            <div style={{color: "grey", display: "flex", alignItems: "center"}}>
+              Search By Name
+            </div>
           </Grid.Column>
-          <Grid.Column width={7}>
+          <Grid.Column style={{paddingLeft: "0"}} width={7}>
           <Input
             icon='search'
             iconPosition='left'
-            action={<Button color="yellow" onClick={this.onSubmit}>Search</Button>}
+            action={<Button style={{color: "#f3f4f5"}} color="yellow" onClick={this.onSubmit}>SEARCH</Button>}
             placeholder=''
             onChange={this.onChange}
           />
@@ -172,16 +174,16 @@ class KnownForSearch extends Component {
         </Grid>
         </Segment>
         <Segment basic>
-          <Header size='huge' color="grey">
+          <Header size='huge' style={{color: "#C0C0C0"}}>
             RESULTS
             {keys.length > 0 && (
               <Header.Subheader>{searchResults.totalCount} Results Found For "{searchResults.query}"</Header.Subheader>
             )}
           </Header>
           {keys.length === 0 && (
-            <Header size='medium'>
+            <Header style={{margin: "0"}} color="grey" size='medium'>
               No Search Results Found
-              <Header.Subheader>Try Searching Again</Header.Subheader>
+              <Header.Subheader style={{color: "grey"}}>Try Searching Again</Header.Subheader>
             </Header>
           )}
         </Segment>

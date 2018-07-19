@@ -211,14 +211,16 @@ class CategorySearch extends Component {
         )}
         <Segment basic secondary>
         <Grid columns='equal'>
-          <Grid.Column width={2}>
-            Search By Name
+          <Grid.Column style={{display: "flex", paddingRight: "0"}} width={2}>
+            <div style={{color: "grey", display: "flex", alignItems: "center"}}>
+              Search By Name
+            </div>
           </Grid.Column>
-          <Grid.Column width={7}>
+          <Grid.Column style={{paddingLeft: "0"}} width={7}>
           <Input
             icon='search'
             iconPosition='left'
-            action={<Button color="yellow" onClick={this.onSubmit}>Search</Button>}
+            action={<Button style={{color: "#f3f4f5"}} color="yellow" onClick={this.onSubmit}>SEARCH</Button>}
             placeholder=''
             onChange={this.onChange}
           />
