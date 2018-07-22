@@ -437,12 +437,24 @@ class BillingPage extends Component {
           )}
           {!this.state.user.loggedIn && guestEligible === 'false' &&  (
             <div>
-              <Message negative icon>
-                <Icon name="warning sign" />
-                <Message.Content>
-                  <Message.Header>Cart items not eligible for Guest Checkout. Please Login to continue.</Message.Header>
-                </Message.Content>
-              </Message>
+            <Message negative icon>
+              <Icon name="warning sign" />
+              <Message.Content>
+                <Message.Header>Cart items not eligible for Guest Checkout. Please Login or Register to continue.</Message.Header>
+              </Message.Content>
+            </Message>
+            <Grid>
+              <Grid.Column width={4}></Grid.Column>
+              <Grid.Column width={8}>
+                <Segment style={{}} basic>
+                  <Button style={{width: "100%", height:"50px", background: "#12457b"}} as={Link} to='/login' primary>SIGN IN</Button>
+                  <div style={{paddingTop: "10px", textAlign:"center", textDecoration: "underline"}}>
+                    <a href="/signup">Sign Up</a>​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
+                  </div>​
+                </Segment>
+              </Grid.Column>
+              <Grid.Column width={4}></Grid.Column>
+            </Grid>
             </div>
           )}
           {this.state.user.loggedIn && (

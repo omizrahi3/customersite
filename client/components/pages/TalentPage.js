@@ -279,12 +279,16 @@ class TalentPage extends Component {
     const hashedProduct = this.state.products[key];
     let product;
     let message;
+    let description;
     if (hashedProduct.ProductDescription === 'Feed') {
-      message = `Receive exclusive video updates from ${hashedProduct.TalentFirstName} ${hashedProduct.TalentLastName}.`;
+      description = `Subscription ${hashedProduct.ProductDescription}`;
+      message = `Subscribe to receive exclusive video updates from ${hashedProduct.TalentFirstName} ${hashedProduct.TalentLastName}.`;
     } else if (hashedProduct.ProductDescription === 'Video Message') {
+      description = hashedProduct.ProductDescription;
       message = `Purchase a personalized video message from ${hashedProduct.TalentFirstName} ${hashedProduct.TalentLastName}.`;
     } else if (hashedProduct.ProductDescription === 'Live Chat') {
-      message = `Talk one-on-one with ${hashedProduct.TalentFirstName} ${hashedProduct.TalentLastName} in a private chat.`;
+      description = hashedProduct.ProductDescription;
+      message = `Talk one-on-one with ${hashedProduct.TalentFirstName} ${hashedProduct.TalentLastName} in a video private chat.`;
     }
     if (hashedProduct.CurrentUnfulfilled === 0) {
       product = (this.notify(key));
@@ -306,7 +310,7 @@ class TalentPage extends Component {
           <Grid.Column width={10}>
             <Segment secondary basic>
             <Header>
-              {hashedProduct.ProductDescription}
+              {description}
               <Header.Subheader>{message}</Header.Subheader>
             </Header>
             </Segment>

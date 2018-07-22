@@ -21,28 +21,13 @@ class ProfilePage extends Component {
 
   componentDidMount() {
     console.log('ProfilePage did mount')
-    // const { Token, AppUserId } = this.props.user;
-    // const instance = axios.create({timeout: 3000});
-    // instance.defaults.headers.common['token'] = Token;
-    // instance.post('http://www.qa.getchatwith.com/api/GetProductByUser', { UserId: AppUserId })
-    // .then(res => res.data.Response)
-    // .then(subs => {
-    //   console.log(subs);
-    //   const keys = [];
-    //   const subscriptionsHash = {};
-    //   subs.forEach(sub => {
-    //     subscriptionsHash[sub.ProductId] = sub;
-    //     keys.push(sub.ProductId);
-    //   });
-    //   this.setState({ keys, subscriptions: subscriptionsHash });
-    // });
   }
 
   submit = (data) => {
     console.log('submit');
     this.setState({ loading: 'true'})
     const credentials = {
-      Token: 'dfdfdfd',
+      Token: this.props.user.Token,
       data: {
         'AppUserId': this.props.user.AppUserId,
         "EmailAddress": data.EmailAddress,
@@ -94,10 +79,10 @@ class ProfilePage extends Component {
       <div>
         <TopGrid />
         <Grid>
-          <Grid.Column width={3}>
+          <Grid.Column mobile={16} tablet={3} computer={3}>
             <MyAccountBar path={pathname}/>
           </Grid.Column>
-          <Grid.Column width={4}>
+          <Grid.Column mobile={16} tablet={4} computer={4}>
             <Menu style={marginFix} secondary>
               <Menu.Menu style={marginFix} position="left">
                 <Header color='grey'>EDIT PROFILE</Header>

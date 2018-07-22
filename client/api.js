@@ -1,36 +1,39 @@
 import axios from "axios";
 
+const qaUrl = "http://www.qa.getchatwith.com";
+const prodUrl = "https://www.getchatwith.com";
+
 export default {
   user: {
     login: credentials => {
-      return axios.post("http://www.qa.getchatwith.com/auth/AuthenticateAppUserByEmail", credentials).then(res => res.data.Response)
+      return axios.post(`${qaUrl}/auth/AuthenticateAppUserByEmail`, credentials).then(res => res.data.Response)
     },
     loginFB: credentials => {
-      return axios.post("http://www.qa.getchatwith.com/auth/AuthenticateAppUserByFacebook", credentials).then(res => res.data.Response)
+      return axios.post(`${qaUrl}/auth/AuthenticateAppUserByFacebook`, credentials).then(res => res.data.Response)
     },
     signup: user => {
-      return axios.post("http://www.qa.getchatwith.com/auth/CreateAppUser", user).then(res => res.data)
+      return axios.post(`${qaUrl}/auth/CreateAppUser`, user).then(res => res.data)
     },
     signupFB: user => {
-      return axios.post("http://www.qa.getchatwith.com/auth/CreateAppUserFacebook", user).then(res => res.data)
+      return axios.post(`${qaUrl}/auth/CreateAppUserFacebook`, user).then(res => res.data)
     },
     fetchUser: credentials => {
       const instance = axios.create({ timeout: 3000 });
       instance.defaults.headers.common['token'] = credentials.Token;
-      return axios.post("http://www.qa.getchatwith.com/api/GetAppUserById", credentials.data).then(res => res.data.Response)
+      return axios.post(`${qaUrl}/api/GetAppUserById`, credentials.data).then(res => res.data.Response)
     },
     updateProfile: credentials => {
       const instance = axios.create({ timeout: 3000 });
       instance.defaults.headers.common['token'] = credentials.Token;
-      return axios.post("http://www.qa.getchatwith.com/api/UpdateAppUserAttribute", credentials.data).then(res => res.data)
+      return axios.post(`${qaUrl}/api/UpdateAppUserAttribute`, credentials.data).then(res => res.data)
     },
     updatePassword: credentials => {
       const instance = axios.create({ timeout: 3000 });
       instance.defaults.headers.common['token'] = credentials.Token;
-      return axios.post("http://www.qa.getchatwith.com/api/UpdateAppUserPassword", credentials.data).then(res => res.data)
+      return axios.post(`${qaUrl}/api/UpdateAppUserPassword`, credentials.data).then(res => res.data)
     },
     resetPasswordRequest: email =>
-      axios.post("http://www.qa.getchatwith.com/auth/reset_password_request", { email })
+      axios.post(`${qaUrl}/auth/reset_password_request`, { email })
   },
   payment: {
     fetchCards: credentials => {
@@ -56,6 +59,7 @@ export default {
       return axios.post("http://www.qa.getchatwith.com/api/GetProductByUser", credentials.data).then(res => res.data.Response)
     },
     deleteSub: credentials => {
+      console.log(credentials);
       const instance = axios.create({ timeout: 3000 });
       instance.defaults.headers.common['token'] = credentials.Token;
       return axios.post("http://www.qa.getchatwith.com/api/DeleteProduct", credentials.data).then(res => res.data.Response)

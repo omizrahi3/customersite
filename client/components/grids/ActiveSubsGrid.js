@@ -76,6 +76,7 @@ class ActiveSubsGrid extends Component {
     const credentials = {
       Token: this.props.user.Token,
       data: {
+        "AppUserId": this.props.user.AppUserId,
         "ProductId": data.value
       }
     }

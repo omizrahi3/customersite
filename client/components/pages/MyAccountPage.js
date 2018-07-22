@@ -25,15 +25,15 @@ class MyAccountPage extends Component {
       <div>
         <TopGrid />
         <Grid>
-          <Grid.Column width={3}>
+          <Grid.Column mobile={16} tablet={3} computer={3}>
             <MyAccountBar path={pathname} />
           </Grid.Column>
-          <Grid.Column width={5}>
+          <Grid.Column mobile={16} tablet={5} computer={5}>
             <ProfileGrid user={user}/>
             <Segment basic></Segment>
             <PaymentGrid user={user}/>
           </Grid.Column>
-          <Grid.Column width={8}>
+          <Grid.Column mobile={16} tablet={8} computer={8}>
             <OrderHistoryGrid user={user}/>
             <Segment basic></Segment>
             <DownloadTheAppGrid />
@@ -41,9 +41,9 @@ class MyAccountPage extends Component {
         </Grid>
         <Segment basic></Segment>
         <Grid>
-          <Grid.Column width={2}>
+          <Grid.Column mobile={1} tablet={2} computer={2}>
           </Grid.Column>
-          <Grid.Column width={14}>
+          <Grid.Column mobile={15} tablet={14} computer={14}>
             <ActiveSubsGrid user={user}/>
           </Grid.Column>
         </Grid>

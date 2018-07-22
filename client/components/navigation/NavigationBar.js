@@ -234,7 +234,7 @@ class NavigationBar extends Component {
             'ORDER HISTORY'
           )}
           {pathname === '/payments' && (
-            'PAYMENT HISTORY'
+            'PAYMENT METHOD'
           )}
           {pathname === '/password' && (
             'RESET PASSWORD'

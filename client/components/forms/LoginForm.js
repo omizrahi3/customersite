@@ -86,7 +86,7 @@ class LoginForm extends React.Component {
           {errors.password && (
             <InlineError text={errors.password} />
           )}
-          <Button style={{ background: "#12457b", height: "50px", width: "200px"}} primary>LOGIN</Button>
+          <Button size="large" style={{ marginTop: "20px", background: "#12457b", width: "60%"}} primary>LOGIN</Button>
           <div style={{paddingTop: "1em"}}>
             <Link to="/forgot_password">Forgot Password?</Link>
           </div>

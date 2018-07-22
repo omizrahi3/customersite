@@ -21,10 +21,10 @@ class OrderHistoryPage extends Component {
       <div>
         <TopGrid />
         <Grid>
-          <Grid.Column width={3}>
+          <Grid.Column mobile={16} tablet={3} computer={3}>
             <MyAccountBar path={pathname}/>
           </Grid.Column>
-          <Grid.Column width={13}>
+          <Grid.Column mobile={16} tablet={13} computer={13}>
             <OrderHistoryFullGrid user={this.props.user} />
           </Grid.Column>
         </Grid>

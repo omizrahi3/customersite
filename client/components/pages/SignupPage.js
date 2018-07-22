@@ -48,20 +48,20 @@ class SignupPage extends React.Component {
       <div>
         <TopGrid />
         <Grid>
-        <Grid.Column width={6}>
-          <Menu style={marginFix} secondary>
-            <Menu.Menu style={marginFix} position="left">
-              <Header color='grey'>REGISTER WITH CHATWITH</Header>
-            </Menu.Menu>
-          </Menu>
-          <Divider style={marginFix} />
-          {loading === 'true' && (
-            <Message icon>
-              <Icon name="circle notched" loading />
-              <Message.Header>Registration In Progress</Message.Header>
-            </Message>
-          )}
-          {loading === 'false' &&
+          <Grid.Column mobile={12} tablet={6} computer={6}>
+            <Menu style={marginFix} secondary>
+              <Menu.Menu style={marginFix} position="left">
+                <Header color='grey'>REGISTER WITH CHATWITH</Header>
+              </Menu.Menu>
+            </Menu>
+            <Divider style={marginFix} />
+            {loading === 'true' && (
+              <Message icon>
+                <Icon name="circle notched" loading />
+                <Message.Header>Registration In Progress</Message.Header>
+              </Message>
+            )}
+            {loading === 'false' &&
             success && (
               <Message success icon>
                 <Icon name="checkmark" />
@@ -73,7 +73,7 @@ class SignupPage extends React.Component {
                 </Message.Content>
               </Message>
             )}
-          {loading === 'false' &&
+            {loading === 'false' &&
             !success && (
               <Message negative icon>
                 <Icon name="warning sign" />

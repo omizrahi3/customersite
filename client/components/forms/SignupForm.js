@@ -1,14 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from 'react-router-dom';
-import { Form, Button, Label, Input, Select } from "semantic-ui-react";
+import { Form, Button, Label, Input, Select, Radio, Checkbox } from "semantic-ui-react";
 import isEmail from "validator/lib/isEmail";
 import InlineError from "../messages/InlineError";
 
 const options = [
   { key: 'm', text: 'Male', value: 'male' },
   { key: 'f', text: 'Female', value: 'female' },
-  { key: 'o', text: 'Other', value: 'other' }
+  { key: 'o', text: 'Other', value: 'other' },
+  { key: 'n', text: 'No Answer', value: 'none' }
 ]
 
 const monthOptions = [
@@ -39,6 +40,7 @@ class SignupForm extends React.Component {
       Month: "",
       Year: ""
     },
+    terms: false,
     dateOptions: [],
     yearOptions: [],
     loading: false,
@@ -76,6 +78,11 @@ class SignupForm extends React.Component {
     });
   }
 
+  onChange3 = (e, data) => {
+    const { terms } = this.state;
+    this.setState({ terms: !terms });
+  }
+
   onSubmit = e => {
     e.preventDefault();
     const errors = this.validate(this.state.data);
@@ -84,6 +91,9 @@ class SignupForm extends React.Component {
       const { data } = this.state;
       if (!!data.Date && !!data.Month & !!data.Year) {
         data.Birthdate = `${data.Year}-${data.Month}-${data.Date}`;
+      }
+      if (data.Gender === 'none') {
+        data.Gender = '';
       }
       this.props.submit(data);
     }
@@ -101,6 +111,7 @@ class SignupForm extends React.Component {
       errors.passwordconfirm = "Password Does Not Match";
     }
     if (!data.Date || !data.Month || !data.Year) errors.birthdate = "Birthdate Required";
+    if (!this.state.terms) errors.terms = "You Must Accept Terms Of Service";
     return errors;
   };
 
@@ -210,6 +221,7 @@ class SignupForm extends React.Component {
               disabled={signupSuccess}
               control={Select}
               selectOnBlur={false}
+              placeholder="Month"
               options={monthOptions}
               name="Month"
               onChange={this.onChange2}
@@ -219,6 +231,7 @@ class SignupForm extends React.Component {
               disabled={signupSuccess}
               control={Select}
               selectOnBlur={false}
+              placeholder="Date"
               options={this.state.dateOptions}
               name="Date"
               onChange={this.onChange2}
@@ -228,6 +241,7 @@ class SignupForm extends React.Component {
               disabled={signupSuccess}
               control={Select}
               selectOnBlur={false}
+              placeholder="Year"
               options={this.state.yearOptions}
               name="Year"
               onChange={this.onChange2}
@@ -236,17 +250,28 @@ class SignupForm extends React.Component {
           {errors.birthdate && (
             <InlineError text={errors.birthdate} />
           )}
+          <div style={{paddingTop: "0", paddingBottom: "0.5em"}}>
+            <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>Gender</Label>
+          </div>
           <Form.Field
             disabled={signupSuccess}
             control={Select}
             width={6}
             selectOnBlur={false}
-            label='Gender'
             options={options}
             name="Gender"
             onChange={this.onChange2}
           />
-          <Button style={{ background: "#12457b", height: "50px", width: "200px"}} primary>REGISTER</Button>
+          <Form.Radio
+            style={{ marginTop: "10px"}}
+            toggle
+            onChange={this.onChange3}
+            label={<label><a href='https://getchatwith.com/terms-of-service/' target="_blank">I accept the Terms of Service</a></label>}
+          />
+          {errors.terms && (
+            <InlineError text={errors.terms} />
+          )}
+          <Button size="large" style={{ marginTop: "20px", background: "#12457b", width: "60%"}} primary>REGISTER</Button>
         </Form>
       </div>
     );

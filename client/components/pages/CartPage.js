@@ -142,10 +142,10 @@ class CartPage extends Component {
                 </Menu>
               </div>
               {cart.length > 0 && (
-                <Button style={{ background: "#b5cc18", height: "40px", width: "250px"}} as={Link} to='/billing'>CHECKOUT</Button>
+                <Button style={{ background: "#b5cc18", height: "40px", width: "100%"}} as={Link} to='/billing'>CHECKOUT</Button>
               )}
               {this.props.cart.length === 0 && (
-                <Button style={{ background: "#b5cc18", height: "40px", width: "250px"}} disabled as={Link} to='/billing'>CHECKOUT</Button>
+                <Button style={{ background: "#b5cc18", height: "40px", width: "100%"}} disabled as={Link} to='/billing'>CHECKOUT</Button>
               )}
             </Segment>
             <Header as='h2' style={{color: "#C0C0C0"}}>
@@ -154,7 +154,8 @@ class CartPage extends Component {
             <Segment basic secondary>
               <p style={{textAlign: "center", fontSize: "10px", color: "grey"}}>Note: All pricing on GetChatWith.com reflects a 30% discount compared to in-app pricing.</p>
               <Input
-                action={<Button color="grey" onClick={this.onSubmit}>Apply</Button>}
+                style={{width: "60%"}}
+                action={<Button style={{width: "50%"}} color="grey" onClick={this.onSubmit}>Apply</Button>}
                 onChange={this.onChange}
               />
             </Segment>

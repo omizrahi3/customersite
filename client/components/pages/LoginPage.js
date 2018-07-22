@@ -44,7 +44,7 @@ class LoginPage extends React.Component {
       <div>
         <TopGrid />
         <Grid>
-        <Grid.Column width={6}>
+        <Grid.Column mobile={12} tablet={6} computer={6}>
             <Menu style={marginFix} secondary>
               <Menu.Menu style={marginFix} position="left">
                 <Header color='grey'>LOGIN TO CHATWITH</Header>

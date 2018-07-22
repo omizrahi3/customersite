@@ -57,10 +57,10 @@ class ChangePasswordPage extends Component {
       <div>
         <TopGrid />
         <Grid>
-          <Grid.Column width={3}>
+          <Grid.Column mobile={16} tablet={3} computer={3}>
             <MyAccountBar path={pathname} />
           </Grid.Column>
-          <Grid.Column width={4}>
+          <Grid.Column mobile={16} tablet={4} computer={4}>
             <Menu style={marginFix} secondary>
               <Menu.Menu style={marginFix} position="left">
                 <Header color='grey'>RESET PASSWORD</Header>

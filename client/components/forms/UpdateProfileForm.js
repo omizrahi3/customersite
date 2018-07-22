@@ -9,7 +9,8 @@ import InlineError from "../messages/InlineError";
 const options = [
   { key: 'm', text: 'Male', value: 'male' },
   { key: 'f', text: 'Female', value: 'female' },
-  { key: 'o', text: 'Other', value: 'other' }
+  { key: 'o', text: 'Other', value: 'other' },
+  { key: 'n', text: 'No Answer', value: 'none' }
 ]
 
 const monthOptions = [
@@ -64,6 +65,11 @@ class UpdateProfileForm extends React.Component {
     instance.post('http://www.qa.getchatwith.com/api/GetAppUserById', { AppUserId })
     .then(res => res.data.Response[0])
     .then(profile => {
+      console.log(profile.Gender);
+
+      if (profile.Gender === '') {
+        profile.Gender = 'none';
+      }
       const date = new Date(profile.Birthdate);
 
       const monthString = date.getMonth().toString();
@@ -111,6 +117,9 @@ class UpdateProfileForm extends React.Component {
       const { data } = this.state;
       if (!!data.Date && !!data.Month & !!data.Year) {
         data.Birthdate = `${data.Year}-${data.Month}-${data.Date}`;
+      }
+      if (data.Gender === 'none') {
+        data.Gender = '';
       }
       this.props.submit(data);
     }
@@ -228,6 +237,7 @@ class UpdateProfileForm extends React.Component {
             selectOnBlur={false}
             options={options}
             name="Gender"
+            value={data.Gender}
             placeholder='Select One'
             onChange={this.onChange2}
           />
