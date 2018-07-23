@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from "react-redux";
 import { Segment, Menu, Header, Grid, Label } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
-import KnownForSearch from '../search/KnownForSearch';
+import TalentSearch from '../search/TalentSearch';
 
 class SearchPage extends Component {
   componentDidMount = () => this.onInit();
@@ -15,30 +15,29 @@ class SearchPage extends Component {
     return (
       <div>
         <Grid>
-          <Grid.Column width={8}></Grid.Column>
-          <Grid.Column style={{paddingLeft: "0", color: "grey"}} width={8}>
-            Additional Categories
-          </Grid.Column>
+          <Grid.Row style={{paddingBottom: "0em"}}>
+            <Grid.Column mobile={16} tablet={8} computer={8}></Grid.Column>
+            <Grid.Column style={{color: "grey"}} mobile={16} tablet={8} computer={8}>
+              Additional Categories
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row style={{paddingTop: "0em"}}>
+            <Grid.Column mobile={16} tablet={8} computer={8}></Grid.Column>
+            <Grid.Column mobile={16} tablet={2} computer={2}>
+              <Header as={Link} to ='/categories/film-tv' size='large' color="red">FILM & TV</Header>
+            </Grid.Column>
+            <Grid.Column mobile={16} tablet={2} computer={2}>
+              <Header as={Link} to ='/categories/music' size='large' color="blue">MUSIC</Header>
+            </Grid.Column>
+            <Grid.Column mobile={16} tablet={2} computer={2}>
+              <Header as={Link} to ='/categories/sports' size='large' color="green">SPORTS</Header>
+            </Grid.Column>
+            <Grid.Column mobile={16} tablet={2} computer={2}>
+              <Header as={Link} to ='/categories/brand' size='large' color="purple">BRANDS</Header>
+            </Grid.Column>
+          </Grid.Row>
         </Grid>
-        <Menu secondary style={{margin: "0"}}>
-          <Menu.Menu position="left">
-          </Menu.Menu>
-          <Menu.Menu position="right">
-            <Menu.Item style={{paddingTop: "0em", paddingBottom: "0.5em"}} as={Link} to ='/categories/film-tv'>
-              <Header size='huge' color="red">FILM & TV</Header>
-            </Menu.Item>
-            <Menu.Item style={{paddingTop: "0em", paddingBottom: "0.5em"}} as={Link} to ='/categories/music'>
-              <Header size='huge' color="blue">MUSIC</Header>
-            </Menu.Item>
-            <Menu.Item style={{paddingTop: "0em", paddingBottom: "0.5em"}} as={Link} to ='/categories/sports'>
-              <Header size='huge' color="green">SPORTS</Header>
-            </Menu.Item>
-            <Menu.Item style={{paddingTop: "0em", paddingBottom: "0.5em"}} as={Link} to ='/categories/brand'>
-              <Header size='huge' color="purple">BRANDS</Header>
-            </Menu.Item>
-          </Menu.Menu>
-        </Menu>
-        <KnownForSearch />
+        <TalentSearch />
         <Segment basic></Segment>
         <Segment basic></Segment>
         <Segment basic></Segment>

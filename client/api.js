@@ -68,6 +68,9 @@ export default {
   search: {
     knownfor: data => {
       return axios.post("http://www.qa.getchatwith.com/home/GetAppTalentBySearch", data).then(res => res.data.Response)
+    },
+    appTalent: data => {
+      return axios.post("http://www.qa.getchatwith.com/home/GetAppTalentBySearch", data).then(res => res.data.Response)
     }
   },
   checkout: {

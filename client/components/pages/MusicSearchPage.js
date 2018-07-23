@@ -24,26 +24,25 @@ class MusicSearchPage extends Component {
     return (
       <div>
         <Grid>
-          <Grid.Column style={{paddingRight: "0"}} width={10}></Grid.Column>
-          <Grid.Column style={{marginLeft: "-34px", color: "grey"}} width={6}>
-            Additional Categories
-          </Grid.Column>
+          <Grid.Row style={{paddingBottom: "0em"}}>
+            <Grid.Column mobile={16} tablet={10} computer={10}></Grid.Column>
+            <Grid.Column style={{color: "grey"}} mobile={16} tablet={6} computer={6}>
+              Additional Categories
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row style={{paddingTop: "0em"}}>
+            <Grid.Column mobile={16} tablet={10} computer={10}></Grid.Column>
+            <Grid.Column mobile={16} tablet={2} computer={2}>
+              <Header as={Link} to ='/categories/sports' size='large' color="green">SPORTS</Header>
+            </Grid.Column>
+            <Grid.Column mobile={16} tablet={2} computer={2}>
+              <Header as={Link} to ='/categories/brand' size='large' color="purple">BRANDS</Header>
+            </Grid.Column>
+            <Grid.Column mobile={16} tablet={2} computer={2}>
+              <Header as={Link} to ='/categories/film-tv' size='large' color="red">FILM & TV</Header>
+            </Grid.Column>
+          </Grid.Row>
         </Grid>
-        <Menu secondary style={{margin: "0"}}>
-          <Menu.Menu position="left">
-          </Menu.Menu>
-          <Menu.Menu position="right">
-            <Menu.Item style={{paddingTop: "0em", paddingBottom: "0.5em"}} as={Link} to ='/categories/film-tv'>
-              <Header size='huge' color="red">FILM & TV</Header>
-            </Menu.Item>
-            <Menu.Item style={{paddingTop: "0em", paddingBottom: "0.5em"}} as={Link} to ='/categories/sports'>
-              <Header size='huge' color="green">SPORTS</Header>
-            </Menu.Item>
-            <Menu.Item style={{paddingTop: "0em", paddingBottom: "0.5em"}} as={Link} to ='/categories/brand'>
-              <Header size='huge' color="purple">BRANDS</Header>
-            </Menu.Item>
-          </Menu.Menu>
-        </Menu>
         <CategorySearch CategoryId={CategoryId}/>
         <Segment basic></Segment>
         <Segment basic></Segment>

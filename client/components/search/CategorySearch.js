@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Message, Icon, Segment, Pagination, Input, Grid, Button, Header, Card, Image, Menu } from 'semantic-ui-react';
+import { Message, Icon, Segment, Pagination, Input, Grid, Button, Header, Card, Image, Dropdown, Responsive } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
+import api from "../../api";
 import axios from 'axios';
 
-const marginFix = {
-  margin: "0"
-};
+const options = [
+  { key: 'n', text: 'Name', value: 'name' },
+  { key: 'k', text: 'Known For', value: 'knownFor' }
+]
 
 const cardStyles = {
   boxShadow: "none"
@@ -27,6 +29,7 @@ const contentStyles = {
 
 class CategorySearch extends Component {
   state = {
+    searchType: 'name',
     loading: '',
     searchQuery: '',
     resultsPerPage: 15,
@@ -66,6 +69,14 @@ class CategorySearch extends Component {
     this.setState({searchQuery: data.value})
   }
 
+  onChange2 = (e, data) => {
+    const { searchType } = this.state;
+    if (data.value !== searchType) {
+      console.log(data.value);
+      this.setState({searchType: data.value});
+    }
+  }
+
   calcResultNumberBegin = (resultsPerPage, activePage) => {
     return resultsPerPage * (activePage - 1);
   }
@@ -74,102 +85,175 @@ class CategorySearch extends Component {
     console.log('onSubmit');
     this.setState({ loading: 'true' });
 
-    let apiUrl;
-    let requestBody;
+    // let apiUrl;
+    // let requestBody;
 
-    if (!!this.state.searchQuery) {
-      // has query - GetAppTalentBySearch
-      const name = this.state.searchQuery.split(' ');
-      apiUrl = 'http://www.qa.getchatwith.com/home/GetAppTalentBySearch';
-      requestBody = {
-        CategoryId: this.props.CategoryId,
-        FirstName: name[0],
-        LastName: name[1],
-        ResultNumberBegin: 0,
-        ResultNumberEnd: this.state.resultsPerPage
-      }
-    } else {
-      // has no query - GetAppTalentByCategoryWeb
-    }
+    // if (!!this.state.searchQuery) {
+    //   // has query - GetAppTalentBySearch
+    //   const name = this.state.searchQuery.split(' ');
+    //   apiUrl = 'http://www.qa.getchatwith.com/home/GetAppTalentBySearch';
+    //   requestBody = {
+    //     CategoryId: this.props.CategoryId,
+    //     FirstName: name[0],
+    //     LastName: name[1],
+    //     ResultNumberBegin: 0,
+    //     ResultNumberEnd: this.state.resultsPerPage
+    //   }
+    // } else {
+    //   // has no query - GetAppTalentByCategoryWeb
+    // }
     
-    const instance = axios.create({timeout: 3000});
-    instance.post(apiUrl, requestBody)
-    .then(res => res.data.Response)
+    // const instance = axios.create({timeout: 3000});
+    // instance.post(apiUrl, requestBody)
+    // .then(res => res.data.Response)
+    // .then(results => {
+    //   console.log(results);
+    //   const keys = [];
+    //   const talentsHash = {};
+    //   results.LandingData.forEach(talent => {
+    //     talentsHash[talent.TalentId] = talent;
+    //     keys.push(talent.TalentId);
+    //   });
+    //   if (!!this.state.searchQuery) {
+    //     // has query - GetAppTalentBySearch
+    //     const searchResults = {
+    //       query: this.state.searchQuery,
+    //       totalCount: results.TotalCount
+    //     }
+    //     const totalPages = Math.ceil(results.TotalCount / this.state.resultsPerPage);
+    //     this.setState({ searchResults, keys, talents: talentsHash, totalPages, activePage: 1, loading: 'false' });
+    //   } else {
+    //     // has no query - GetAppTalentByCategoryWeb
+    //   }
+    // });
+
+    const dataObj =
+    {
+      "CategoryId": this.props.CategoryId,
+      "ResultNumberBegin": 0,
+      "ResultNumberEnd": 15
+    };
+    if (this.state.searchType === 'knownFor') {
+      console.log('dataObj.KnownFor');
+      dataObj.KnownFor = this.state.searchQuery;
+    } else {
+      const name = this.state.searchQuery.split(' ');
+      if (name.length > 1) {
+        console.log('dataObj.FirstName');
+        dataObj.FirstName = name[0];
+        dataObj.LastName = name[1];
+      } else if (name.length > 0) {
+        dataObj.FirstName = name[0];
+      }
+    }
+    api.search.appTalent(dataObj)
     .then(results => {
-      console.log(results);
+      console.log('api.search.appTalent')
+      window.talentsHash = results.LandingData;
+      const searchResults = {
+        query: this.state.searchQuery,
+        totalCount: results.TotalCount
+      }
       const keys = [];
       const talentsHash = {};
       results.LandingData.forEach(talent => {
         talentsHash[talent.TalentId] = talent;
         keys.push(talent.TalentId);
       });
-      if (!!this.state.searchQuery) {
-        // has query - GetAppTalentBySearch
-        const searchResults = {
-          query: this.state.searchQuery,
-          totalCount: results.TotalCount
-        }
-        const totalPages = Math.ceil(results.TotalCount / this.state.resultsPerPage);
-        this.setState({ searchResults, keys, talents: talentsHash, totalPages, activePage: 1, loading: 'false' });
-      } else {
-        // has no query - GetAppTalentByCategoryWeb
-      }
-    });
+      const totalPages = Math.ceil(searchResults.totalCount / this.state.resultsPerPage);
+      this.setState({ searchResults, keys, talents: talentsHash, totalPages, activePage: 1, loading: 'false' });
+    })
+    .catch(err => {
+      console.log('whoops');
+    })
   }
 
   handlePaginationChange = (e, { activePage }) => {
+    console.log('handlePaginationChange');
     this.setState({ loading: 'true', activePage })
-    let apiUrl;
-    let requestBody;
+    
     const resultNumberBegin = this.calcResultNumberBegin(this.state.resultsPerPage, activePage);
     if (!!this.state.searchQuery) {
-      // has query - GetAppTalentBySearch
-      const name = this.state.searchQuery.split(' ');
-      apiUrl = 'http://www.qa.getchatwith.com/home/GetAppTalentBySearch';
-      requestBody = {
+      console.log('has query - GetAppTalentBySearch');
+      // const name = this.state.searchQuery.split(' ');
+      // apiUrl = 'http://www.qa.getchatwith.com/home/GetAppTalentBySearch';
+      // requestBody = {
+      //   CategoryId: this.props.CategoryId,
+      //   FirstName: name[0],
+      //   LastName: name[1],
+      //   ResultNumberBegin: resultNumberBegin,
+      //   ResultNumberEnd: this.state.resultsPerPage
+      // }
+
+
+      const dataObj =
+      {
         CategoryId: this.props.CategoryId,
-        FirstName: name[0],
-        LastName: name[1],
-        ResultNumberBegin: resultNumberBegin,
-        ResultNumberEnd: this.state.resultsPerPage
+        "ResultNumberBegin": resultNumberBegin,
+        "ResultNumberEnd": 15
+      };
+      if (this.state.searchType === 'knownFor') {
+        dataObj.KnownFor = this.state.searchResults.query;
+      } else {
+        const name = this.state.searchResults.query.split(' ');
+        if (name.length > 1) {
+          dataObj.FirstName = name[0];
+          dataObj.LastName = name[1];
+        } else if (name.length > 0) {
+          dataObj.FirstName = name[0];
+        }
       }
+      console.log(dataObj);
+      api.search.appTalent(dataObj)
+      .then(results => {
+        console.log('api.search.knownfor');
+        const keys = [];
+        const talentsHash = {};
+        results.LandingData.forEach(talent => {
+          talentsHash[talent.TalentId] = talent;
+          keys.push(talent.TalentId);
+        });
+        this.setState({ keys, talents: talentsHash, loading: 'false' });
+      })
+      .catch(err => {
+        console.log('whoops');
+      })
     } else {
       // has no query - GetAppTalentByCategoryWeb
+      let apiUrl;
+      let requestBody;
       apiUrl = 'http://www.qa.getchatwith.com/home/GetAppTalentByCategoryWeb';
       requestBody = {
         CategoryId: this.props.CategoryId,
         ResultNumberBegin: resultNumberBegin,
         ResultNumberEnd: this.state.resultsPerPage
       }
-    }
+      const instance = axios.create({timeout: 3000});
+      instance.post(apiUrl, requestBody)
+      .then(res => res.data.Response)
+      .then(results => {
+        const keys = [];
+        const talentsHash = {};
+        results.LandingData.forEach(talent => {
+          talentsHash[talent.TalentId] = talent;
+          keys.push(talent.TalentId);
+        });
 
-    console.log(apiUrl);
-    console.log(requestBody);
-    const instance = axios.create({timeout: 3000});
-    instance.post(apiUrl, requestBody)
-    .then(res => res.data.Response)
-    .then(results => {
-      const keys = [];
-      const talentsHash = {};
-      results.LandingData.forEach(talent => {
-        talentsHash[talent.TalentId] = talent;
-        keys.push(talent.TalentId);
+        if (!!this.state.searchQuery) {
+          // has query - GetAppTalentBySearch
+          this.setState({ keys, talents: talentsHash, activePage, loading: 'false' });
+        } else {
+          // has no query - GetAppTalentByCategoryWeb
+          this.setState({ keys, talents: talentsHash, activePage, loading: 'false' });
+        }
       });
-
-      if (!!this.state.searchQuery) {
-        // has query - GetAppTalentBySearch
-        this.setState({ keys, talents: talentsHash, activePage, loading: 'false' });
-      } else {
-        // has no query - GetAppTalentByCategoryWeb
-        this.setState({ keys, talents: talentsHash, activePage, loading: 'false' });
-      }
-    });
+    }
   }
 
   renderTalents = keys => keys.map(key => {
     const hashedTalent = this.state.talents[key];
     if (hashedTalent.KnownFor === 0) {
-      hashedTalent.KnownFor = "The Walking Dead";
+      hashedTalent.KnownFor = "N/A";
     }
     const FirstName = hashedTalent.FirstName;
     const LastName = hashedTalent.LastName;
@@ -203,29 +287,26 @@ class CategorySearch extends Component {
     const { loading, keys, searchResults, totalPages, activePage, searchQuery } = this.state;
     return (
       <div>
-        {loading === 'true' && (
-          <Message icon>
-            <Icon name="circle notched" loading />
-            <Message.Header>Login In Progress</Message.Header>
-          </Message>
-        )}
-        <Segment basic secondary>
-        <Grid columns='equal'>
-          <Grid.Column style={{display: "flex", paddingRight: "0"}} width={2}>
-            <div style={{color: "grey", display: "flex", alignItems: "center"}}>
-              Search By Name
-            </div>
+        <Grid style={{margin: "0.1em", background: "#f3f4f5"}}>
+          <Grid.Column style={{paddingRight: "0"}} mobile={16} tablet={2} computer={2}>
+            <Dropdown
+              placeholder='Search By'
+              compact
+              selection
+              options={options}
+              onChange={this.onChange2}
+            />
           </Grid.Column>
-          <Grid.Column style={{paddingLeft: "0"}} width={7}>
-          <Input
-            icon='search'
-            iconPosition='left'
-            action={<Button style={{color: "#f3f4f5"}} color="yellow" onClick={this.onSubmit}>SEARCH</Button>}
-            placeholder=''
-            onChange={this.onChange}
-          />
+          <Grid.Column mobile={16} tablet={5} computer={5}>
+            <Input
+              icon='search'
+              iconPosition='left'
+              action={<Button style={{color: "#f3f4f5"}} color="yellow" onClick={this.onSubmit}>SEARCH</Button>}
+              placeholder=''
+              onChange={this.onChange}
+            />
           </Grid.Column>
-          <Grid.Column width={7}>
+          <Grid.Column floated='left' mobile={16} tablet={9} computer={9}>
             {keys.length > 0 && (
               <Pagination
                 secondary
@@ -238,27 +319,51 @@ class CategorySearch extends Component {
             )}
           </Grid.Column>
         </Grid>
-        </Segment>
-        {!!searchQuery && (
         <Segment basic>
-          <Header size='huge' color="grey">
-            RESULTS
-            {keys.length > 0 && (
-              <Header.Subheader>{searchResults.totalCount} Results Found For "{searchResults.query}"</Header.Subheader>
-            )}
-          </Header>
-          {keys.length === 0 && (
-            <Header size='medium'>
-              No Search Results Found
-              <Header.Subheader>Try Searching Again</Header.Subheader>
-            </Header>
+        {loading === 'true' && (
+          <Message icon>
+            <Icon name="circle notched" loading />
+            <Message.Header>Search In Progress</Message.Header>
+          </Message>
+        )}
+        {loading === 'false' && (
+            <div>
+              <Header size='huge' style={{color: "#C0C0C0"}}>
+                RESULTS
+                {keys.length > 0 && !!searchResults.query && (
+                  <Header.Subheader>{searchResults.totalCount} Results Found For "{searchResults.query}"</Header.Subheader>
+                )}
+              </Header>
+              {keys.length === 0 && (
+                <Header style={{margin: "0"}} color="grey" size='medium'>
+                  No Search Results Found
+                  <Header.Subheader style={{color: "grey"}}>Try Searching Again</Header.Subheader>
+                </Header>
+              )}
+            </div>
           )}
         </Segment>
-        )}
         {keys.length > 0 && (
-          <Card.Group itemsPerRow={5}>
-            {this.renderTalents(keys)}
-          </Card.Group>
+          <div>
+            <Responsive
+              {...Responsive.onlyMobile}
+              as={Card.Group}
+            >
+              <Card.Group itemsPerRow={1}>{this.renderTalents(keys)}</Card.Group>
+            </Responsive>
+            <Responsive
+              {...Responsive.onlyTablet}
+              as={Card.Group}
+            >
+              <Card.Group itemsPerRow={3}>{this.renderTalents(keys)}</Card.Group>
+            </Responsive>
+            <Responsive
+              {...Responsive.onlyComputer}
+              as={Card.Group}
+            >
+              <Card.Group itemsPerRow={5}>{this.renderTalents(keys)}</Card.Group>
+            </Responsive>
+          </div>
         )}
       </div>
     )
