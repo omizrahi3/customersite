@@ -48,7 +48,6 @@ class TalentSearch extends Component {
   onChange2 = (e, data) => {
     const { searchType } = this.state;
     if (data.value !== searchType) {
-      console.log(data.value);
       this.setState({searchType: data.value});
     }
   }
@@ -60,19 +59,16 @@ class TalentSearch extends Component {
   onSubmit = (e, data) => {
     console.log('onSubmit')
     this.setState({ loading: 'true' });
-    console.log(this.state.searchType);
     const dataObj =
     {
       "ResultNumberBegin": 0,
       "ResultNumberEnd": 15
     };
     if (this.state.searchType === 'knownFor') {
-      console.log('dataObj.KnownFor');
       dataObj.KnownFor = this.state.searchQuery;
     } else {
       const name = this.state.searchQuery.split(' ');
       if (name.length > 1) {
-        console.log('dataObj.FirstName');
         dataObj.FirstName = name[0];
         dataObj.LastName = name[1];
       } else if (name.length > 0) {
@@ -81,8 +77,6 @@ class TalentSearch extends Component {
     }
     api.search.appTalent(dataObj)
     .then(results => {
-      console.log('api.search.appTalent')
-      window.talentsHash = results.LandingData;
       const searchResults = {
         query: this.state.searchQuery,
         totalCount: results.TotalCount
@@ -110,12 +104,10 @@ class TalentSearch extends Component {
       "ResultNumberEnd": 15
     };
     if (this.state.searchType === 'knownFor') {
-      console.log('correct');
       dataObj.KnownFor = this.state.searchResults.query;
     } else {
       const name = this.state.searchResults.query.split(' ');
       if (name.length > 1) {
-        console.log('dataObj.FirstName');
         dataObj.FirstName = name[0];
         dataObj.LastName = name[1];
       } else if (name.length > 0) {
@@ -124,7 +116,6 @@ class TalentSearch extends Component {
     }
     api.search.appTalent(dataObj)
     .then(results => {
-      console.log('api.search.knownfor');
       const keys = [];
       const talentsHash = {};
       results.LandingData.forEach(talent => {

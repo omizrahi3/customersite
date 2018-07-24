@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { editCart } from '../../actions/cartActions';
-import { Grid, Segment, Image, Header, Modal, Button, Icon, Form, TextArea } from "semantic-ui-react";
+import { Grid, Segment, Image, Header, Modal, Button, Icon, Form, TextArea, Responsive } from "semantic-ui-react";
 
 class VideoMessage extends Component {
   state = {
@@ -65,26 +65,33 @@ class VideoMessage extends Component {
     const { item, handleRemoveClick } = this.props;
     return (
       <Grid key={item.ProductOptionId} stretched>
-        <Grid.Column width={3}>
-          <Image style={{maxWidth: "132px", maxHeight: "175px"}} src={item.ProfilePictureReference} />
-        </Grid.Column>
-        <Grid.Column width={9}>
-          <Header style={{ color: 'grey' }} as='h3' textAlign='left'>{item.TalentFirstName} {item.TalentLastName}
-            <Header.Subheader style={{"fontStyle": 'italic'}}>{item.ProductDescription}</Header.Subheader>
-          </Header>
-          <p style={{color:"grey"}}>{item.VideoMessage}</p>
-          <div>
-            <Button value={item.ProductOptionId} onClick={handleRemoveClick}>REMOVE</Button>
-            {this.atcVideo()}
-          </div>
-        </Grid.Column>
-        <Grid.Column width={4}>
-          <Segment basic></Segment>
-          <Segment basic>
+      <Grid.Row>
+          <Grid.Column mobile={16} tablet={3} computer={3}>
+            <Image style={{maxWidth: "132px", maxHeight: "175px"}} src={item.ProfilePictureReference} />
+          </Grid.Column>
+          <Grid.Column mobile={16} tablet={9} computer={9}>
+            <Header style={{ color: 'grey' }} as='h3' textAlign='left'>{item.TalentFirstName} {item.TalentLastName}
+              <Header.Subheader style={{"fontStyle": 'italic'}}>{item.ProductDescription}</Header.Subheader>
+            </Header>
+            <p style={{color:"grey"}}>{item.VideoMessage}</p>
+          </Grid.Column>
+          <Grid.Column mobile={16} tablet={4} computer={4}>
+            <Responsive {...Responsive.onlyComputer}>
+              <Segment basic></Segment>
+              <Segment basic></Segment>
+            </Responsive>
             <Header as='h4' style={{ color: "#b5cc18" }}>${item.WebPrice}</Header>
-          </Segment>
-          <Segment basic></Segment>
-        </Grid.Column>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row style={{paddingTop: "0"}}>
+          <Grid.Column only='computer tablet' tablet={3} computer={3}></Grid.Column>
+          <Grid.Column mobile={16} tablet={13} computer={13}>
+            <div>
+              <Button value={item.ProductOptionId} onClick={handleRemoveClick}>REMOVE</Button>
+              {this.atcVideo()}
+            </div>
+          </Grid.Column>
+        </Grid.Row>
       </Grid>
     )
   }

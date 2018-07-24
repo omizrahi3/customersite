@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { editCart } from '../../actions/cartActions';
-import { Grid, Segment, Image, Card, Header, Modal, Button, Icon } from "semantic-ui-react";
+import { Grid, Segment, Image, Card, Header, Modal, Button, Icon, Responsive } from "semantic-ui-react";
 
 class LiveChatGrid extends Component {
   state = {
@@ -95,28 +95,35 @@ class LiveChatGrid extends Component {
     const duration = item.dateObj.duration;
     return (
       <Grid key={item.ProductOptionId}>
-        <Grid.Column width={3}>
-          <Image style={{maxWidth: "132px", maxHeight: "175px"}} src={item.ProfilePictureReference} />
-        </Grid.Column>
-        <Grid.Column width={9}>
-          <Header style={{ color: 'grey' }} as='h3' textAlign='left'>{item.TalentFirstName} {item.TalentLastName}
-            <Header.Subheader style={{"fontStyle": 'italic'}}>{item.ProductDescription}</Header.Subheader>
-          </Header>
-          <div style={{color:"grey"}}>{date.toDateString()}</div>
-          <div style={{color:"grey"}}>{date.toLocaleTimeString()}</div>
-          <div style={{color:"grey"}}>{`(${duration}) Minute Call`}</div>
-          <div>
-            <Button value={item.ProductOptionId} onClick={handleRemoveClick}>REMOVE</Button>
-            {this.atcLive()}
-          </div>
-        </Grid.Column>
-        <Grid.Column width={4}>
-          <Segment basic></Segment>
-          <Segment basic>
+        <Grid.Row>
+          <Grid.Column mobile={16} tablet={3} computer={3}>
+            <Image style={{maxWidth: "132px", maxHeight: "175px"}} src={item.ProfilePictureReference} />
+          </Grid.Column>
+          <Grid.Column mobile={16} tablet={9} computer={9}>
+            <Header style={{ color: 'grey' }} as='h3' textAlign='left'>{item.TalentFirstName} {item.TalentLastName}
+              <Header.Subheader style={{"fontStyle": 'italic'}}>{item.ProductDescription}</Header.Subheader>
+            </Header>
+            <div style={{color:"grey"}}>{date.toDateString()}</div>
+            <div style={{color:"grey"}}>{date.toLocaleTimeString()}</div>
+            <div style={{color:"grey"}}>{`(${duration}) Minute Call`}</div>
+          </Grid.Column>
+          <Grid.Column mobile={16} tablet={4} computer={4}>
+            <Responsive {...Responsive.onlyComputer}>
+              <Segment basic></Segment>
+              <Segment basic></Segment>
+            </Responsive>
             <Header as='h4' style={{ color: "#b5cc18" }}>${item.WebPrice}</Header>
-          </Segment>
-          <Segment basic></Segment>
-        </Grid.Column>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column only='computer tablet' tablet={3} computer={3}></Grid.Column>
+          <Grid.Column mobile={16} tablet={13} computer={13}>
+            <div>
+              <Button value={item.ProductOptionId} onClick={handleRemoveClick}>REMOVE</Button>
+              {this.atcLive()}
+            </div>
+          </Grid.Column>
+        </Grid.Row>
       </Grid>
     )
   }

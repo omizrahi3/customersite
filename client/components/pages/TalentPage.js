@@ -5,7 +5,11 @@ import { Grid, Segment, Image, Card, Breadcrumb, Header, Modal, Button, Icon, In
 import { Link } from "react-router-dom";
 import { atc } from '../../actions/cartActions';
 import isEmail from "validator/lib/isEmail";
-import axios from "axios";
+import api from "../../api";
+
+const linkStyle = {
+  color: 'grey',
+};
 
 class TalentPage extends Component {
   state = {
@@ -28,16 +32,15 @@ class TalentPage extends Component {
     notificationSuccess: '',
     dates: [],
     DateMapperId: '',
-    dateObj: {}
+    dateObj: {},
+    loaded: false
   }
 
   componentDidMount() {
     console.log('TalentPage did mount')
     const { talentid } = this.props.match.params;
 
-    const instance = axios.create({timeout: 3000});
-    instance.post('http://www.qa.getchatwith.com/home/GetProductOptionByTalent', { TalentId: talentid })
-    .then(res => res.data.Response)
+    api.product.optionsByTalent({ TalentId: talentid })
     .then(products => {
       const keys = [];
       const productsHash = {};
@@ -51,12 +54,12 @@ class TalentPage extends Component {
         productsHash[product.ProductOptionId] = product;
         keys.push(product.ProductOptionId);
       });
-      this.setState({ keys, products: productsHash });
-      if (!!liveChat) return instance.post('http://www.qa.getchatwith.com/home/GetProductOptionDateSlotByProductOption', { ProductOptionId: liveChat });
+      this.setState({ keys, products: productsHash, loaded: true });
+      if (!!liveChat) return api.product.getDateSlot({ ProductOptionId: liveChat });
       else throw 'no live chat';
     })
     .then(dates => {
-      this.setState({ dates: dates.data.Response});
+      this.setState({ dates });
     })
     .catch(err => {
       console.log(err);
@@ -88,8 +91,9 @@ class TalentPage extends Component {
         ProductOptionId: data.value,
       };
       console.log(notifyData);
-      const instance = axios.create({timeout: 3000});
-      instance.post('http://www.qa.getchatwith.com/home/CreateNotificationGuest', notifyData)
+      // const instance = axios.create({timeout: 3000});
+      // instance.post('http://www.qa.getchatwith.com/home/CreateNotificationGuest', notifyData)
+      api.product.notification(notifyData)
         .then(() => this.setState({ notificationSuccess: 'true' }))
         .catch((err) => this.setState({ notificationSuccess: 'false' }));
     }
@@ -300,22 +304,22 @@ class TalentPage extends Component {
       product = (this.atcLive(key));
     }
     return  (
-      <Grid key={key}>
+      <Grid style={{paddingLeft: "1em", paddingRight: "1em"}} key={key}>
         <Grid.Row stretched>
-          <Grid.Column width={3}>
-            <Segment secondary basic>
-            <Header>${hashedProduct.WebPrice}</Header>
+          <Grid.Column style={{padding: "0"}} mobile={16} tablet={16} computer={3}>
+            <Segment style={{background: "#e6e6e6"}} basic>
+              <Header style={{paddingTop: "10px"}} textAlign='center' color="grey">${hashedProduct.WebPrice}</Header>
             </Segment>
           </Grid.Column>
-          <Grid.Column width={10}>
+          <Grid.Column style={{padding: "0"}} mobile={16} tablet={16} computer={10}>
             <Segment secondary basic>
-            <Header>
-              {description}
-              <Header.Subheader>{message}</Header.Subheader>
-            </Header>
+              <Header color="grey">
+                {description}
+                <Header.Subheader>{message}</Header.Subheader>
+              </Header>
             </Segment>
           </Grid.Column>
-          <Grid.Column width={3}>
+          <Grid.Column style={{padding: "0"}} mobile={16} tablet={16} computer={3}>
           {product}
           </Grid.Column>
         </Grid.Row>
@@ -353,39 +357,32 @@ class TalentPage extends Component {
           </Message>
         )}
         <Grid>
-          <Grid.Row>
-          <Grid.Column width={1}>
-              <Segment basic></Segment>
-            </Grid.Column>
-            <Grid.Column width={4}>
-              <Segment basic><Image style={{maxWidth: "220px", maxHeight: "285px"}} src={ProfilePictureReference} /></Segment>
-            </Grid.Column>
-            <Grid.Column width={11}>
-              <Segment basic>
-                <Breadcrumb>
-                  <Breadcrumb.Section as={Link} to="/dashboard">Home</Breadcrumb.Section>
-                  <Breadcrumb.Divider icon='right chevron' />
-                  <Breadcrumb.Section as={Link} to="/talent">Talent</Breadcrumb.Section>
-                  <Breadcrumb.Divider icon='right chevron' />
-                  <Breadcrumb.Section active>{`${FirstName} ${LastName}`}</Breadcrumb.Section>
-                </Breadcrumb>
-                <Header as='h1' color='blue'>{`${FirstName} ${LastName}`}
-                  <Header.Subheader>{KnownFor}</Header.Subheader>
-                </Header>
-              </Segment>
-              <Segment basic><Header as='h2' color='blue'>Products</Header></Segment>
-              {this.state.keys.length > 0 && (this.renderProducts2(this.state.keys))}
-              {this.state.keys.length === 0 && (
-                <Segment basic secondary>
-                  <Header as='h3' color='red'>Well this is embarrassing...
-                    <Header.Subheader>{`${FirstName} ${LastName}'s page is under construction. Check back soon.`}</Header.Subheader>
-                  </Header>
-                </Segment>
-              )}
-            </Grid.Column>
-          </Grid.Row>
+          <Grid.Column only='computer' computer={2}>
+            <Segment basic></Segment>
+          </Grid.Column>
+          <Grid.Column mobile={16} tablet={5} computer={4}>
+            <Segment basic><Image style={{maxWidth: "220px", maxHeight: "285px"}} src={ProfilePictureReference} /></Segment>
+          </Grid.Column>
+          <Grid.Column mobile={16} tablet={11} computer={10}>
+            <Segment style={{paddingLeft: "0"}} basic>
+              <Breadcrumb style={{marginBottom: "5px"}}>
+                <Breadcrumb.Section style={linkStyle} as={Link} to="/dashboard">Home</Breadcrumb.Section>
+                <Breadcrumb.Divider icon='right chevron' />
+                <Breadcrumb.Section style={linkStyle} as={Link} to="/talent">Talent</Breadcrumb.Section>
+                <Breadcrumb.Divider icon='right chevron' />
+                <Breadcrumb.Section style={linkStyle} active>{`${FirstName} ${LastName}`}</Breadcrumb.Section>
+              </Breadcrumb>
+              <Header style={{margin: "0", color: "#12457b"}} as='h1'>{`${FirstName.toUpperCase()} ${LastName.toUpperCase()}`}
+                <Header.Subheader>{KnownFor}</Header.Subheader>
+              </Header>
+            </Segment>
+            <Segment style={{padding: "0", margin: "0"}} basic><Header style={{color: "#12457b"}} as='h3'>PRODUCTS</Header></Segment>
+            {this.state.keys.length > 0 && (this.renderProducts2(this.state.keys))}
+            {this.state.keys.length === 0 && this.state.loaded && (
+              <Header as='h3' color='red'>Page Under Construction. Check Back Soon.</Header>
+            )}
+          </Grid.Column>
         </Grid>
-        <Segment basic></Segment>
         <Segment basic></Segment>
         <Segment basic></Segment>
       </div>

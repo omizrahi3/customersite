@@ -24,9 +24,6 @@ class SearchPage extends Component {
           <Grid.Row style={{paddingTop: "0em"}}>
             <Grid.Column mobile={16} tablet={8} computer={8}></Grid.Column>
             <Grid.Column mobile={16} tablet={2} computer={2}>
-              <Header as={Link} to ='/categories/film-tv' size='large' color="red">FILM & TV</Header>
-            </Grid.Column>
-            <Grid.Column mobile={16} tablet={2} computer={2}>
               <Header as={Link} to ='/categories/music' size='large' color="blue">MUSIC</Header>
             </Grid.Column>
             <Grid.Column mobile={16} tablet={2} computer={2}>
@@ -34,6 +31,9 @@ class SearchPage extends Component {
             </Grid.Column>
             <Grid.Column mobile={16} tablet={2} computer={2}>
               <Header as={Link} to ='/categories/brand' size='large' color="purple">BRANDS</Header>
+            </Grid.Column>
+            <Grid.Column mobile={16} tablet={2} computer={2}>
+              <Header as={Link} to ='/categories/film-tv' size='large' color="red">FILM & TV</Header>
             </Grid.Column>
           </Grid.Row>
         </Grid>

@@ -96,7 +96,7 @@ class CartPage extends Component {
       <div>
         <TopGrid />
         <Grid>
-          <Grid.Column width={12}>
+          <Grid.Column mobile={16} tablet={12} computer={12}>
           {cart.length === 0  && (
             <Message negative icon>
               <Icon name="warning sign" />
@@ -110,7 +110,7 @@ class CartPage extends Component {
             this.renderCartItems(cart)
           )}
           </Grid.Column>
-          <Grid.Column style={{paddingLeft: "0"}} width={4}>
+          <Grid.Column style={{paddingLeft: "0"}} mobile={16} tablet={4} computer={4}>
             <Header as='h2' style={{color: "#C0C0C0"}}>
               ORDER SUMMARY
             </Header>
@@ -147,17 +147,6 @@ class CartPage extends Component {
               {this.props.cart.length === 0 && (
                 <Button style={{ background: "#b5cc18", height: "40px", width: "100%"}} disabled as={Link} to='/billing'>CHECKOUT</Button>
               )}
-            </Segment>
-            <Header as='h2' style={{color: "#C0C0C0"}}>
-              PROMO CODE
-            </Header>
-            <Segment basic secondary>
-              <p style={{textAlign: "center", fontSize: "10px", color: "grey"}}>Note: All pricing on GetChatWith.com reflects a 30% discount compared to in-app pricing.</p>
-              <Input
-                style={{width: "60%"}}
-                action={<Button style={{width: "50%"}} color="grey" onClick={this.onSubmit}>Apply</Button>}
-                onChange={this.onChange}
-              />
             </Segment>
           </Grid.Column>
         </Grid>

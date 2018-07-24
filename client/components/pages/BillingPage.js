@@ -400,7 +400,7 @@ class BillingPage extends Component {
       <div>
         <TopGrid />
         <Grid>
-          <Grid.Column width={12}>
+          <Grid.Column mobile={16} tablet={12} computer={12}>
           {!this.state.user.loggedIn && guestEligible === 'true' &&  (
             <div>
               {this.guestGrid()}
@@ -444,8 +444,8 @@ class BillingPage extends Component {
               </Message.Content>
             </Message>
             <Grid>
-              <Grid.Column width={4}></Grid.Column>
-              <Grid.Column width={8}>
+              <Grid.Column mobile={16} tablet={4} computer={4}></Grid.Column>
+              <Grid.Column mobile={16} tablet={8} computer={8}>
                 <Segment style={{}} basic>
                   <Button style={{width: "100%", height:"50px", background: "#12457b"}} as={Link} to='/login' primary>SIGN IN</Button>
                   <div style={{paddingTop: "10px", textAlign:"center", textDecoration: "underline"}}>
@@ -490,7 +490,7 @@ class BillingPage extends Component {
             </div>
           )}
         </Grid.Column>
-        <Grid.Column style={{paddingLeft: "0"}} width={4}>
+        <Grid.Column style={{paddingLeft: "0"}} mobile={16} tablet={4} computer={4}>
           <Header as='h2' style={{color: "#C0C0C0"}}>
             ORDER SUMMARY
           </Header>
