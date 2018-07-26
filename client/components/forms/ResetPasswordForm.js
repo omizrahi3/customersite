@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Form, Button, Input } from "semantic-ui-react";
-import isEmail from "validator/lib/isEmail";
+import { Form, Button, Input, Label } from "semantic-ui-react";
 import InlineError from "../messages/InlineError";
 
 class ForgotPasswordForm extends React.Component {
@@ -31,6 +30,7 @@ class ForgotPasswordForm extends React.Component {
   validate = data => {
     const errors = {};
     if (!data.Password) errors.password = "Please Enter Password";
+    if (!data.PasswordConfirm) errors.passwordconfirm = "Please Enter Password";
     if (data.Password !== data.PasswordConfirm) {
       errors.passwordconfirm = "Password Does Not Match";
     }
@@ -41,33 +41,48 @@ class ForgotPasswordForm extends React.Component {
     const { errors, data } = this.state;
 
     return (
-      <Form onSubmit={this.onSubmit}>
-        <Form.Field
-          error={!!errors.password}
-          width={6}
-          type="password"
-          id='password'
-          control={Input}
-          label={`${errors.password !== undefined ? errors.password:'Password *'}`}
-          placeholder=''
-          name="Password"
-          value={data.Password}
-          onChange={this.onChange}
-        />
-        <Form.Field
-          error={!!errors.passwordconfirm}
-          width={6}
-          type="password"
-          id='passwordConfirm'
-          control={Input}
-          label='Password Confirm *'
-          placeholder={errors.passwordconfirm}
-          name="PasswordConfirm"
-          value={data.PasswordConfirm}
-          onChange={this.onChange}
-        />
-        <Button primary>Submit Request</Button>
-      </Form>
+      <div>
+        <div style={{paddingTop: "1em", paddingBottom: "1em"}}>
+          <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>Required Field</Label>
+          <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
+        </div>
+        <Form onSubmit={this.onSubmit}>
+          <div style={{paddingTop: "0.5em", paddingBottom: "0.5em"}}>
+            <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>Password</Label>
+            <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
+          </div>
+          <Form.Field
+            error={!!errors.password}
+            type="password"
+            id='password'
+            control={Input}
+            name="Password"
+            value={data.Password}
+            onChange={this.onChange}
+          />
+          {errors.password && (
+            <InlineError text={errors.password} />
+          )}
+          <div style={{paddingTop: "0.5em", paddingBottom: "0.5em"}}>
+            <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>Confirm Password</Label>
+            <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
+          </div>
+          <Form.Field
+            error={!!errors.passwordconfirm}
+            type="password"
+            id='passwordConfirm'
+            control={Input}
+            name="PasswordConfirm"
+            value={data.PasswordConfirm}
+            onChange={this.onChange}
+          />
+          {errors.passwordconfirm && (
+            <InlineError style={{margin: "0"}} text={errors.passwordconfirm} />
+          )}
+          <div style={{margin: "2em"}}></div>
+          <Button style={{ background: "#12457b", height: "50px", width: "200px"}} primary>SUBMIT</Button>
+        </Form>
+      </div>
     );
   }
 }

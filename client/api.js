@@ -32,8 +32,12 @@ export default {
       instance.defaults.headers.common['token'] = credentials.Token;
       return axios.post(`${qaUrl}/api/UpdateAppUserPassword`, credentials.data).then(res => res.data)
     },
-    resetPasswordRequest: email =>
-      axios.post(`${qaUrl}/auth/reset_password_request`, { email })
+    resetPasswordRequest: data => {
+      return axios.post(`${qaUrl}/password/CreateUserResetPasswordEmail`, data).then(res => res.data)
+    },
+    resetPassword: data => {
+      return axios.post(`${qaUrl}/password/AuthenticateResetPasswordLink`, data).then(res => res.data)
+    }
   },
   product: {
     optionsByTalent: data => {

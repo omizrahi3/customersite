@@ -1,8 +1,13 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-import { Grid, Segment, Header, Message, Icon } from "semantic-ui-react";
+import api from "../../api";
+import { Grid, Segment, Header, Message, Icon, Menu, Divider } from "semantic-ui-react";
+import TopGrid from '../grids/TopGrid';
 import ForgotPasswordForm from "../forms/ForgotPasswordForm";
+
+const marginFix = {
+  margin: "0"
+};
 
 class ForgotPasswordPage extends React.Component {
   state = {
@@ -18,15 +23,15 @@ class ForgotPasswordPage extends React.Component {
     console.log('ForgotPassword Page: submit');
 
     this.setState({loading: 'true'});
-    const forgotData = {
+    const requestData = {
       EmailAddress: data.EmailAddress,
     };
-    console.log(forgotData);
-    const instance = axios.create({timeout: 3000});
-    instance.post('http://www.qa.getchatwith.com/password/CreateUserResetPasswordEmail', forgotData)
+    api.user.resetPasswordRequest(requestData)
     .then(res => {
-      const { Error = false } = res.data;
-      if (Error) return Promise.reject({server: res.data.Response})
+      console.log('api.user.resetPasswordRequest');
+      console.log(res.Response);
+      const { Error = false } = res.Response;
+      if (Error) return Promise.reject({server: 'Please Contact support@getchatwith.com'})
       else return this.setState({ loading: 'false', success: true });
     })
     .catch(err => {
@@ -38,50 +43,44 @@ class ForgotPasswordPage extends React.Component {
     const { loading, success, serverError } = this.state;
     return (
       <div>
-        {loading === 'true' && (
-          <Message icon>
-            <Icon name="circle notched" loading />
-            <Message.Header>Request In Progress</Message.Header>
-          </Message>
-        )}
-        {loading === 'false' &&
-        success && (
-          <Message success icon>
-            <Icon name="checkmark" />
-            <Message.Content>
-              <Message.Header>
-                Request Success. Check Email For Reset Link.
-              </Message.Header>
-            </Message.Content>
-          </Message>
-        )}
-        {loading === 'false' &&
-        !success && (
-          <Message negative icon>
-            <Icon name="warning sign" />
-            <Message.Content>
-              <Message.Header>Request Failed. {serverError}</Message.Header>
-            </Message.Content>
-          </Message>
-        )}
-        <Grid padded>
-          <Grid.Column width={10} color="blue"></Grid.Column>
-          <Grid.Column width={6} color="teal">
-            <Segment inverted color="teal">Have Questions? support@getchatwith.com</Segment>
+        <TopGrid />
+        <Grid>
+          <Grid.Column mobile={16} tablet={6} computer={6}>
+            <Menu style={marginFix} secondary>
+              <Menu.Menu style={marginFix} position="left">
+                <Header color='grey'>FORGOT PASSWORD</Header>
+              </Menu.Menu>
+            </Menu>
+            <Divider style={marginFix} />
+            {loading === 'true' && (
+              <Message icon>
+                <Icon name="circle notched" loading />
+                <Message.Header>Request In Progress</Message.Header>
+              </Message>
+            )}
+            {loading === 'false' &&
+            success && (
+              <Message success icon>
+                <Icon name="checkmark" />
+                <Message.Content>
+                  <Message.Header>
+                    Request Success. Check Email For Reset Link.
+                  </Message.Header>
+                </Message.Content>
+              </Message>
+            )}
+            {loading === 'false' &&
+            !success && (
+              <Message negative icon>
+                <Icon name="warning sign" />
+                <Message.Content>
+                  <Message.Header>Request Failed. {serverError}</Message.Header>
+                </Message.Content>
+              </Message>
+            )}
+            <ForgotPasswordForm submit={this.submit} />
           </Grid.Column>
         </Grid>
-        <Segment basic secondary>
-          <Link to="/signup">Not a member? Register</Link>
-          <Header as='h3' color='grey'>
-            <Header.Content>
-              RESET PASSWORD REQUEST
-              <Header.Subheader>
-                Required Field *
-              </Header.Subheader>
-            </Header.Content>
-          </Header>
-          <ForgotPasswordForm submit={this.submit} />
-        </Segment>
         <Segment basic></Segment>
         <Segment basic></Segment>
         <Segment basic></Segment>
