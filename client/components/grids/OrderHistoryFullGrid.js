@@ -4,10 +4,6 @@ import { Link } from 'react-router-dom';
 import { Menu, Header, List, Divider, Table } from "semantic-ui-react";
 import api from "../../api";
 
-const linkStyle = {
-  textDecoration: 'underline'
-};
-
 const greyColor = {
   color: "grey"
 }

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from "prop-types";
-import axios from 'axios';
-import { Dropdown, Form, Checkbox, Segment } from "semantic-ui-react";
+import api from "../../api";
 
 class CreditCardForm extends Component {
   state = {
@@ -10,10 +9,14 @@ class CreditCardForm extends Component {
   }
 
   componentDidMount = () => {
-    const instance = axios.create({timeout: 3000});
-    instance.defaults.headers.common['token'] = this.props.Token;
-    instance.post('http://www.qa.getchatwith.com/api/GetAppUserCreditCards', { AppUserId: this.props.AppUserId })
-    .then(res => res.data.Response.CreditCards)
+    const credentials = {
+      Token: this.props.Token,
+      data: {
+        AppUserId: this.props.AppUserId
+      }
+    }
+    api.payment.fetchCards(credentials)
+    .then(res => res.CreditCards)
     .then(cards => {
       if (cards === undefined) {
         this.props.noCardAvailable();

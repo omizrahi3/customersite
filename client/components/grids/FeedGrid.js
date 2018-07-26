@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Grid, Segment, Card, Image, Header, Button, Responsive } from "semantic-ui-react";
+import { Grid, Segment, Image, Header, Button, Responsive } from "semantic-ui-react";
 
 const FeedGrid = ({ item, handleRemoveClick }) => (
   <Grid key={item.ProductOptionId}>

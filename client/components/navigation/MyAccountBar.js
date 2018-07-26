@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
-import { List, Responsive, Segment } from "semantic-ui-react";
+import { List, Segment } from "semantic-ui-react";
 import * as actions from "../../actions/authActions";
 
 const linkStyle = {

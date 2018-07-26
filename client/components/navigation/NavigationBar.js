@@ -4,7 +4,7 @@ import {withRouter} from 'react-router'
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as actions from "../../actions/authActions";
-import { Menu, Segment, Breadcrumb, Label, Header, Icon } from "semantic-ui-react";
+import { Menu, Segment, Breadcrumb, Header } from "semantic-ui-react";
 
 const headerStyle = {
   marginTop: '-1.0em',

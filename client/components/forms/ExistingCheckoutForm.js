@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Form, Button, Label, Segment, Message, Input } from "semantic-ui-react";
+import { Form, Button, Label, Input } from "semantic-ui-react";
 
 class ExistingCheckoutForm extends React.Component {
   state = {

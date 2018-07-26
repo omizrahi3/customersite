@@ -54,23 +54,6 @@ class ProfilePage extends Component {
     .catch(err => this.setState({ loading: 'false', success: false, serverError: err.server }));
   }
 
-  // renderSubscriptions = keys => keys.map(key => {
-  //   const hashedSub = this.state.subscriptions[key];
-  //   return  (
-  //     <Card key={hashedSub.ProductId}>
-  //       <Image src={hashedSub.ProfilePictureReference} />
-  //       <Card.Content>
-  //         <Card.Header textAlign="center">
-  //           {hashedSub.TalentFirstName} {hashedSub.TalentLastName}
-  //         </Card.Header>
-  //         <Card.Meta textAlign="center">
-  //           {hashedSub.Description}
-  //         </Card.Meta>
-  //       </Card.Content>
-  //     </Card>
-  //     )
-  // })
-
   render() {
     const { location } = this.props;
     const { pathname } = location;

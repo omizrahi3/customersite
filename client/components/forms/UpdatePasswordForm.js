@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Form, Button, Input, Select, Label } from "semantic-ui-react";
+import { Form, Button, Input, Label } from "semantic-ui-react";
 import InlineError from "../messages/InlineError";
 
 class UpdateProfileForm extends React.Component {
