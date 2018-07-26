@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Form, Button, Grid, Segment, Image, Message } from "semantic-ui-react";
+import { Form, Button, Grid, Segment, Message } from "semantic-ui-react";
 
 class UpdateCheckoutForm extends React.Component {
   state = {

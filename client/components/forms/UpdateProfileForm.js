@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import axios from 'axios';
+import api from "../../api";
 import { Form, Button, Input, Select, Label } from "semantic-ui-react";
 import isEmail from "validator/lib/isEmail";
 import InlineError from "../messages/InlineError";
@@ -14,18 +14,18 @@ const options = [
 ]
 
 const monthOptions = [
-  { key: '1', text: 'Jan', value: '01' },
-  { key: '2', text: 'Feb', value: '02' },
-  { key: '3', text: 'Mar', value: '03' },
-  { key: '4', text: 'Apr', value: '04' },
-  { key: '5', text: 'May', value: '05' },
-  { key: '6', text: 'Jun', value: '06' },
-  { key: '7', text: 'Jul', value: '07' },
-  { key: '8', text: 'Aug', value: '08' },
-  { key: '9', text: 'Sep', value: '09' },
-  { key: '10', text: 'Oct', value: '10' },
-  { key: '11', text: 'Nov', value: '11' },
-  { key: '12', text: 'Dec', value: '12' }
+  { key: '0', text: 'Jan', value: '00' },
+  { key: '1', text: 'Feb', value: '01' },
+  { key: '2', text: 'Mar', value: '02' },
+  { key: '3', text: 'Apr', value: '03' },
+  { key: '4', text: 'May', value: '04' },
+  { key: '5', text: 'Jun', value: '05' },
+  { key: '6', text: 'Jul', value: '06' },
+  { key: '7', text: 'Aug', value: '07' },
+  { key: '8', text: 'Sep', value: '08' },
+  { key: '9', text: 'Oct', value: '09' },
+  { key: '10', text: 'Nov', value: '10' },
+  { key: '11', text: 'Dec', value: '11' }
 ]
 
 class UpdateProfileForm extends React.Component {
@@ -59,26 +59,32 @@ class UpdateProfileForm extends React.Component {
       years.push(yearObj)
     }
     this.setState({dateOptions: dates, yearOptions: years});
-    const { Token, AppUserId } = this.props.user;
-    const instance = axios.create({timeout: 3000});
-    instance.defaults.headers.common['token'] = Token;
-    instance.post('http://www.qa.getchatwith.com/api/GetAppUserById', { AppUserId })
-    .then(res => res.data.Response[0])
+    const credentials = {
+      Token: this.props.user.Token,
+      data: {
+        AppUserId: this.props.user.AppUserId
+      }
+    }
+    api.user.fetchUser(credentials)
+    .then(res => res[0])
     .then(profile => {
-      console.log(profile.Gender);
+      console.log(profile.Birthdate);
 
       if (profile.Gender === '') {
         profile.Gender = 'none';
       }
-      const date = new Date(profile.Birthdate);
 
-      const monthString = date.getMonth().toString();
+      const date = new Date(profile.Birthdate);
+      const userTimezoneOffset = date.getTimezoneOffset() * 60000;
+      const fixedDate = new Date(date.getTime() + userTimezoneOffset);
+
+      const monthString = fixedDate.getMonth().toString();
       const month = monthString.length === 1 ? `0${monthString}` : monthString;
 
-      const dayString = date.getDate().toString();
+      const dayString = fixedDate.getDate().toString();
       const day = dayString.length === 1 ? `0${dayString}` : dayString;
 
-      const year = date.getFullYear().toString();
+      const year = fixedDate.getFullYear().toString();
 
       this.setState({
         data: {
@@ -116,7 +122,8 @@ class UpdateProfileForm extends React.Component {
     if (Object.keys(errors).length === 0) {
       const { data } = this.state;
       if (!!data.Date && !!data.Month & !!data.Year) {
-        data.Birthdate = `${data.Year}-${data.Month}-${data.Date}`;
+        const monthFix = parseInt(data.Month) + 1;
+        data.Birthdate = `${data.Year}-${monthFix.toString()}-${data.Date}`;
       }
       if (data.Gender === 'none') {
         data.Gender = '';

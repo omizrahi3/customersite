@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import api from "../../api";
-import { Form, Button, Input, Select, Label } from "semantic-ui-react";
+import { Form, Button, Input, Select, Label, Message, Icon } from "semantic-ui-react";
 import InlineError from "../messages/InlineError";
 
 const monthOptions = [
@@ -29,6 +29,7 @@ class UpdateProfileForm extends React.Component {
       Month: '',
       Year: ''
     },
+    noCard: '',
     errors: {},
     yearOptions: [],
   };
@@ -63,11 +64,13 @@ class UpdateProfileForm extends React.Component {
         CVV: '123',
         Month: card.expirationMonth,
         Year: card.expirationYear
-      }
+      },
+      noCard: 'false'
     });
     })
     .catch(err => {
       console.log('whoops');
+      this.setState({ noCard: 'true' })
     })
 
   }
@@ -113,91 +116,100 @@ class UpdateProfileForm extends React.Component {
 
     return (
       <div>
-        <div style={{paddingTop: "1em", paddingBottom: "1em"}}>
-          <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>Required Field</Label>
-          <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
+        {this.state.noCard === 'true' && (
+          <Message negative icon>
+            <Icon name="warning sign" />
+            <Message.Content>
+              <Message.Header>No Card On File. Check Out To Add Card.</Message.Header>
+            </Message.Content>
+          </Message>
+        )}
+        {this.state.noCard === 'false' && (
+          <div>
+            <div style={{paddingTop: "1em", paddingBottom: "1em"}}>
+              <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>Required Field</Label>
+              <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
+            </div>
+            <div style={{paddingTop: "0.5em", paddingBottom: "0.5em"}}>
+              <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>Full Name</Label>
+              <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
+            </div>
+            <Form size='large' onSubmit={this.onSubmit}>
+              <Form.Field
+                error={!!errors.fullname}
+                id='fullname'
+                control={Input}
+                placeholder=''
+                name="Fullname"
+                value={data.Fullname}
+                onChange={this.onChange}
+              />
+              {errors.fullname && (
+                <InlineError text={errors.fullname} />
+              )}
+              <div style={{paddingTop: "0", paddingBottom: "0.5em"}}>
+                <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>Card Number</Label>
+                <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
+              </div>
+              <Form.Field
+                error={!!errors.cardnumber}
+                id='cardnumber'
+                control={Input}
+                placeholder=''
+                name="Cardnumber"
+                value={data.Cardnumber}
+                onChange={this.onChange}
+              />
+              {errors.cardnumber && (
+                <InlineError text={errors.cardnumber} />
+              )}
+              <div style={{paddingTop: "0", paddingBottom: "0.5em"}}>
+                <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>CVV</Label>
+                <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
+              </div>
+              <Form.Field
+                error={!!errors.cvv}
+                id='cvv'
+                control={Input}
+                placeholder=''
+                name="CVV"
+                value={data.CVV}
+                onChange={this.onChange}
+              />
+              {errors.cvv && (
+                <InlineError text={errors.cvv} />
+              )}
+              <div style={{paddingTop: "0", paddingBottom: "0.5em"}}>
+                <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>Expiration Date</Label>
+                <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
+              </div>
+              <Form.Group>
+                <Form.Field
+                  error={!!errors.exp}
+                  control={Select}
+                  selectOnBlur={false}
+                  options={monthOptions}
+                  name="Month"
+                  value={data.Month}
+                  onChange={this.onChange2}
+                />
+                <Form.Field
+                  error={!!errors.exp}
+                  control={Select}
+                  selectOnBlur={false}
+                  options={this.state.yearOptions}
+                  name="Year"
+                  value={data.Year}
+                  onChange={this.onChange2}
+                />
+              </Form.Group>
+              {errors.exp && (
+                <InlineError text={errors.exp} />
+              )}
+              <Button style={{ background: "#12457b", height: "50px", width: "200px"}} primary>SAVE</Button>
+            </Form>
         </div>
-        <div style={{paddingTop: "0.5em", paddingBottom: "0.5em"}}>
-          <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>Full Name</Label>
-          <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
-        </div>
-        <Form size='large' onSubmit={this.onSubmit}>
-          <Form.Field
-            error={!!errors.fullname}
-            id='fullname'
-            control={Input}
-            placeholder=''
-            name="Fullname"
-            value={data.Fullname}
-            onChange={this.onChange}
-          />
-          {errors.fullname && (
-            <InlineError text={errors.fullname} />
-          )}
-          <div style={{paddingTop: "0", paddingBottom: "0.5em"}}>
-            <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>Card Number</Label>
-            <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
-          </div>
-          <Form.Field
-            error={!!errors.cardnumber}
-            id='cardnumber'
-            control={Input}
-            placeholder=''
-            name="Cardnumber"
-            value={data.Cardnumber}
-            onChange={this.onChange}
-          />
-          {errors.cardnumber && (
-            <InlineError text={errors.cardnumber} />
-          )}
-
-          <div style={{paddingTop: "0", paddingBottom: "0.5em"}}>
-            <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>CVV</Label>
-            <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
-          </div>
-          <Form.Field
-            error={!!errors.cvv}
-            id='cvv'
-            control={Input}
-            placeholder=''
-            name="CVV"
-            value={data.CVV}
-            onChange={this.onChange}
-          />
-          {errors.cvv && (
-            <InlineError text={errors.cvv} />
-          )}
-          
-          <div style={{paddingTop: "0", paddingBottom: "0.5em"}}>
-            <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>Expiration Date</Label>
-            <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
-          </div>
-          <Form.Group>
-            <Form.Field
-              error={!!errors.exp}
-              control={Select}
-              selectOnBlur={false}
-              options={monthOptions}
-              name="Month"
-              value={data.Month}
-              onChange={this.onChange2}
-            />
-            <Form.Field
-              error={!!errors.exp}
-              control={Select}
-              selectOnBlur={false}
-              options={this.state.yearOptions}
-              name="Year"
-              value={data.Year}
-              onChange={this.onChange2}
-            />
-          </Form.Group>
-          {errors.exp && (
-            <InlineError text={errors.exp} />
-          )}
-
-          <Button style={{ background: "#12457b", height: "50px", width: "200px"}} primary>SAVE</Button>
-        </Form>
+        )}
       </div>
     );
   }

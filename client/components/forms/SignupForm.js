@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from 'react-router-dom';
-import { Form, Button, Label, Input, Select, Radio, Checkbox } from "semantic-ui-react";
+import { Form, Button, Label, Input, Select } from "semantic-ui-react";
 import isEmail from "validator/lib/isEmail";
 import InlineError from "../messages/InlineError";
 

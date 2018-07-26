@@ -1,8 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
-import { Segment, Header, Menu, Grid } from 'semantic-ui-react';
+import { Segment, Header, Grid } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
 import CategorySearch from '../search/CategorySearch';
+
+const cartStyle = {
+  textDecoration: 'underline',
+  color: '#12457b'
+};
 
 class BrandSearchPage extends Component {
   state = {
@@ -16,6 +21,7 @@ class BrandSearchPage extends Component {
   onTalentSelect = talent => this.setState({ talent });
 
   render() {
+    const { cart } = this.props;
     const { CategoryId } = this.state;
     return (
       <div>
@@ -27,7 +33,11 @@ class BrandSearchPage extends Component {
             </Grid.Column>
           </Grid.Row>
           <Grid.Row style={{paddingTop: "0em"}}>
-            <Grid.Column mobile={16} tablet={10} computer={10}></Grid.Column>
+            <Grid.Column mobile={16} tablet={10} computer={10}>
+              <div>
+                <Header style={cartStyle} size="tiny" as={Link} to="/cart">({cart.length}) Items in Cart</Header>
+              </div>
+            </Grid.Column>
             <Grid.Column mobile={16} tablet={2} computer={2}>
               <Header as={Link} to ='/categories/music' size='large' color="blue">MUSIC</Header>
             </Grid.Column>
@@ -50,7 +60,7 @@ class BrandSearchPage extends Component {
 
 function mapStateToProps(state) {
   return {
-    user: state.user
+    cart: state.cart
   };
 }
 

@@ -23,9 +23,9 @@ class TopGrid extends Component {
     return (
         <Grid padded>
           <Grid.Column style={{'paddingTop': "0px", 'paddingBottom': "0px"}} mobile={16} tablet={12} computer={12} color="blue">
-          <div style={{padding: "20px"}}>
-            <Header style={cartStyle} size="tiny" as={Link} to="/cart">({cart.length}) Items in Cart</Header>
-          </div>
+            <div style={{padding: "20px"}}>
+              <Header style={cartStyle} size="tiny" as={Link} to="/cart">({cart.length}) Items in Cart</Header>
+            </div>
           </Grid.Column>
           <Grid.Column style={{'paddingTop': "0px", 'paddingBottom': "0px", 'background': '#42adf4'}} mobile={16} tablet={4} computer={4}>
             <Segment basic inverted style={headerStyle}>
