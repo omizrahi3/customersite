@@ -85,6 +85,7 @@ class TalentSearch extends Component {
       const talentsHash = {};
       results.LandingData.forEach(talent => {
         talentsHash[talent.TalentId] = talent;
+        console.log(talentsHash);
         keys.push(talent.TalentId);
       });
       const totalPages = searchResults.totalCount / this.state.resultsPerPage;
@@ -131,9 +132,6 @@ class TalentSearch extends Component {
 
   renderTalents = keys => keys.map(key => {
     const hashedTalent = this.state.talents[key];
-    if (hashedTalent.KnownFor === 0) {
-      hashedTalent.KnownFor = "The Walking Dead";
-    }
     const FirstName = hashedTalent.FirstName;
     const LastName = hashedTalent.LastName;
     const KnownFor = hashedTalent.KnownFor;
@@ -226,19 +224,16 @@ class TalentSearch extends Component {
           <div>
             <Responsive
               {...Responsive.onlyMobile}
-              as={Card.Group}
             >
               <Card.Group itemsPerRow={1}>{this.renderTalents(keys)}</Card.Group>
             </Responsive>
             <Responsive
               {...Responsive.onlyTablet}
-              as={Card.Group}
             >
               <Card.Group itemsPerRow={3}>{this.renderTalents(keys)}</Card.Group>
             </Responsive>
             <Responsive
               {...Responsive.onlyComputer}
-              as={Card.Group}
             >
               <Card.Group itemsPerRow={5}>{this.renderTalents(keys)}</Card.Group>
             </Responsive>

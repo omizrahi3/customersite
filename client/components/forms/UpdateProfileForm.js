@@ -45,7 +45,7 @@ class UpdateProfileForm extends React.Component {
   };
 
   componentDidMount() {
-    console.log('UpdateProfileForm did mount');
+    // console.log('UpdateProfileForm did mount');
     const years = [];
     const dates = [];
     for (let i = 1; i <= 31; i++) {
@@ -68,7 +68,7 @@ class UpdateProfileForm extends React.Component {
     api.user.fetchUser(credentials)
     .then(res => res[0])
     .then(profile => {
-      console.log(profile.Birthdate);
+      // console.log(profile.Birthdate);
 
       if (profile.Gender === '') {
         profile.Gender = 'none';
@@ -107,7 +107,7 @@ class UpdateProfileForm extends React.Component {
     });
 
   onChange2 = (e, data) => {
-    console.log(data.value);
+    // console.log(data.value);
     const { value } = data;
     this.setState({
       ...this.state,

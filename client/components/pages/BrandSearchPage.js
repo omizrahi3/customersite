@@ -4,6 +4,9 @@ import { Segment, Header, Grid } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
 import CategorySearch from '../search/CategorySearch';
 
+const qaCategoryId = '6BAF3D6162EB4D2B8D9D363C04BB0539';
+const prodCategoryId = '7A927CE30128403982C92BF1AF3720FB';
+
 const cartStyle = {
   textDecoration: 'underline',
   color: '#12457b'
@@ -11,7 +14,7 @@ const cartStyle = {
 
 class BrandSearchPage extends Component {
   state = {
-    CategoryId: '6BAF3D6162EB4D2B8D9D363C04BB0539'
+    CategoryId: prodCategoryId
   }
 
   componentDidMount = () => this.onInit(this.props);

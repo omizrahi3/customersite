@@ -27,7 +27,7 @@ import PaymentMethodPage from './components/pages/PaymentMethodPage';
 const App = ({ location, isAuthenticated }) => (
   <div className="ui container">
     <NavigationBar />
-    <GuestRoute
+    <Route
       location={location}
       path='/login'
       exact

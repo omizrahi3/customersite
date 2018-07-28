@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Grid, Segment, Image, Card, Breadcrumb, Header, Modal, Button, Icon, Input, Form, TextArea, Message } from "semantic-ui-react";
+import { Grid, Segment, Image, Card, Breadcrumb, Header, Modal, Button, Icon, Input, Form, TextArea, Message, Responsive } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { atc } from '../../actions/cartActions';
 import isEmail from "validator/lib/isEmail";
@@ -84,15 +84,12 @@ class TalentPage extends Component {
       const errors = { email: 'Please Enter Valid Email' }
       this.setState({ errors });
     } else {
-      console.log('email is clean');
       this.setState({loading: 'true'});
       const notifyData = {
         EmailAddress: notifyEmail,
         ProductOptionId: data.value,
       };
       console.log(notifyData);
-      // const instance = axios.create({timeout: 3000});
-      // instance.post('http://www.qa.getchatwith.com/home/CreateNotificationGuest', notifyData)
       api.product.notification(notifyData)
         .then(() => this.setState({ notificationSuccess: 'true' }))
         .catch((err) => this.setState({ notificationSuccess: 'false' }));
@@ -174,7 +171,7 @@ class TalentPage extends Component {
       closeIcon={<Icon name="window close" onClick={this.handleCloseLive}></Icon>}
     >
       <Modal.Header>
-        <Header textAlign="center">
+        <Header style={{color: "#12457b"}} textAlign="center">
           Available Call Times For Live One-On-One Chat
           <Header.Subheader>These are the times below</Header.Subheader>
         </Header>
@@ -182,16 +179,40 @@ class TalentPage extends Component {
       <Modal.Content scrolling>
         <Segment basic secondary>
           {this.state.dates.length > 0 && (
-            <Card.Group itemsPerRow={3}>
-              {this.renderDates(this.state.dates)}
-            </Card.Group>
+            <div>
+              <Responsive {...Responsive.onlyMobile}>
+                <Card.Group itemsPerRow={1}>
+                  {this.renderDates(this.state.dates)}
+                </Card.Group>
+              </Responsive>
+              <Responsive {...Responsive.onlyTablet}>
+                <Card.Group itemsPerRow={2}>
+                  {this.renderDates(this.state.dates)}
+                </Card.Group>
+              </Responsive>
+              <Responsive {...Responsive.onlyComputer}>
+                <Card.Group itemsPerRow={3}>
+                  {this.renderDates(this.state.dates)}
+                </Card.Group>
+              </Responsive>
+            </div>
+          )}
+          {this.state.dates.length === 0 && (
+            <Header>No Dates Available</Header>
           )}
         </Segment>
       </Modal.Content>
-      <Modal.Actions>
-        <Button value={key} color="green" fluid onClick={this.atcLiveHandleClick}>
-          CHECKOUT AND SCHEDULE SESSION
-        </Button>
+      <Modal.Actions style={{textAlign: "center"}}>
+          {this.state.dates.length > 0 && (
+            <Button size="large" value={key} color="green" onClick={this.atcLiveHandleClick}>
+              CHECKOUT AND SCHEDULE SESSION
+            </Button>
+          )}
+          {this.state.dates.length === 0 && (
+            <Button size="large" value={key} color="green" disabled>
+              UNAVAILABLE
+            </Button>
+          )}
       </Modal.Actions>
     </Modal>
   )
@@ -203,7 +224,7 @@ class TalentPage extends Component {
       closeIcon={<Icon name="window close" onClick={this.handleClose}></Icon>}
     >
       <Modal.Header>
-        <Header color="blue" textAlign="center">
+        <Header style={{color: "#12457b"}} textAlign="center">
           Your Personalized Video Message Request
           <Header.Subheader>Please include a message below and let them know what you would like them to say in your Personalized Video Message.</Header.Subheader>
         </Header>
@@ -281,6 +302,9 @@ class TalentPage extends Component {
 
   renderProducts2 = keys => keys.map(key => {
     const hashedProduct = this.state.products[key];
+    console.log('renderProducts2');
+    const CurrentUnfulfilled = hashedProduct.Quota - hashedProduct.OrdersThisMonth;
+    console.log('CurrentUnfulfilled: '+CurrentUnfulfilled);
     let product;
     let message;
     let description;
@@ -294,7 +318,7 @@ class TalentPage extends Component {
       description = hashedProduct.ProductDescription;
       message = `Talk one-on-one with ${hashedProduct.TalentFirstName} ${hashedProduct.TalentLastName} in a video private chat.`;
     }
-    if (hashedProduct.CurrentUnfulfilled === 0) {
+    if (CurrentUnfulfilled === 0) {
       product = (this.notify(key));
     } else if (hashedProduct.ProductDescription === 'Feed') {
       product = (this.atcFeed(key, hashedProduct.WebPrice));
@@ -331,39 +355,42 @@ class TalentPage extends Component {
     const { FirstName, LastName, ProfilePictureReference, KnownFor, productAdded, notificationSuccess } = this.state;
     return (
       <div>
-        {productAdded && (
-          <Message success icon>
-            <Icon name="checkmark" />
-            <Message.Content>
-              <Message.Header>Product Added. Please </Message.Header>
-              <Link to="/cart">Go To Cart.</Link>
-            </Message.Content>
-          </Message>
-        )}
-        {notificationSuccess === 'true' && (
-          <Message success icon>
-            <Icon name="checkmark" />
-            <Message.Content>
-              <Message.Header>Notification Success. Check Email For Confirmation.</Message.Header>
-            </Message.Content>
-          </Message>
-        )}
-        {notificationSuccess === 'false' && (
-          <Message negative icon>
-            <Icon name="warning sign" />
-            <Message.Content>
-              <Message.Header>Notification Failed. Check Email And Try Again.</Message.Header>
-            </Message.Content>
-          </Message>
-        )}
         <Grid>
-          <Grid.Column only='computer' computer={2}>
+          <Grid.Column only='computer' computer={1}>
             <Segment basic></Segment>
           </Grid.Column>
-          <Grid.Column mobile={16} tablet={5} computer={4}>
+          <Grid.Column mobile={16} computer={4}>
             <Segment basic><Image style={{maxWidth: "220px", maxHeight: "285px"}} src={ProfilePictureReference} /></Segment>
           </Grid.Column>
-          <Grid.Column mobile={16} tablet={11} computer={10}>
+          <Grid.Column only='computer' computer={1}>
+            <Segment basic></Segment>
+          </Grid.Column>
+          <Grid.Column mobile={16} computer={10}>
+            {productAdded && (
+              <Message success icon>
+                <Icon name="checkmark" />
+                <Message.Content>
+                  <Message.Header>Product Added. Please </Message.Header>
+                  <Link to="/cart">Go To Cart.</Link>
+                </Message.Content>
+              </Message>
+            )}
+            {notificationSuccess === 'true' && (
+              <Message success icon>
+                <Icon name="checkmark" />
+                <Message.Content>
+                  <Message.Header>Notification Success. Check Email For Confirmation.</Message.Header>
+                </Message.Content>
+              </Message>
+            )}
+            {notificationSuccess === 'false' && (
+              <Message negative icon>
+                <Icon name="warning sign" />
+                <Message.Content>
+                  <Message.Header>Notification Failed. Check Email And Try Again.</Message.Header>
+                </Message.Content>
+              </Message>
+            )}
             <Segment style={{paddingLeft: "0"}} basic>
               <Breadcrumb style={{marginBottom: "5px"}}>
                 <Breadcrumb.Section style={linkStyle} as={Link} to="/dashboard">Home</Breadcrumb.Section>

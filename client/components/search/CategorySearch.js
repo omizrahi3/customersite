@@ -182,9 +182,6 @@ class CategorySearch extends Component {
 
   renderTalents = keys => keys.map(key => {
     const hashedTalent = this.state.talents[key];
-    if (hashedTalent.KnownFor === 0) {
-      hashedTalent.KnownFor = "N/A";
-    }
     const FirstName = hashedTalent.FirstName;
     const LastName = hashedTalent.LastName;
     const KnownFor = hashedTalent.KnownFor;
@@ -277,19 +274,16 @@ class CategorySearch extends Component {
           <div>
             <Responsive
               {...Responsive.onlyMobile}
-              as={Card.Group}
             >
               <Card.Group itemsPerRow={1}>{this.renderTalents(keys)}</Card.Group>
             </Responsive>
             <Responsive
               {...Responsive.onlyTablet}
-              as={Card.Group}
             >
               <Card.Group itemsPerRow={3}>{this.renderTalents(keys)}</Card.Group>
             </Responsive>
             <Responsive
               {...Responsive.onlyComputer}
-              as={Card.Group}
             >
               <Card.Group itemsPerRow={5}>{this.renderTalents(keys)}</Card.Group>
             </Responsive>

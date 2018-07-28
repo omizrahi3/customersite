@@ -67,7 +67,7 @@ class LiveChatGrid extends Component {
       closeIcon={<Icon name="window close" onClick={this.handleCloseLive}></Icon>}
     >
       <Modal.Header>
-        <Header textAlign="center">
+        <Header style={{color: "#12457b"}} textAlign="center">
           Available Call Times For Live One-On-One Chat
           <Header.Subheader>These are the times below</Header.Subheader>
         </Header>
@@ -75,14 +75,28 @@ class LiveChatGrid extends Component {
       <Modal.Content scrolling>
         <Segment basic secondary>
           {this.props.item.dates.length > 0 && (
-            <Card.Group itemsPerRow={3}>
-              {this.renderDates(this.props.item.dates)}
-            </Card.Group>
+            <div>
+              <Responsive {...Responsive.onlyMobile}>
+                <Card.Group itemsPerRow={1}>
+                  {this.renderDates(this.props.item.dates)}
+                </Card.Group>
+              </Responsive>
+              <Responsive {...Responsive.onlyTablet}>
+                <Card.Group itemsPerRow={2}>
+                  {this.renderDates(this.props.item.dates)}
+                </Card.Group>
+              </Responsive>
+              <Responsive {...Responsive.onlyComputer}>
+                <Card.Group itemsPerRow={3}>
+                  {this.renderDates(this.props.item.dates)}
+                </Card.Group>
+              </Responsive>
+            </div>
           )}
         </Segment>
       </Modal.Content>
-      <Modal.Actions>
-        <Button value={this.props.item.ProductOptionId} color="green" fluid onClick={this.atcLiveHandleClick}>
+      <Modal.Actions style={{textAlign: "center"}}>
+        <Button size="large" value={this.props.item.ProductOptionId} color="green" onClick={this.atcLiveHandleClick}>
           CHECKOUT AND SCHEDULE SESSION
         </Button>
       </Modal.Actions>

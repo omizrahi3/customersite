@@ -35,7 +35,6 @@ class UpdateProfileForm extends React.Component {
   };
 
   componentDidMount() {
-    console.log('UpdateProfileForm did mount');
     const years = [];
     for (let i = 2018; i <= 2030; i++) {
       const year = i.toString();
@@ -53,8 +52,8 @@ class UpdateProfileForm extends React.Component {
 
     api.payment.fetchCards(credentials)
     .then(res => {
-      console.log('over here');
-      console.log(res.CreditCards[0]);
+      // console.log('over here');
+      // console.log(res.CreditCards[0]);
       const card = res.CreditCards[0];
 
       this.setState({
@@ -69,7 +68,7 @@ class UpdateProfileForm extends React.Component {
     });
     })
     .catch(err => {
-      console.log('whoops');
+      // console.log('whoops');
       this.setState({ noCard: 'true' })
     })
 

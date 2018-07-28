@@ -20,6 +20,8 @@ class LoginPage extends React.Component {
 
   componentDidMount() {
     console.log('LoginPage did mount');
+    console.log(this.props.location.state);
+
   }
 
   submit = (data) => {
@@ -31,7 +33,15 @@ class LoginPage extends React.Component {
     };
     console.log(loginData);
     this.props.login(loginData)
-      .then(() => console.log('logged in'))
+      .then(() => {
+        console.log(this.props.location.state)
+        if (!!this.props.location.state) {
+          const { redirect } = this.props.location.state;
+          if (redirect) this.props.history.push('/billing');
+        } else {
+          this.setState({ loading: 'false', success: true });
+        }
+      })
       .catch((err) => this.setState({ loading: 'false', success: false, serverError: err.server }));
   }
   

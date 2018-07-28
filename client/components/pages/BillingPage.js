@@ -281,9 +281,9 @@ class BillingPage extends Component {
   }
 
   guestGrid = () => (
-    <Grid columns={2} divided>
+    <Grid columns={2}>
       <Grid.Row>
-        <Grid.Column>
+        <Grid.Column mobile={16} computer={8}>
           <Segment style={{height: "260px"}} basic secondary>
             <Header color="grey" as='h3'>
                 CHECK OUT AS GUEST
@@ -307,9 +307,10 @@ class BillingPage extends Component {
               </Form.Field>
             </Form>
             <Checkbox style={{paddingTop: "10px"}} label={<label style={{color:"grey"}}>Sign me up to receive ChatWith offers, promos, and other commercial messages. My request confirms my acceptance of ChatWith Privacy Policy. I can unsubscribe at any time.</label>} />
+            <label style={{marginLeft: "25px"}}><a href='https://getchatwith.com/terms-of-service/' target="_blank">Terms of Service</a></label>
           </Segment>
         </Grid.Column>
-        <Grid.Column>
+        <Grid.Column mobile={16} computer={8}>
           <Segment style={{height: "260px"}} basic secondary>
             <Header style={{color:"grey"}} as='h3'>
                 SIGN IN OR SIGNUP
@@ -317,7 +318,13 @@ class BillingPage extends Component {
                   Sign in for a faster check out and to download the ChatWith App.
                 </Header.Subheader>
             </Header>
-            <Button style={{width: "100%", background: "#12457b"}} as={Link} to='/login' primary>SIGN IN</Button>
+            <Button style={{width: "100%", height:"50px", background: "#12457b"}} as={Link} to={{
+                pathname: '/login',
+                state: {
+                  redirect: true
+                }
+              }} primary>SIGN IN
+            </Button>
             <div style={{paddingTop: "10px", textAlign:"center", textDecoration: "underline"}}>
               <a href="/signup">Sign Up</a>​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
             </div>​
@@ -447,7 +454,12 @@ class BillingPage extends Component {
               <Grid.Column mobile={16} tablet={4} computer={4}></Grid.Column>
               <Grid.Column mobile={16} tablet={8} computer={8}>
                 <Segment style={{}} basic>
-                  <Button style={{width: "100%", height:"50px", background: "#12457b"}} as={Link} to='/login' primary>SIGN IN</Button>
+                  <Button style={{width: "100%", height:"50px", background: "#12457b"}} as={Link} to={{
+                    pathname: '/login',
+                    state: {
+                      redirect: true
+                    }
+                  }} primary>SIGN IN</Button>
                   <div style={{paddingTop: "10px", textAlign:"center", textDecoration: "underline"}}>
                     <a href="/signup">Sign Up</a>​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
                   </div>​

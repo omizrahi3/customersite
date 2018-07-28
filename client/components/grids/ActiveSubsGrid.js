@@ -29,7 +29,7 @@ class ActiveSubsGrid extends Component {
   }
 
   componentDidMount() {
-    console.log('ActiveSubsGrid did mount')
+    // console.log('ActiveSubsGrid did mount')
     const credentials = {
       Token: this.props.user.Token,
       data: {
@@ -38,11 +38,11 @@ class ActiveSubsGrid extends Component {
     }
     api.orderHistory.activeSubs(credentials)
     .then(res => {
-      console.log('api.orderHistory.activeSubs');
+      // console.log('api.orderHistory.activeSubs');
       const keys = [];
       const subscriptionsHash = {};
       res.forEach(sub => {
-        console.log(sub);
+        // console.log(sub);
         subscriptionsHash[sub.ProductId] = sub;
         keys.push(sub.ProductId);
       });
@@ -58,8 +58,8 @@ class ActiveSubsGrid extends Component {
       return api.orderHistory.fetchOrders(credentials2)
     })
     .then(res => {
-      console.log('api.orderHistory.fetchOrders');
-      console.log(res);
+      // console.log('api.orderHistory.fetchOrders');
+      // console.log(res);
       const { FeedTotal, LiveChatTotal, VideoMessageTotal } = res;
       const orders = FeedTotal.concat(LiveChatTotal).concat(VideoMessageTotal);
       const subscriptionsHash = this.state.subscriptions;
@@ -72,7 +72,7 @@ class ActiveSubsGrid extends Component {
   }
 
   cancelSub = (e, data) => {
-    console.log(data);
+    // console.log(data);
     const credentials = {
       Token: this.props.user.Token,
       data: {
@@ -82,14 +82,14 @@ class ActiveSubsGrid extends Component {
     }
     api.orderHistory.deleteSub(credentials)
     .then(res => {
-      console.log(res);
+      // console.log(res);
       const { keys, subscriptions } = this.state;
       const newKeys = keys.filter(key => key !== data.value);
       delete subscriptions[data.value];
       this.setState({ keys: newKeys, subscriptions});
     })
     .catch(err => {
-      console.log('whoops');
+      // console.log('whoops');
     })
 
     // const { keys, subscriptions } = this.state;

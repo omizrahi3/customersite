@@ -130,7 +130,7 @@ class SignupForm extends React.Component {
         </div>
         <Form onSubmit={this.onSubmit}>
           <div style={{paddingTop: "0.5em", paddingBottom: "0.5em"}}>
-            <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>Firstname</Label>
+            <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>First Name</Label>
             <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
           </div>
           <Form.Field
@@ -146,7 +146,7 @@ class SignupForm extends React.Component {
             <InlineError text={errors.firstname} />
           )}
           <div style={{paddingTop: "0.5em", paddingBottom: "0.5em"}}>
-            <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>Lastname</Label>
+            <Label style={{padding: "0", background: "none", fontSize:"1.15em"}}>Last Name</Label>
             <Label style={{padding: "0", color: "red", background: "none", fontSize:"1.25em"}}>*</Label>
           </div>
           <Form.Field

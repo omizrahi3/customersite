@@ -15,7 +15,7 @@ class UpdateProfileForm extends React.Component {
   };
 
   componentDidMount() {
-    console.log('UpdatePasswordForm did mount');
+    // console.log('UpdatePasswordForm did mount');
   }
 
   onChange = e =>

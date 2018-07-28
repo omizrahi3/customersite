@@ -4,6 +4,9 @@ import { Segment, Header, Grid } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
 import CategorySearch from '../search/CategorySearch';
 
+const qaCategoryId = '021D71E9EE9E4C849111A438C1322DBD';
+const prodCategoryId = 'D4C54DC9580E4143B8F9CA0E87EB7996';
+
 const cartStyle = {
   textDecoration: 'underline',
   color: '#12457b'
@@ -11,7 +14,7 @@ const cartStyle = {
 
 class SportsSearchPage extends Component {
   state = {
-    CategoryId: '8B172F9BE0A6415F89E0B7EA547515B1'
+    CategoryId: prodCategoryId
   }
 
   componentDidMount = () => this.onInit(this.props);

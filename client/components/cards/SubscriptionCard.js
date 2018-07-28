@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Card, Icon, Image } from "semantic-ui-react";
+import { Card } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 const SubscriptionCard = ({ ProductId, TalentFirstName, TalentLastName, Description, ProfilePictureReference }) => (
