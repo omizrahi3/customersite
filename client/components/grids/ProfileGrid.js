@@ -24,7 +24,7 @@ class ProfileGrid extends Component {
   }
 
   componentDidMount() {
-    console.log('ProfileGrid did mount');
+    // console.log('ProfileGrid did mount');
     const credentials = {
       Token: this.props.user.Token,
       data: {
@@ -36,7 +36,7 @@ class ProfileGrid extends Component {
       this.setState({ userFetched: true, name: `${user[0].Firstname} ${user[0].Lastname}`, email: user[0].EmailAddress })
     })
     .catch(err => {
-      console.log('whoops');
+      // console.log('whoops');
     })
   }
 

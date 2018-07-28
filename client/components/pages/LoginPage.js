@@ -19,22 +19,21 @@ class LoginPage extends React.Component {
   };
 
   componentDidMount() {
-    console.log('LoginPage did mount');
-    console.log(this.props.location.state);
-
+    // console.log('LoginPage did mount');
+    // console.log(this.props.location.state);
   }
 
   submit = (data) => {
-    console.log('Login Page: submit');
+    // console.log('Login Page: submit');
     this.setState({loading: 'true'});
     const loginData = {
       EmailAddress: data.EmailAddress,
       Password: data.Password,
     };
-    console.log(loginData);
+    // console.log(loginData);
     this.props.login(loginData)
       .then(() => {
-        console.log(this.props.location.state)
+        // console.log(this.props.location.state)
         if (!!this.props.location.state) {
           const { redirect } = this.props.location.state;
           if (redirect) this.props.history.push('/billing');

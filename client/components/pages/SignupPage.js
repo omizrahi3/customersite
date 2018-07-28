@@ -22,7 +22,7 @@ class SignupPage extends React.Component {
     this.props.signup(data).then(() => this.props.history.push("/login"));
 
   submit = (data) => {
-    console.log('Signup Page: submit');
+    // console.log('Signup Page: submit');
     this.setState({loading: 'true'});
     const signupData = {
       EmailAddress: data.EmailAddress,
@@ -33,7 +33,7 @@ class SignupPage extends React.Component {
       Password: data.Password,
       ContentType: "image/jpeg"
     };
-    console.log(signupData);
+    // console.log(signupData);
     this.props.signup(signupData)
       .then(() => this.setState({ loading: 'false', success: true }))
       .catch((err) => this.setState({ loading: 'false', success: false, serverError: err.server }));

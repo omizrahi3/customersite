@@ -20,15 +20,15 @@ class ResetPasswordPage extends React.Component {
   };
 
   componentDidMount() {
-    console.log('ResetPasswordPage did mount');
-    console.log(this.props);
+    // console.log('ResetPasswordPage did mount');
+    // console.log(this.props);
     const queryString = qs.parse(this.props.location.search)
-    console.log(queryString);
+    // console.log(queryString);
     this.setState({ Token: queryString.Token, UserId: queryString.UserId })
   }
 
   submit = (data) => {
-    console.log('ForgotPassword Page: submit');
+    // console.log('ForgotPassword Page: submit');
     const { UserId, Token } = this.state;
     this.setState({loading: 'true'});
     const resetData = {
@@ -36,7 +36,7 @@ class ResetPasswordPage extends React.Component {
       LinkToken: Token,
       Password: data.Password
     };
-    console.log(resetData);
+    // console.log(resetData);
     api.user.resetPassword(resetData)
     .then(res => {
       const { Error = false } = res.data;

@@ -12,15 +12,15 @@ class LiveChatGrid extends Component {
   }
 
   componentDidMount() {
-    console.log('LiveChatGrid did mount');
-    console.log(this.props.item);
+    // console.log('LiveChatGrid did mount');
+    // console.log(this.props.item);
   }
 
   handleOpenLive = () => this.setState({ liveModalOpen: true })
   handleCloseLive = () => this.setState({ liveModalOpen: false })
 
   dateSelect = (e, data) => {
-    console.log(data.value);
+    // console.log(data.value);
     const dateObj = {
       date: data.date,
       duration: data.duration
@@ -54,7 +54,7 @@ class LiveChatGrid extends Component {
 
   hanldeSave = (e, data) => {
     this.setState({ modalOpen: false });
-    console.log(this.state);
+    // console.log(this.state);
     const { item } = this.props;
     item.VideoMessage = this.state.data.VideoMessage;
     this.props.editCart(item);

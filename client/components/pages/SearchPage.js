@@ -13,7 +13,7 @@ class SearchPage extends Component {
   componentDidMount = () => this.onInit();
 
   onInit = () => {
-    console.log('SearchPage did mount');
+    // console.log('SearchPage did mount');
   }
 
   render() {

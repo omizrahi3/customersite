@@ -41,7 +41,7 @@ class OrderHistoryGrid extends Component {
   }
 
   componentDidMount() {
-    console.log('OrderHistoryGrid did mount');
+    // console.log('OrderHistoryGrid did mount');
     const credentials = {
       Token: this.props.user.Token,
       data: {

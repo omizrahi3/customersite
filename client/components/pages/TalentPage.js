@@ -37,7 +37,7 @@ class TalentPage extends Component {
   }
 
   componentDidMount() {
-    console.log('TalentPage did mount')
+    // console.log('TalentPage did mount')
     const { talentid } = this.props.match.params;
 
     api.product.optionsByTalent({ TalentId: talentid })
@@ -46,7 +46,7 @@ class TalentPage extends Component {
       const productsHash = {};
       let liveChat = '';
       products.forEach(product => {
-        console.log(product);
+        // console.log(product);
         if (product.ProductDescription === 'Live Chat') {
           liveChat = product.ProductOptionId;
         }
@@ -74,8 +74,8 @@ class TalentPage extends Component {
   }
 
   notifyHandleClick = (e, data) => {
-    console.log(data);
-    console.log(this.state.data);
+    // console.log(data);
+    // console.log(this.state.data);
 
     const { notifyEmail } = this.state.data;
     this.setState({ notifyModalOpen: false });
@@ -89,7 +89,7 @@ class TalentPage extends Component {
         EmailAddress: notifyEmail,
         ProductOptionId: data.value,
       };
-      console.log(notifyData);
+      // console.log(notifyData);
       api.product.notification(notifyData)
         .then(() => this.setState({ notificationSuccess: 'true' }))
         .catch((err) => this.setState({ notificationSuccess: 'false' }));
@@ -129,8 +129,8 @@ class TalentPage extends Component {
   handleNotifyClose = () => this.setState({ notifyModalOpen: false })
 
   dateSelect = (e, data) => {
-    console.log(e);
-    console.log(data);
+    // console.log(e);
+    // console.log(data);
     const dateObj = {
       date: data.date,
       duration: data.duration
@@ -259,8 +259,7 @@ class TalentPage extends Component {
 
   notify = (key) => {
     const { errors } = this.state;
-    console.log('hello')
-    console.log(key);
+    // console.log(key);
     return (
       <Modal 
         key={key}
@@ -302,9 +301,9 @@ class TalentPage extends Component {
 
   renderProducts2 = keys => keys.map(key => {
     const hashedProduct = this.state.products[key];
-    console.log('renderProducts2');
+    // console.log('renderProducts2');
     const CurrentUnfulfilled = hashedProduct.Quota - hashedProduct.OrdersThisMonth;
-    console.log('CurrentUnfulfilled: '+CurrentUnfulfilled);
+    // console.log('CurrentUnfulfilled: '+CurrentUnfulfilled);
     let product;
     let message;
     let description;

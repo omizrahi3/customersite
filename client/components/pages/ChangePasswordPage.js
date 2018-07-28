@@ -19,11 +19,11 @@ class ChangePasswordPage extends Component {
   }
 
   componentDidMount() {
-    console.log('ChangePasswordPage did mount')
+    // console.log('ChangePasswordPage did mount')
   }
 
   submit = (data) => {
-    console.log('submit');
+    // console.log('submit');
     this.setState({ loading: 'true'})
     const credentials = {
       Token: this.props.user.Token,
@@ -32,11 +32,11 @@ class ChangePasswordPage extends Component {
         "Password": data.Password,
       }
     };
-    console.log(credentials);
+    // console.log(credentials);
     api.user.updatePassword(credentials)
     .then(res => {
-      console.log('api.user.updatePassword response');
-      console.log(res);
+      // console.log('api.user.updatePassword response');
+      // console.log(res);
       const { Error, Response } = res;
       if (Error) {
         return Promise.reject({

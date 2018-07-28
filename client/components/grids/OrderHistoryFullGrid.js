@@ -37,7 +37,7 @@ class OrderHistoryFullGrid extends Component {
   }
 
   componentDidMount() {
-    console.log('OrderHistoryFullGrid did mount');
+    // console.log('OrderHistoryFullGrid did mount');
     const credentials = {
       Token: this.props.user.Token,
       data: {
@@ -46,11 +46,11 @@ class OrderHistoryFullGrid extends Component {
         "Year":0
       }
     }
-    console.log(credentials);
+    // console.log(credentials);
     api.orderHistory.fetchOrders(credentials)
     .then(res => {
-      console.log('api.orderHistory.fetchOrders');
-      console.log(res);
+      // console.log('api.orderHistory.fetchOrders');
+      // console.log(res);
       const { FeedTotal, LiveChatTotal, VideoMessageTotal } = res;
       const orders = FeedTotal.concat(LiveChatTotal).concat(VideoMessageTotal);
       orders.sort(function(a,b){
@@ -63,7 +63,7 @@ class OrderHistoryFullGrid extends Component {
   }
 
   cancelSub = (e, data) => {
-    console.log(data);
+    // console.log(data);
     const credentials = {
       Token: this.props.user.Token,
       data: {
@@ -72,18 +72,18 @@ class OrderHistoryFullGrid extends Component {
     }
     api.orderHistory.deleteSub(credentials)
     .then(res => {
-      console.log(res);
+      // console.log(res);
       const { orders } = this.state;
       const newOrders = orders.filter(order => order.ProductId !== data.value);
       this.setState({ orders: newOrders});
     })
     .catch(err => {
-      console.log('whoops');
+      // console.log('whoops');
     })
   }
 
   renderOrders = orders => orders.map(order => {
-    console.log(order);
+    // console.log(order);
     const dateObj = new Date(order.RequestedDate);
     return (
       <Table.Row key={order.ProductId}>

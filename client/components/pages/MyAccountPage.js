@@ -15,7 +15,7 @@ class MyAccountPage extends Component {
   }
 
   componentDidMount() {
-    console.log('MyAccountPage did mount');
+    // console.log('MyAccountPage did mount');
   }
 
   render() {

@@ -42,7 +42,7 @@ class CategorySearch extends Component {
   };
 
   componentDidMount() {
-    console.log('CategorySearch did mount');
+    // console.log('CategorySearch did mount');
     this.setState({ loading: 'true' });
     const requestBody = {
       CategoryId: this.props.CategoryId,
@@ -78,7 +78,7 @@ class CategorySearch extends Component {
   }
 
   onSubmit = (e, data) => {
-    console.log('onSubmit');
+    // console.log('onSubmit');
     this.setState({ loading: 'true' });
     const dataObj =
     {
@@ -118,7 +118,7 @@ class CategorySearch extends Component {
   }
 
   handlePaginationChange = (e, { activePage }) => {
-    console.log('handlePaginationChange');
+    // console.log('handlePaginationChange');
     this.setState({ loading: 'true', activePage })
     
     const resultNumberBegin = this.calcResultNumberBegin(this.state.resultsPerPage, activePage);

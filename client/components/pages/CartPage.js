@@ -26,22 +26,22 @@ class CartPage extends Component {
   }
 
   onSubmit = (e, data) => {
-    console.log(this.state.promocode)
+    // console.log(this.state.promocode)
   }
 
   componentDidMount() {
-    console.log('CartPage did mount');
+    // console.log('CartPage did mount');
     let subtotal = 0;
     this.props.cart.map(item => {
-      console.log(item);
+      // console.log(item);
       subtotal += item.WebPrice;
     })
-    console.log(subtotal);
+    // console.log(subtotal);
     this.setState({subtotal})
   }
 
   handleRemoveClick = (e, data) => {
-    console.log(data.value);
+    // console.log(data.value);
     let subtotal = 0;
     this.props.cart.map(item => {
       if (item.ProductOptionId !== data.value) {

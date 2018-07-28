@@ -31,7 +31,7 @@ class BillingPage extends Component {
   }
 
   componentDidMount() {
-    console.log('CartPage did mount');
+    // console.log('CartPage did mount');
     const { user } = this.props;
     let guestEligible = 'true';
 
@@ -48,10 +48,10 @@ class BillingPage extends Component {
       subtotal += item.WebPrice;
     })
     if (guestEligible === 'true') {
-      console.log('guest eligible');
+      // console.log('guest eligible');
     } else {
       guestEligible === 'false'
-      console.log('not guest eligible');
+      // console.log('not guest eligible');
     }
     this.setState({subtotal, user, guestEligible});
   }
@@ -71,8 +71,8 @@ class BillingPage extends Component {
   onCardSelect = card => this.setState({ card });
 
   submitNewGuest = (data) => {
-    console.log('submitNewGuest');
-    console.log(data);
+    // console.log('submitNewGuest');
+    // console.log(data);
     this.setState({loading: 'true'});
     const checkoutData = {
       EmailAddress: this.state.data.guestEmail,
@@ -86,7 +86,7 @@ class BillingPage extends Component {
     };
     this.props.cart.map(item => {
       if (item.ProductDescription === 'Video Message') {
-        console.log('VIDEO MESSAGE')
+        // console.log('VIDEO MESSAGE')
         const product = {
           "ProductOptionId": item.ProductOptionId,
           "ProductName": item.VideoMessage,
@@ -97,17 +97,16 @@ class BillingPage extends Component {
         checkoutData.Products.push(product);
       }
     });
-    console.log(checkoutData);
-    window.checkoutData = checkoutData;
+    // console.log(checkoutData);
     this.props.checkoutGuest(checkoutData)
       .then(() => this.setState({ loading: 'false', success: true }))
       .catch(() => this.setState({ loading: 'false', success: false }));
   }
 
   submitNew = (data) => {
-    console.log('submitNew');
+    // console.log('submitNew');
     this.setState({loading: 'true'});
-    console.log(data);
+    // console.log(data);
     const checkoutData = {
       AppUserId: this.props.user.AppUserId,
       NameOnCard: `${data.firstName} ${data.lastName}`,
@@ -119,7 +118,7 @@ class BillingPage extends Component {
 
     this.props.cart.map(item => {
       if (item.ProductDescription === 'Feed') {
-        console.log('FEED')
+        // console.log('FEED')
         const product = {
           "ProductOptionId": item.ProductOptionId,
           "Amount": item.WebPrice,
@@ -129,7 +128,7 @@ class BillingPage extends Component {
         checkoutData.Products.push(product);
       }
       if (item.ProductDescription === 'Video Message') {
-        console.log('VIDEO MESSAGE')
+        // console.log('VIDEO MESSAGE')
         const product = {
           "ProductOptionId": item.ProductOptionId,
           "ProductName": item.VideoMessage,
@@ -139,7 +138,7 @@ class BillingPage extends Component {
         checkoutData.Products.push(product);
       }
       if (item.ProductDescription === 'Live Chat') {
-        console.log('LIVE CHAT')
+        // console.log('LIVE CHAT')
         const product = {
           "ProductOptionId": item.ProductOptionId,
           "Amount": item.WebPrice,
@@ -154,15 +153,15 @@ class BillingPage extends Component {
       Token: this.props.user.Token,
       checkout: checkoutData
     }
-    console.log('READY');
-    console.log(checkoutObject);
+    // console.log('READY');
+    // console.log(checkoutObject);
     this.props.checkoutNew(checkoutObject)
       .then(() => this.setState({ loading: 'false', success: true }))
       .catch(() => this.setState({ loading: 'false', success: false }));
   }
 
   submitExisting = (data) => {
-    console.log('submitExisting');
+    // console.log('submitExisting');
     this.setState({loading: 'true'});
 
     const checkoutData = {
@@ -173,7 +172,7 @@ class BillingPage extends Component {
 
     this.props.cart.map(item => {
       if (item.ProductDescription === 'Feed') {
-        console.log('FEED')
+        // console.log('FEED')
         const product = {
           "ProductOptionId": item.ProductOptionId,
           "Amount": item.WebPrice,
@@ -183,7 +182,7 @@ class BillingPage extends Component {
         checkoutData.Products.push(product);
       } 
       if (item.ProductDescription === 'Video Message') {
-        console.log('VIDEO MESSAGE')
+        // console.log('VIDEO MESSAGE')
         const product = {
           "ProductOptionId": item.ProductOptionId,
           "ProductName": item.VideoMessage,
@@ -193,7 +192,7 @@ class BillingPage extends Component {
         checkoutData.Products.push(product);
       }
       if (item.ProductDescription === 'Live Chat') {
-        console.log('LIVE CHAT')
+        // console.log('LIVE CHAT')
         const product = {
           "ProductOptionId": item.ProductOptionId,
           "Amount": item.WebPrice,
@@ -208,19 +207,19 @@ class BillingPage extends Component {
       Token: this.props.user.Token,
       checkout: checkoutData
     }
-    console.log('READY');
-    console.log(checkoutObject);
+    // console.log('READY');
+    // console.log(checkoutObject);
     this.props.checkoutExisting(checkoutObject)
       .then(() => this.setState({ loading: 'false', success: true }))
       .catch(() => this.setState({ loading: 'false', success: false }));
   }
 
   submitUpdate = (data) => {
-    console.log('submitUpdate');
-    console.log(data);
+    // console.log('submitUpdate');
+    // console.log(data);
 
     this.setState({loading: 'true'});
-    console.log(data);
+    // console.log(data);
     const checkoutData = {
       AppUserId: this.props.user.AppUserId,
       CreditCard: {
@@ -233,7 +232,7 @@ class BillingPage extends Component {
     };
     this.props.cart.map(item => {
       if (item.ProductDescription === 'Feed') {
-        console.log('FEED')
+        // console.log('FEED')
         const product = {
           "ProductOptionId": item.ProductOptionId,
           "Amount": item.WebPrice,
@@ -243,7 +242,7 @@ class BillingPage extends Component {
         checkoutData.Products.push(product);
       } 
       if (item.ProductDescription === 'Video Message') {
-        console.log('VIDEO MESSAGE')
+        // console.log('VIDEO MESSAGE')
         const product = {
           "ProductOptionId": item.ProductOptionId,
           "ProductName": item.VideoMessage,
@@ -253,7 +252,7 @@ class BillingPage extends Component {
         checkoutData.Products.push(product);
       }
       if (item.ProductDescription === 'Live Chat') {
-        console.log('LIVE CHAT')
+        // console.log('LIVE CHAT')
         const product = {
           "ProductOptionId": item.ProductOptionId,
           "Amount": item.WebPrice,
@@ -268,16 +267,16 @@ class BillingPage extends Component {
       Token: this.props.user.Token,
       checkout: checkoutData
     };
-    console.log('READY');
-    console.log(checkoutObject);
+    // console.log('READY');
+    // console.log(checkoutObject);
     this.props.checkoutUpdate(checkoutObject)
       .then(() => this.setState({ loading: 'false', success: true }))
       .catch(() => this.setState({ loading: 'false', success: false }));
   }
 
   checkout = () => {
-    console.log('checkout');
-    console.log(this.state.card);
+    // console.log('checkout');
+    // console.log(this.state.card);
   }
 
   guestGrid = () => (

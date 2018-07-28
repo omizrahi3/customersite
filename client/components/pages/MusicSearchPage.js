@@ -20,7 +20,7 @@ class MusicSearchPage extends Component {
   componentDidMount = () => this.onInit(this.props);
 
   onInit = props => {
-    console.log('MusicSearchPage did mount');
+    // console.log('MusicSearchPage did mount');
   }
 
   onTalentSelect = talent => this.setState({ talent });

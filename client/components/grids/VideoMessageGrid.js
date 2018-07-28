@@ -29,7 +29,7 @@ class VideoMessage extends Component {
       closeIcon={<Icon name="window close" onClick={this.handleClose}></Icon>}
       >
       <Modal.Header>
-        <Header color="blue" textAlign="center">
+        <Header style={{color: "#12457b"}} textAlign="center">
           Your Personalized Video Message Request
           <Header.Subheader>Please include a message below and let them know what you would like them to say in your Personalized Video Message.</Header.Subheader>
         </Header>

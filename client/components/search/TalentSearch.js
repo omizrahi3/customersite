@@ -57,7 +57,7 @@ class TalentSearch extends Component {
   }
 
   onSubmit = (e, data) => {
-    console.log('onSubmit')
+    // console.log('onSubmit')
     this.setState({ loading: 'true' });
     const dataObj =
     {
@@ -85,7 +85,7 @@ class TalentSearch extends Component {
       const talentsHash = {};
       results.LandingData.forEach(talent => {
         talentsHash[talent.TalentId] = talent;
-        console.log(talentsHash);
+        // console.log(talentsHash);
         keys.push(talent.TalentId);
       });
       const totalPages = searchResults.totalCount / this.state.resultsPerPage;

@@ -11,7 +11,7 @@ class OrderHistoryPage extends Component {
   }
 
   componentDidMount() {
-    console.log('SubscriptionsPage did mount');
+    // console.log('SubscriptionsPage did mount');
   }
 
   render() {

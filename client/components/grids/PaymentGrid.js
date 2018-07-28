@@ -25,7 +25,7 @@ class PaymentGrid extends Component {
   }
 
   componentDidMount() {
-    console.log('PaymentGrid did mount');
+    // console.log('PaymentGrid did mount');
     const credentials = {
       Token: this.props.user.Token,
       data: {
@@ -34,12 +34,12 @@ class PaymentGrid extends Component {
     }
     api.payment.fetchCards(credentials)
     .then(res => {
-      console.log('over here');
-      console.log(res.CreditCards[0]);
+      // console.log('over here');
+      // console.log(res.CreditCards[0]);
       this.setState({ cardFetched: true, expDate: `${res.CreditCards[0].expirationMonth}/${res.CreditCards[0].expirationYear}`, last4: res.CreditCards[0].last4, cardImg: res.CreditCards[0].imageUrl})
     })
     .catch(err => {
-      console.log('whoops');
+      // console.log('whoops');
     })
   }
 

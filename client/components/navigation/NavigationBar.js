@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
-import PropTypes from "prop-types";
 import {withRouter} from 'react-router'
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import * as actions from "../../actions/authActions";
 import { Menu, Segment, Breadcrumb, Header } from "semantic-ui-react";
 
 const headerStyle = {
@@ -16,40 +13,11 @@ const linkStyle = {
 };
 
 class NavigationBar extends Component {
-  state = {
-    page: ''
-  }
-
   componentDidMount() {
-    console.log('hello from nav bar')
-    console.log(this.props.location.pathname);
-    const { pathname } = this.props.location;
-    const { user } = this.props;
-    if (Object.keys(user).length === 0 && user.constructor === Object) {
-      console.log('no user')
-    } else {
-      console.log('yes user')
-    }
-
-    if (pathname === '/login') {
-      console.log('true');
-    }
-    switch (pathname) {
-      case '/login':
-        this.setState({page: 'login'});
-        break;
-      case '/signup':
-        this.setState({page: 'signup'});
-        break
-      case '/talent':
-        this.setState({page: 'talent'});
-        break
-      default:
-      this.setState({page: '/'});
-    }
+    // console.log('NavigationBar did mount');
   }
   render() {
-    const { user, cart, logout, location } = this.props;
+    const { location } = this.props;
     const { pathname } = location;
     return (
       <div style={{paddingTop: "20px"}}>
@@ -252,22 +220,10 @@ class NavigationBar extends Component {
             'BRANDS'
           )}
         </Header>
-       
       </Segment>
       </div>
     )
   }
 }
 
-NavigationBar.propTypes = {
-  logout: PropTypes.func.isRequired
-};
-
-function mapStateToProps(state) {
-  return {
-    user: state.user,
-    cart: state.cart
-  };
-}
-
-export default withRouter(connect(mapStateToProps, { logout: actions.logout })(NavigationBar))
+export default withRouter(NavigationBar)

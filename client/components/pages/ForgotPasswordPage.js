@@ -20,7 +20,7 @@ class ForgotPasswordPage extends React.Component {
     this.props.resetPasswordRequest(data).then(() => this.setState({ success: true }));
 
   submit = (data) => {
-    console.log('ForgotPassword Page: submit');
+    // console.log('ForgotPassword Page: submit');
 
     this.setState({loading: 'true'});
     const requestData = {
@@ -28,8 +28,8 @@ class ForgotPasswordPage extends React.Component {
     };
     api.user.resetPasswordRequest(requestData)
     .then(res => {
-      console.log('api.user.resetPasswordRequest');
-      console.log(res.Response);
+      // console.log('api.user.resetPasswordRequest');
+      // console.log(res.Response);
       const { Error = false } = res.Response;
       if (Error) return Promise.reject({server: 'Please Contact support@getchatwith.com'})
       else return this.setState({ loading: 'false', success: true });

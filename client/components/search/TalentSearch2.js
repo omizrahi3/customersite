@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Form, Dropdown, List, Image, Input, Grid, Button, Icon, Card } from "semantic-ui-react";
+import { Input, Grid, Button, Card } from "semantic-ui-react";
 import Pagination from 'semantic-ui-react-button-pagination';
 import TalentLinkCard from '../cards/TalentLinkCard';
 
@@ -17,7 +17,7 @@ class TalentSearch extends React.Component {
   };
 
   componentDidMount() {
-    console.log('TalentSearch did mount');
+    // console.log('TalentSearch did mount');
     const apiUrl = 'http://www.qa.getchatwith.com/home/GetAppTalentByCategoryWeb';
     const requestBody = {
       CategoryId: this.props.CategoryId,
@@ -66,7 +66,7 @@ class TalentSearch extends React.Component {
     let apiUrl;
     let requestBody;
     if (this.state.searchQuery) {
-      console.log('GetAppTalentBySearch');
+      // console.log('GetAppTalentBySearch');
       const name = this.state.searchQuery.split(' ');
       apiUrl = 'http://www.qa.getchatwith.com/api/GetAppTalentBySearch';
       requestBody = {
@@ -77,7 +77,7 @@ class TalentSearch extends React.Component {
         ResultNumberEnd: this.state.resultsPerPage
       }
     } else {
-      console.log('GetAppTalentByCategoryWeb');
+      // console.log('GetAppTalentByCategoryWeb');
       apiUrl = 'http://www.qa.getchatwith.com/home/GetAppTalentByCategoryWeb';
       requestBody = {
         CategoryId: this.props.CategoryId,
@@ -96,7 +96,7 @@ class TalentSearch extends React.Component {
     let apiUrl;
     let requestBody;
     if (this.state.searchQuery) {
-      console.log('GetAppTalentBySearch');
+      // console.log('GetAppTalentBySearch');
       const name = this.state.searchQuery.split(' ');
       apiUrl = 'http://www.qa.getchatwith.com/api/GetAppTalentBySearch';
       requestBody = {
@@ -107,7 +107,7 @@ class TalentSearch extends React.Component {
         ResultNumberEnd: this.state.resultsPerPage
       }
     } else {
-      console.log('GetAppTalentByCategoryWeb');
+      // console.log('GetAppTalentByCategoryWeb');
       apiUrl = 'http://www.qa.getchatwith.com/api/GetAppTalentByCategoryWeb';
       requestBody = {
         CategoryId: this.props.CategoryId,

@@ -19,11 +19,11 @@ class PaymentMethodPage extends Component {
   }
 
   componentDidMount() {
-    console.log('PaymentMethodPage did mount')
+    // console.log('PaymentMethodPage did mount')
   }
 
   submit = (data) => {
-    console.log('submit');
+    // console.log('submit');
     this.setState({ loading: 'true'})
     const credentials = {
       Token: this.props.user.Token,
@@ -39,8 +39,8 @@ class PaymentMethodPage extends Component {
     };
     api.payment.update(credentials)
     .then(res => {
-      console.log('api.payment.update response');
-      console.log(res);
+      // console.log('api.payment.update response');
+      // console.log(res);
       const { Error, Response } = res;
         if (Error && Response !== 'Success') {
         return Promise.reject({
@@ -51,7 +51,7 @@ class PaymentMethodPage extends Component {
       }
     })
     .catch(err => {
-      console.log('whoops');
+      // console.log('whoops');
       this.setState({ loading: 'false', success: false, serverError: err.server })
     })
   }

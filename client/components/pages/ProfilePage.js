@@ -20,11 +20,11 @@ class ProfilePage extends Component {
   }
 
   componentDidMount() {
-    console.log('ProfilePage did mount')
+    // console.log('ProfilePage did mount')
   }
 
   submit = (data) => {
-    console.log('submit');
+    // console.log('submit');
     this.setState({ loading: 'true'})
     const credentials = {
       Token: this.props.user.Token,
@@ -37,11 +37,11 @@ class ProfilePage extends Component {
         "Birthdate": data.Birthdate
       }
     };
-    console.log(credentials);
+    // console.log(credentials);
     api.user.updateProfile(credentials)
     .then(res => {
-      console.log('api.user.updateProfile response');
-      console.log(res);
+      // console.log('api.user.updateProfile response');
+      // console.log(res);
       const { Error, Response } = res;
       if (Error) {
         return Promise.reject({
